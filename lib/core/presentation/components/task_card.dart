@@ -23,9 +23,17 @@ class _TaskCardState extends State<TaskCard> {
               width: 16,
               height: 16,
               colorFilter: ColorFilter.mode(
-                  Theme.of(context).textTheme.titleSmall!.color!,
+                  Theme.of(context)
+                      .textTheme
+                      .titleSmall!
+                      .color!
+                      .withValues(alpha: 0.6),
                   BlendMode.srcIn)),
-          Text(content, style: Theme.of(context).textTheme.bodySmall)
+          Text(content, style: TextStyle(
+            fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
+            fontWeight: Theme.of(context).textTheme.bodySmall!.fontWeight,
+            color: Theme.of(context).textTheme.bodySmall!.color!.withValues(alpha: 0.6),
+          ))
         ],
       );
 
@@ -44,8 +52,8 @@ class _TaskCardState extends State<TaskCard> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.transparent,
@@ -56,7 +64,7 @@ class _TaskCardState extends State<TaskCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 16,
+              spacing: 8,
               children: [
                 Text(widget.task.taskName ?? "",
                     overflow: TextOverflow.ellipsis,
@@ -69,13 +77,12 @@ class _TaskCardState extends State<TaskCard> {
                   children: [
                     _taskCardContent(
                         asset: "assets/images/icons/calendar.svg",
-                        content: "No date"),
+                        content: (widget.task.taskDate?.toString()) ?? "No date"),
                     _taskCardContent(
                         asset: "assets/images/icons/priority.svg",
                         content: "1"),
                     _taskCardContent(
-                        asset: "assets/images/icons/subtask.svg",
-                        content: "3"),
+                        asset: "assets/images/icons/subtask.svg", content: "3"),
                   ],
                 )
               ],
