@@ -1,3 +1,4 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,6 +41,7 @@ class _DashboardState extends State<Dashboard> {
           statusBarColor: Colors.transparent),
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           width: 60,
           height: 60,
@@ -51,51 +53,69 @@ class _DashboardState extends State<Dashboard> {
             child: SvgPicture.asset("assets/images/icons/add.svg",
                 width: 32,
                 height: 32,
-                colorFilter: ColorFilter.mode(
-                    whiteColor,
-                    BlendMode.srcIn)),
+                colorFilter: ColorFilter.mode(whiteColor, BlendMode.srcIn)),
           ),
         ),
+        bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+            itemCount: _items.length,
+            tabBuilder: (index, isActive) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SvgPicture.asset(_items[index].asset,
+                        width: 24,
+                        height: 24,
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context).textTheme.bodySmall!.color!,
+                            BlendMode.srcIn)),
+                    Text(_items[index].title,
+                        style: Theme.of(context).textTheme.bodySmall)
+                  ],
+                ),
+            activeIndex: 0,
+            gapLocation: GapLocation.center,
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
+            onTap: (index) {}),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
             children: [
               widget.child,
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: double.infinity,
-                  height: 75,
-                  margin: const EdgeInsets.only(right: 16, left: 16, bottom: 24),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    color: Color(0xff495057),
-                    boxShadow: [
-                      BoxShadow(color: blackColor.withValues(alpha: 0.2))
-                    ]
-                  ),
-                  child: Row(
-                    children: _items
-                        .map((item) => Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SvgPicture.asset(item.asset,
-                                width: 24,
-                                height: 24,
-                                colorFilter: ColorFilter.mode(
-                                    Theme.of(context).textTheme.bodySmall!.color!,
-                                    BlendMode.srcIn)),
-                            Text(item.title,
-                                style: Theme.of(context).textTheme.bodySmall)
-                          ],
-                        )))
-                        .toList(),
-                  ),
-                ),
-              )
+              // Align(
+              //   alignment: Alignment.bottomCenter,
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: 75,
+              //     margin: const EdgeInsets.only(right: 16, left: 16, bottom: 24),
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(24),
+              //       color: Color(0xff495057),
+              //       boxShadow: [
+              //         BoxShadow(color: blackColor.withValues(alpha: 0.2))
+              //       ]
+              //     ),
+              //     child: Row(
+              //       children: _items
+              //           .map((item) => Expanded(
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.center,
+              //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //             children: [
+              //               SvgPicture.asset(item.asset,
+              //                   width: 24,
+              //                   height: 24,
+              //                   colorFilter: ColorFilter.mode(
+              //                       Theme.of(context).textTheme.bodySmall!.color!,
+              //                       BlendMode.srcIn)),
+              //               Text(item.title,
+              //                   style: Theme.of(context).textTheme.bodySmall)
+              //             ],
+              //           )))
+              //           .toList(),
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),
