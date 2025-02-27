@@ -56,38 +56,48 @@ class _DashboardState extends State<Dashboard> {
                     BlendMode.srcIn)),
           ),
         ),
-        bottomNavigationBar: Container(
-          width: double.infinity,
-          height: 75,
-          margin: const EdgeInsets.only(right: 16, left: 16, bottom: 24),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-          child: Row(
-            children: _items
-                .map((item) => Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(item.asset,
-                            width: 24,
-                            height: 24,
-                            colorFilter: ColorFilter.mode(
-                                Theme.of(context).textTheme.bodySmall!.color!,
-                                BlendMode.srcIn)),
-                        Text(item.title,
-                            style: Theme.of(context).textTheme.bodySmall)
-                      ],
-                    )))
-                .toList(),
-          ),
-        ),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
-          child: widget.child,
+          child: Stack(
+            children: [
+              widget.child,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  height: 75,
+                  margin: const EdgeInsets.only(right: 16, left: 16, bottom: 24),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    color: Color(0xff495057),
+                    boxShadow: [
+                      BoxShadow(color: blackColor.withValues(alpha: 0.2))
+                    ]
+                  ),
+                  child: Row(
+                    children: _items
+                        .map((item) => Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SvgPicture.asset(item.asset,
+                                width: 24,
+                                height: 24,
+                                colorFilter: ColorFilter.mode(
+                                    Theme.of(context).textTheme.bodySmall!.color!,
+                                    BlendMode.srcIn)),
+                            Text(item.title,
+                                style: Theme.of(context).textTheme.bodySmall)
+                          ],
+                        )))
+                        .toList(),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

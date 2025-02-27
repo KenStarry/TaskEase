@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:task_ease/core/model/task_model.dart';
 
 class TaskCard extends StatefulWidget {
@@ -12,6 +13,22 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
+  Widget _taskCardContent({required String asset, required String content}) =>
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        spacing: 8,
+        children: [
+          SvgPicture.asset(asset,
+              width: 16,
+              height: 16,
+              colorFilter: ColorFilter.mode(
+                  Theme.of(context).textTheme.titleSmall!.color!,
+                  BlendMode.srcIn)),
+          Text(content, style: Theme.of(context).textTheme.bodySmall)
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,6 +41,7 @@ class _TaskCardState extends State<TaskCard> {
       ),
       child: Row(
         spacing: 16,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             width: 30,
@@ -35,10 +53,33 @@ class _TaskCardState extends State<TaskCard> {
                     color: Theme.of(context).colorScheme.primary, width: 2)),
           ),
           Expanded(
-            child: Text(widget.task.taskName ?? "",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: Theme.of(context).textTheme.bodyMedium),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 16,
+              children: [
+                Text(widget.task.taskName ?? "",
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.bodyMedium),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: 16,
+                  children: [
+                    _taskCardContent(
+                        asset: "assets/images/icons/calendar.svg",
+                        content: "No date"),
+                    _taskCardContent(
+                        asset: "assets/images/icons/priority.svg",
+                        content: "1"),
+                    _taskCardContent(
+                        asset: "assets/images/icons/subtask.svg",
+                        content: "3"),
+                  ],
+                )
+              ],
+            ),
           )
         ],
       ),

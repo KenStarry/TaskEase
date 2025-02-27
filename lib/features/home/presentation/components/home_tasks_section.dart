@@ -21,11 +21,10 @@ class _HomeTasksSectionState extends State<HomeTasksSection> {
     super.initState();
 
     _todayTasks = [
-      TaskModel(taskName: "Hello there", taskIsComplete: false),
-      TaskModel(taskName: "Another Task", taskIsComplete: false),
-      TaskModel(taskName: "Another Task", taskIsComplete: false),
-      TaskModel(taskName: "Another Task", taskIsComplete: false),
-      TaskModel(taskName: "Another Task", taskIsComplete: false),
+      TaskModel(taskId: '1', taskName: "Hello there", taskIsComplete: false),
+      TaskModel(taskId: '2', taskName: "Another Task", taskIsComplete: false),
+      TaskModel(taskId: '3', taskName: "Another Task", taskIsComplete: true),
+      TaskModel(taskId: '4', taskName: "Another Task", taskIsComplete: false),
     ];
   }
 
@@ -131,8 +130,27 @@ class _HomeTasksSectionState extends State<HomeTasksSection> {
                   )
                 : SliverList(
                     delegate: SliverChildBuilderDelegate(
-                        (context, index) => TaskCard(task: _todayTasks[index]),
-                        childCount: _todayTasks.length))
+                        (context, index) => TaskCard(task: _todayTasks.take(3).toList()[index]),
+                        childCount: _todayTasks.take(3).length)),
+
+            //  see All
+            SliverToBoxAdapter(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(onPressed: (){},
+                      style: TextButton.styleFrom(backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                      foregroundColor: whiteColor),
+                      child: Row(
+                        spacing: 4,
+                        children: [
+                          Text("See All"),
+                          Icon(Icons.chevron_right_rounded, size: 24)
+                        ],
+                      )),
+                ],
+              ),
+            )
           ]),
         ),
       ),
