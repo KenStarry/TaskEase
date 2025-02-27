@@ -26,12 +26,16 @@ mixin _$TaskModel {
   String? get taskParentId => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_name')
   String? get taskName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'task_description')
+  String? get taskDescription => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_complete')
   bool? get taskIsComplete => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_board')
   String? get taskBoard => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_date')
   String? get taskDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'task_priority')
+  int? get taskPriority => throw _privateConstructorUsedError;
 
   /// Serializes this TaskModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,9 +56,11 @@ abstract class $TaskModelCopyWith<$Res> {
       {@JsonKey(name: 'task_id') String? taskId,
       @JsonKey(name: 'task_parent_id') String? taskParentId,
       @JsonKey(name: 'task_name') String? taskName,
+      @JsonKey(name: 'task_description') String? taskDescription,
       @JsonKey(name: 'task_complete') bool? taskIsComplete,
       @JsonKey(name: 'task_board') String? taskBoard,
-      @JsonKey(name: 'task_date') String? taskDate});
+      @JsonKey(name: 'task_date') String? taskDate,
+      @JsonKey(name: 'task_priority') int? taskPriority});
 }
 
 /// @nodoc
@@ -75,9 +81,11 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
     Object? taskId = freezed,
     Object? taskParentId = freezed,
     Object? taskName = freezed,
+    Object? taskDescription = freezed,
     Object? taskIsComplete = freezed,
     Object? taskBoard = freezed,
     Object? taskDate = freezed,
+    Object? taskPriority = freezed,
   }) {
     return _then(_value.copyWith(
       taskId: freezed == taskId
@@ -92,6 +100,10 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
           ? _value.taskName
           : taskName // ignore: cast_nullable_to_non_nullable
               as String?,
+      taskDescription: freezed == taskDescription
+          ? _value.taskDescription
+          : taskDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
       taskIsComplete: freezed == taskIsComplete
           ? _value.taskIsComplete
           : taskIsComplete // ignore: cast_nullable_to_non_nullable
@@ -104,6 +116,10 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
           ? _value.taskDate
           : taskDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      taskPriority: freezed == taskPriority
+          ? _value.taskPriority
+          : taskPriority // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -120,9 +136,11 @@ abstract class _$$TaskModelImplCopyWith<$Res>
       {@JsonKey(name: 'task_id') String? taskId,
       @JsonKey(name: 'task_parent_id') String? taskParentId,
       @JsonKey(name: 'task_name') String? taskName,
+      @JsonKey(name: 'task_description') String? taskDescription,
       @JsonKey(name: 'task_complete') bool? taskIsComplete,
       @JsonKey(name: 'task_board') String? taskBoard,
-      @JsonKey(name: 'task_date') String? taskDate});
+      @JsonKey(name: 'task_date') String? taskDate,
+      @JsonKey(name: 'task_priority') int? taskPriority});
 }
 
 /// @nodoc
@@ -141,9 +159,11 @@ class __$$TaskModelImplCopyWithImpl<$Res>
     Object? taskId = freezed,
     Object? taskParentId = freezed,
     Object? taskName = freezed,
+    Object? taskDescription = freezed,
     Object? taskIsComplete = freezed,
     Object? taskBoard = freezed,
     Object? taskDate = freezed,
+    Object? taskPriority = freezed,
   }) {
     return _then(_$TaskModelImpl(
       taskId: freezed == taskId
@@ -158,6 +178,10 @@ class __$$TaskModelImplCopyWithImpl<$Res>
           ? _value.taskName
           : taskName // ignore: cast_nullable_to_non_nullable
               as String?,
+      taskDescription: freezed == taskDescription
+          ? _value.taskDescription
+          : taskDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
       taskIsComplete: freezed == taskIsComplete
           ? _value.taskIsComplete
           : taskIsComplete // ignore: cast_nullable_to_non_nullable
@@ -170,6 +194,10 @@ class __$$TaskModelImplCopyWithImpl<$Res>
           ? _value.taskDate
           : taskDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      taskPriority: freezed == taskPriority
+          ? _value.taskPriority
+          : taskPriority // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -182,9 +210,11 @@ class _$TaskModelImpl implements _TaskModel {
       {@JsonKey(name: 'task_id') this.taskId = 'N/A',
       @JsonKey(name: 'task_parent_id') this.taskParentId = null,
       @JsonKey(name: 'task_name') this.taskName = 'N/A',
+      @JsonKey(name: 'task_description') this.taskDescription = 'N/A',
       @JsonKey(name: 'task_complete') this.taskIsComplete = false,
       @JsonKey(name: 'task_board') this.taskBoard = null,
-      @JsonKey(name: 'task_date') this.taskDate = null});
+      @JsonKey(name: 'task_date') this.taskDate = null,
+      @JsonKey(name: 'task_priority') this.taskPriority = null});
 
   factory _$TaskModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskModelImplFromJson(json);
@@ -199,6 +229,9 @@ class _$TaskModelImpl implements _TaskModel {
   @JsonKey(name: 'task_name')
   final String? taskName;
   @override
+  @JsonKey(name: 'task_description')
+  final String? taskDescription;
+  @override
   @JsonKey(name: 'task_complete')
   final bool? taskIsComplete;
   @override
@@ -207,10 +240,13 @@ class _$TaskModelImpl implements _TaskModel {
   @override
   @JsonKey(name: 'task_date')
   final String? taskDate;
+  @override
+  @JsonKey(name: 'task_priority')
+  final int? taskPriority;
 
   @override
   String toString() {
-    return 'TaskModel(taskId: $taskId, taskParentId: $taskParentId, taskName: $taskName, taskIsComplete: $taskIsComplete, taskBoard: $taskBoard, taskDate: $taskDate)';
+    return 'TaskModel(taskId: $taskId, taskParentId: $taskParentId, taskName: $taskName, taskDescription: $taskDescription, taskIsComplete: $taskIsComplete, taskBoard: $taskBoard, taskDate: $taskDate, taskPriority: $taskPriority)';
   }
 
   @override
@@ -223,18 +259,22 @@ class _$TaskModelImpl implements _TaskModel {
                 other.taskParentId == taskParentId) &&
             (identical(other.taskName, taskName) ||
                 other.taskName == taskName) &&
+            (identical(other.taskDescription, taskDescription) ||
+                other.taskDescription == taskDescription) &&
             (identical(other.taskIsComplete, taskIsComplete) ||
                 other.taskIsComplete == taskIsComplete) &&
             (identical(other.taskBoard, taskBoard) ||
                 other.taskBoard == taskBoard) &&
             (identical(other.taskDate, taskDate) ||
-                other.taskDate == taskDate));
+                other.taskDate == taskDate) &&
+            (identical(other.taskPriority, taskPriority) ||
+                other.taskPriority == taskPriority));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, taskId, taskParentId, taskName,
-      taskIsComplete, taskBoard, taskDate);
+      taskDescription, taskIsComplete, taskBoard, taskDate, taskPriority);
 
   /// Create a copy of TaskModel
   /// with the given fields replaced by the non-null parameter values.
@@ -254,12 +294,15 @@ class _$TaskModelImpl implements _TaskModel {
 
 abstract class _TaskModel implements TaskModel {
   const factory _TaskModel(
-      {@JsonKey(name: 'task_id') final String? taskId,
-      @JsonKey(name: 'task_parent_id') final String? taskParentId,
-      @JsonKey(name: 'task_name') final String? taskName,
-      @JsonKey(name: 'task_complete') final bool? taskIsComplete,
-      @JsonKey(name: 'task_board') final String? taskBoard,
-      @JsonKey(name: 'task_date') final String? taskDate}) = _$TaskModelImpl;
+          {@JsonKey(name: 'task_id') final String? taskId,
+          @JsonKey(name: 'task_parent_id') final String? taskParentId,
+          @JsonKey(name: 'task_name') final String? taskName,
+          @JsonKey(name: 'task_description') final String? taskDescription,
+          @JsonKey(name: 'task_complete') final bool? taskIsComplete,
+          @JsonKey(name: 'task_board') final String? taskBoard,
+          @JsonKey(name: 'task_date') final String? taskDate,
+          @JsonKey(name: 'task_priority') final int? taskPriority}) =
+      _$TaskModelImpl;
 
   factory _TaskModel.fromJson(Map<String, dynamic> json) =
       _$TaskModelImpl.fromJson;
@@ -274,6 +317,9 @@ abstract class _TaskModel implements TaskModel {
   @JsonKey(name: 'task_name')
   String? get taskName;
   @override
+  @JsonKey(name: 'task_description')
+  String? get taskDescription;
+  @override
   @JsonKey(name: 'task_complete')
   bool? get taskIsComplete;
   @override
@@ -282,6 +328,9 @@ abstract class _TaskModel implements TaskModel {
   @override
   @JsonKey(name: 'task_date')
   String? get taskDate;
+  @override
+  @JsonKey(name: 'task_priority')
+  int? get taskPriority;
 
   /// Create a copy of TaskModel
   /// with the given fields replaced by the non-null parameter values.

@@ -11,9 +11,11 @@ _$TaskModelImpl _$$TaskModelImplFromJson(Map<String, dynamic> json) =>
       taskId: json['task_id'] as String? ?? 'N/A',
       taskParentId: json['task_parent_id'] as String? ?? null,
       taskName: json['task_name'] as String? ?? 'N/A',
+      taskDescription: json['task_description'] as String? ?? 'N/A',
       taskIsComplete: json['task_complete'] as bool? ?? false,
       taskBoard: json['task_board'] as String? ?? null,
       taskDate: json['task_date'] as String? ?? null,
+      taskPriority: (json['task_priority'] as num?)?.toInt() ?? null,
     );
 
 Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
@@ -21,7 +23,9 @@ Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
       'task_id': instance.taskId,
       'task_parent_id': instance.taskParentId,
       'task_name': instance.taskName,
+      'task_description': instance.taskDescription,
       'task_complete': instance.taskIsComplete,
       'task_board': instance.taskBoard,
       'task_date': instance.taskDate,
+      'task_priority': instance.taskPriority,
     };
