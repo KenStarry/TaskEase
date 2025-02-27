@@ -20,7 +20,7 @@ class _BoardsPageState extends State<BoardsPage> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            Text("Boards")
+            SliverToBoxAdapter(child: Text("Boards"))
           ],
         ),
       ),

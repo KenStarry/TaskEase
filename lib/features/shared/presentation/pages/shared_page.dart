@@ -20,7 +20,7 @@ class _SharedPageState extends State<SharedPage> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            Text("Shared")
+            SliverToBoxAdapter(child: Text("Shared"))
           ],
         ),
       ),

@@ -20,7 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            Text("Settings")
+            SliverToBoxAdapter(child: Text("Settings"))
           ],
         ),
       ),

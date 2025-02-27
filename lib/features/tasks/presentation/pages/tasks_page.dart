@@ -20,7 +20,7 @@ class _TasksPageState extends State<TasksPage> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            Text("Tasks")
+            SliverToBoxAdapter(child: Text("Tasks"))
           ],
         ),
       ),

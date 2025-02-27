@@ -20,7 +20,7 @@ class _CalendarViewPageState extends State<CalendarViewPage> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            Text("Calendar View")
+            SliverToBoxAdapter(child: Text("Calendar View"))
           ],
         ),
       ),
