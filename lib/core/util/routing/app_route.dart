@@ -3,7 +3,7 @@ import 'package:task_ease/core/util/routing/dashboard_routes.dart';
 import 'package:task_ease/features/dashboard/presentation/pages/dashboard.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: "/",
+  initialLocation: "/home",
   routes: [
     /// Dashboard Routes
     StatefulShellRoute.indexedStack(
