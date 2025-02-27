@@ -10,6 +10,10 @@ final GoRouter appRouter = GoRouter(
         builder: (_, __, child) => Dashboard(child: child),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: dashboardRoutes)
-        ])
+        ]),
+
+    calendarRoute,
+
+    sharedRoute
   ],
 );

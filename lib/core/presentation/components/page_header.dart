@@ -17,7 +17,7 @@ class _PageHeaderState extends State<PageHeader> {
       width: double.infinity,
       padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 16),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).colorScheme.onSecondary,
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(32),
               bottomLeft: Radius.circular(32))),
@@ -34,7 +34,7 @@ class _PageHeaderState extends State<PageHeader> {
                 width: 50,
                 height: 50,
                 decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
+                    BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.onSecondary),
                 child: CachedNetworkImage(
                   imageUrl:
                       "https://plus.unsplash.com/premium_photo-1675034796201-35c8f064ba29?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
