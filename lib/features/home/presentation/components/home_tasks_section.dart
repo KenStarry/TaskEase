@@ -67,6 +67,7 @@ class _HomeTasksSectionState extends State<HomeTasksSection> {
                                   .length,
                               selectedStepSize: 3,
                               unselectedStepSize: 3,
+                              unselectedColor: Theme.of(context).colorScheme.onSecondary,
                               selectedColor:
                                   Theme.of(context).colorScheme.primary,
                               roundedCap: (index, isRound) => true,
@@ -139,7 +140,7 @@ class _HomeTasksSectionState extends State<HomeTasksSection> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(onPressed: (){},
-                      style: TextButton.styleFrom(backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                      style: TextButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.onSecondary,
                       foregroundColor: whiteColor),
                       child: Row(
                         spacing: 4,

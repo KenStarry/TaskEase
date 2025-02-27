@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_ease/core/presentation/components/page_header.dart';
+import 'package:task_ease/features/home/presentation/components/home_daily_goal_section.dart';
 import 'package:task_ease/features/home/presentation/components/home_tasks_section.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,6 +25,10 @@ class _HomePageState extends State<HomePage> {
           slivers: [
             /// Header
             SliverToBoxAdapter(child: PageHeader()),
+
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+
+            HomeDailyGoalSection(),
 
             SliverToBoxAdapter(child: SizedBox(height: 24)),
 

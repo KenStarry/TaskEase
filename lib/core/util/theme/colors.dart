@@ -10,10 +10,12 @@ const Color secondaryColor = Color(0xFF7b2cbf);
 /// Light Mode
 const Color backgroundColorLight = Color(0xFFFFFFFF);
 const Color backgroundColorLightAlt = Color(0xFFe9ecef);
+const Color backgroundColorLightSecondary = Color(0xFFe9ecef);
 
 /// Dark Mode
 const Color backgroundColorDark = Color(0xFF212529);
 const Color backgroundColorDarkAlt = Color(0xFF343a40);
+const Color backgroundColorDarkSecondary = Color(0xFF191C1F);
 
 const Color whiteColor = Color(0xFFFFFFFF);
 const Color blackColor = Color(0xFF000000);
