@@ -12,8 +12,8 @@ const Color backgroundColorLight = Color(0xFFFFFFFF);
 const Color backgroundColorLightAlt = Color(0xFFe9ecef);
 
 /// Dark Mode
-const Color backgroundColorDark = Color(0xFF10002b);
-const Color backgroundColorDarkAlt = Color(0xFF240046);
+const Color backgroundColorDark = Color(0xFF212529);
+const Color backgroundColorDarkAlt = Color(0xFF343a40);
 
 const Color whiteColor = Color(0xFFFFFFFF);
 const Color blackColor = Color(0xFF000000);
