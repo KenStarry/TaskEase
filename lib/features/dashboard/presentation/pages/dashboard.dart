@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_extend/flutter_extend.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:task_ease/core/util/theme/colors.dart';
 import 'package:task_ease/features/dashboard/presentation/model/bottom_nav_item_model.dart';
 
 class Dashboard extends StatefulWidget {
@@ -39,10 +40,26 @@ class _DashboardState extends State<Dashboard> {
           statusBarColor: Colors.transparent),
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        floatingActionButton: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          child: Center(
+            child: SvgPicture.asset("assets/images/icons/add.svg",
+                width: 32,
+                height: 32,
+                colorFilter: ColorFilter.mode(
+                    whiteColor,
+                    BlendMode.srcIn)),
+          ),
+        ),
         bottomNavigationBar: Container(
           width: double.infinity,
           height: 75,
-          margin: const EdgeInsets.only(right: 24, left: 24, bottom: 24),
+          margin: const EdgeInsets.only(right: 16, left: 16, bottom: 24),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             color: Theme.of(context).colorScheme.onPrimary,
