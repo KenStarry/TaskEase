@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task_ease/core/model/task_model.dart';
+import 'package:task_ease/core/util/extensions/string_extensions.dart';
 
 class TaskCard extends StatefulWidget {
   final TaskModel task;
@@ -77,7 +78,7 @@ class _TaskCardState extends State<TaskCard> {
                   children: [
                     _taskCardContent(
                         asset: "assets/images/icons/calendar.svg",
-                        content: (widget.task.taskDate?.toString()) ?? "No date"),
+                        content: (widget.task.taskDate?.toString().formatDate(format: "dd MMM, yy")) ?? "No date"),
                     _taskCardContent(
                         asset: "assets/images/icons/priority.svg",
                         content: "1"),
