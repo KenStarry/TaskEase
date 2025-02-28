@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_extend/flutter_extend.dart';
+import 'package:task_ease/core/presentation/components/page_header.dart';
+import 'package:task_ease/core/util/extensions/string_extensions.dart';
+import 'package:task_ease/features/tasks/presentation/components/filters/tasks_by_date.dart';
+
+import '../../../../core/model/task_model.dart';
 
 class TasksPage extends StatefulWidget {
   const TasksPage({super.key});
@@ -8,6 +14,31 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
+  late final List<TaskModel> _tasks;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tasks = [
+      TaskModel(
+          taskId: '1',
+          taskName: "Hello there",
+          taskIsComplete: false,
+          taskDate: DateTime(2025, 1, 1).toString()),
+      TaskModel(taskId: '2', taskName: "Another Task1", taskIsComplete: false),
+      TaskModel(taskId: '3', taskName: "Another Task2", taskIsComplete: true, taskDate: DateTime(2025, 2, 12).toString()),
+      TaskModel(taskId: '3', taskName: "Another Task2", taskIsComplete: true, taskDate: DateTime(2025, 2, 12).toString()),
+      TaskModel(taskId: '3', taskName: "Another Task2", taskIsComplete: true, taskDate: DateTime(2025, 2, 12).toString()),
+      TaskModel(taskId: '3', taskName: "Another Task2", taskIsComplete: true, taskDate: DateTime(2025, 2, 12).toString()),
+      TaskModel(taskId: '4', taskName: "Another Task3", taskIsComplete: false),
+      TaskModel(taskId: '4', taskName: "Another Task3", taskIsComplete: false),
+      TaskModel(taskId: '4', taskName: "Another Task3", taskIsComplete: false),
+      TaskModel(taskId: '4', taskName: "Another Task3", taskIsComplete: false),
+      TaskModel(taskId: '4', taskName: "Another Task3", taskIsComplete: false),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +49,15 @@ class _TasksPageState extends State<TasksPage> {
         width: double.infinity,
         height: double.infinity,
         child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
           slivers: [
-            SliverToBoxAdapter(child: Text("Tasks"))
+            SliverToBoxAdapter(child: TasksHeader()),
+            ...tasksByDate(context,
+                allDates: _tasks
+                    .map((task) =>
+                        task.taskDate?.formatDate(format: 'dd LLL yyyy'))
+                    .toSet()
+                    .toList(),
+                tasks: _tasks)
           ],
         ),
       ),

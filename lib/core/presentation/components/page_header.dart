@@ -95,20 +95,20 @@ class TasksHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 16),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 24),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onSecondary,
+          color: Theme.of(context).colorScheme.onPrimary,
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(32),
               bottomLeft: Radius.circular(32))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 24,
+        spacing: 16,
         children: [
           SvgPicture.asset("assets/images/icons/task.svg",
-              width: 50,
-              height: 50,
+              width: 40,
+              height: 40,
               colorFilter: ColorFilter.mode(
                   Theme.of(context).textTheme.bodySmall!.color!,
                   BlendMode.srcIn)),
@@ -117,7 +117,7 @@ class TasksHeader extends StatelessWidget {
               Expanded(
                 child: Text("Tasks",
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontWeight:
                       Theme.of(context).textTheme.titleLarge!.fontWeight,
                       color: Theme.of(context).textTheme.titleLarge!.color,

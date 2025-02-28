@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_ease/core/presentation/components/page_header.dart';
+import 'package:task_ease/features/home/presentation/components/home_boards_section.dart';
 import 'package:task_ease/features/home/presentation/components/home_daily_goal_section.dart';
 import 'package:task_ease/features/home/presentation/components/home_tasks_section.dart';
 
@@ -21,10 +22,9 @@ class _HomePageState extends State<HomePage> {
         width: double.infinity,
         height: double.infinity,
         child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
           slivers: [
             /// Header
-            SliverToBoxAdapter(child: PageHeader()),
+            SliverToBoxAdapter(child: DashHeader()),
 
             SliverToBoxAdapter(child: SizedBox(height: 24)),
 
@@ -32,7 +32,13 @@ class _HomePageState extends State<HomePage> {
 
             SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-            HomeTasksSection()
+            HomeTasksSection(),
+
+            SliverToBoxAdapter(child: SizedBox(height: 24)),
+
+            HomeBoardsSection(),
+
+            SliverToBoxAdapter(child: SizedBox(height: 150)),
           ],
         ),
       ),

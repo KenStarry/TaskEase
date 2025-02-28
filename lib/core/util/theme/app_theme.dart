@@ -111,11 +111,12 @@ class AppTheme {
         selectedItemColor: secondaryColor,
       ),
       bottomSheetTheme: BottomSheetThemeData(
-          dragHandleColor: blackColor.withValues(alpha: 0.5),
-          dragHandleSize: const Size(100, 3),
-          surfaceTintColor: whiteColor,
-          backgroundColor: whiteColor,
-          modalBackgroundColor: whiteColor),
+          dragHandleColor: whiteColor.withValues(alpha: 0.5),
+          dragHandleSize: const Size(50, 3),
+          showDragHandle: false,
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          modalBackgroundColor: Colors.transparent),
       snackBarTheme: SnackBarThemeData(
           backgroundColor: accent ?? primaryColor,
           contentTextStyle: const TextStyle(
