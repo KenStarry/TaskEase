@@ -95,9 +95,9 @@ class TasksHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 24),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 50),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(32),
               bottomLeft: Radius.circular(32))),
