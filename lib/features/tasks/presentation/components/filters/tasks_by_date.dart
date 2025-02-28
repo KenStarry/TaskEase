@@ -7,10 +7,10 @@ import '../../../../../core/presentation/components/task_card.dart';
 
 
 List<Widget> tasksByDate(BuildContext context,
-    {required List<String> allDates, required List<TaskModel> tasks}) {
+    {required List<String?> allDates, required List<TaskModel> tasks}) {
   return allDates.map((date) {
     final allTasksUnderDate = tasks
-        .where((task) => (task.taskDate?.formatDate(format: 'dd LLL yyyy') ?? 'No Date') == date)
+        .where((task) => (task.taskDate?.formatDate(format: 'dd LLL yyyy')) == date)
         .toList();
 
     return SliverPadding(
@@ -27,7 +27,7 @@ List<Widget> tasksByDate(BuildContext context,
             child: Text(
               date == DateTime.now().toString().formatDate(format: 'dd LLL yyyy')
                   ? 'Today'
-                  : date,
+                  : (date ?? 'No Date'),
               style: TextStyle(
                 fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
                 fontWeight: Theme.of(context).textTheme.titleLarge!.fontWeight,
@@ -39,7 +39,7 @@ List<Widget> tasksByDate(BuildContext context,
         const SliverToBoxAdapter(child: SizedBox(height: 8)),
         DecoratedSliver(
           decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(24)),
           sliver: SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

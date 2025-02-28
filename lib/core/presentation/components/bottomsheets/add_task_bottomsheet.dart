@@ -1,7 +1,12 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:popover/popover.dart';
 import 'package:task_ease/core/presentation/components/custom_text_field.dart';
+import 'package:task_ease/core/presentation/components/popups/calendar_popover.dart';
+import 'package:task_ease/core/util/extensions/string_extensions.dart';
+import 'package:task_ease/core/util/theme/colors.dart';
 
 class AddTaskBottomsheet extends StatefulWidget {
   const AddTaskBottomsheet({super.key});
@@ -12,6 +17,8 @@ class AddTaskBottomsheet extends StatefulWidget {
 
 class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
   final TextEditingController taskController = TextEditingController();
+
+  ValueNotifier<DateTime?> pickedDate = ValueNotifier(null);
 
   Widget control({required String asset, required VoidCallback onTap}) =>
       GestureDetector(
@@ -84,7 +91,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
             //  date
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
               child: Row(
                 spacing: 16,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,17 +108,27 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                           colorFilter: ColorFilter.mode(
                               Theme.of(context).textTheme.titleLarge!.color!,
                               BlendMode.srcIn)),
-                      Text("12 Jan, 2025", style: Theme.of(context).textTheme.bodySmall),
+                      ValueListenableBuilder(
+                        valueListenable: pickedDate,
+                        builder: (BuildContext context, DateTime? date,
+                                Widget? child) =>
+                            Text(
+                                date
+                                        ?.toString()
+                                        .formatDate(format: "dd MMM, yyyy") ??
+                                    'No Date',
+                                style: Theme.of(context).textTheme.bodySmall),
+                      ),
                     ],
                   ),
 
                   //  Priority
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Theme.of(context).colorScheme.onSecondary
-                    ),
+                        borderRadius: BorderRadius.circular(100),
+                        color: Theme.of(context).colorScheme.onSecondary),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       spacing: 8,
@@ -128,11 +146,11 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
 
                   //  Board
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
-                        color: Theme.of(context).colorScheme.onSecondary
-                    ),
+                        color: Theme.of(context).colorScheme.onSecondary),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       spacing: 8,
@@ -143,7 +161,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                             colorFilter: ColorFilter.mode(
                                 Theme.of(context).colorScheme.primary,
                                 BlendMode.srcIn)),
-                        Text("Shopping", style: Theme.of(context).textTheme.bodySmall),
+                        Text("Shopping",
+                            style: Theme.of(context).textTheme.bodySmall),
                       ],
                     ),
                   ),
@@ -159,11 +178,17 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 12,
               children: [
-                control(asset: "assets/images/icons/calendar.svg", onTap: (){
-                  // show
-                }),
-                control(asset: "assets/images/icons/priority.svg", onTap: (){}),
-                control(asset: "assets/images/icons/board.svg", onTap: (){}),
+                control(
+                    asset: "assets/images/icons/calendar.svg",
+                    onTap: () {
+                      showCalendarPopOver(context, onValueChanged: (dates) {
+                        pickedDate.value = dates[0];
+                        Navigator.pop(context);
+                      });
+                    }),
+                control(
+                    asset: "assets/images/icons/priority.svg", onTap: () {}),
+                control(asset: "assets/images/icons/board.svg", onTap: () {}),
               ],
             ),
 
