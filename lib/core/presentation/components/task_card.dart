@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task_ease/core/model/task_model.dart';
+import 'package:task_ease/core/presentation/components/task_radio.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
 
 class TaskCard extends StatefulWidget {
@@ -52,15 +53,7 @@ class _TaskCardState extends State<TaskCard> {
         spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: 25,
-            height: 25,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.transparent,
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.primary, width: 2)),
-          ),
+          TaskRadio(),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

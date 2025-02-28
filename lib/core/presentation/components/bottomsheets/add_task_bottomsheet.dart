@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:popover/popover.dart';
 import 'package:task_ease/core/presentation/components/custom_text_field.dart';
+import 'package:task_ease/core/presentation/components/popups/board_popover.dart';
 import 'package:task_ease/core/presentation/components/popups/calendar_popover.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
 import 'package:task_ease/core/util/theme/colors.dart';
+
+import '../../../model/board_model.dart';
 
 class AddTaskBottomsheet extends StatefulWidget {
   const AddTaskBottomsheet({super.key});
@@ -19,6 +22,37 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
   final TextEditingController taskController = TextEditingController();
 
   ValueNotifier<DateTime?> pickedDate = ValueNotifier(null);
+  ValueNotifier<BoardModel?> pickedBoard = ValueNotifier(null);
+
+  late final List<BoardModel> _boards;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _boards = [
+      BoardModel(
+          boardId: "1",
+          boardName: "Flutter",
+          boardDescription: "Flutter Projects",
+          boardHexColor: null),
+      BoardModel(
+          boardId: "1",
+          boardName: "Shopping",
+          boardDescription: "Flutter Projects",
+          boardHexColor: null),
+      BoardModel(
+          boardId: "1",
+          boardName: "Interview",
+          boardDescription: "Flutter Projects",
+          boardHexColor: null),
+      BoardModel(
+          boardId: "1",
+          boardName: "Personal",
+          boardDescription: "Flutter Projects",
+          boardHexColor: null),
+    ];
+  }
 
   Widget control({required String asset, required VoidCallback onTap}) =>
       GestureDetector(
@@ -145,26 +179,40 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                   ),
 
                   //  Board
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Theme.of(context).colorScheme.onSecondary),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      spacing: 8,
-                      children: [
-                        SvgPicture.asset("assets/images/icons/board.svg",
-                            width: 12,
-                            height: 12,
-                            colorFilter: ColorFilter.mode(
-                                Theme.of(context).colorScheme.primary,
-                                BlendMode.srcIn)),
-                        Text("Shopping",
-                            style: Theme.of(context).textTheme.bodySmall),
-                      ],
-                    ),
+                  ValueListenableBuilder(
+                    valueListenable: pickedBoard,
+                    builder: (BuildContext context, BoardModel? value,
+                            Widget? child) =>
+                        value == null
+                            ? SizedBox.shrink()
+                            : Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  spacing: 8,
+                                  children: [
+                                    SvgPicture.asset(
+                                        "assets/images/icons/board.svg",
+                                        width: 12,
+                                        height: 12,
+                                        colorFilter: ColorFilter.mode(
+                                            Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            BlendMode.srcIn)),
+                                    Text(value.boardName ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall),
+                                  ],
+                                ),
+                              ),
                   ),
                 ],
               ),
@@ -188,7 +236,15 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                     }),
                 control(
                     asset: "assets/images/icons/priority.svg", onTap: () {}),
-                control(asset: "assets/images/icons/board.svg", onTap: () {}),
+                control(
+                    asset: "assets/images/icons/board.svg",
+                    onTap: () {
+                      showBoardPopOver(context,
+                          selectedBoard: pickedBoard.value?.boardName,
+                          boards: _boards, onSelected: (board) {
+                        pickedBoard.value = board;
+                      });
+                    }),
               ],
             ),
 
