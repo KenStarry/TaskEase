@@ -5,12 +5,13 @@ import 'package:task_ease/core/util/extensions/string_extensions.dart';
 
 import '../../../../../core/presentation/components/task_card.dart';
 
-
 List<Widget> tasksByDate(BuildContext context,
     {required List<String?> allDates, required List<TaskModel> tasks}) {
   return allDates.map((date) {
     final allTasksUnderDate = tasks
-        .where((task) => (task.taskDate?.formatDate(format: 'dd LLL yyyy')) == date)
+        .where((task) =>
+            task.taskParentId == null &&
+            (task.taskDate?.formatDate(format: 'dd LLL yyyy')) == date)
         .toList();
 
     return SliverPadding(
@@ -25,7 +26,10 @@ List<Widget> tasksByDate(BuildContext context,
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              date == DateTime.now().toString().formatDate(format: 'dd LLL yyyy')
+              date ==
+                      DateTime.now()
+                          .toString()
+                          .formatDate(format: 'dd LLL yyyy')
                   ? 'Today'
                   : (date ?? 'No Date'),
               style: TextStyle(
@@ -39,17 +43,17 @@ List<Widget> tasksByDate(BuildContext context,
         const SliverToBoxAdapter(child: SizedBox(height: 8)),
         DecoratedSliver(
           decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: Theme.of(context).colorScheme.onSecondary,
               borderRadius: BorderRadius.circular(24)),
           sliver: SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                    (context, index) => TaskCard(task: allTasksUnderDate[index]),
+                    (context, index) =>
+                        TaskCard(task: allTasksUnderDate[index]),
                     childCount: allTasksUnderDate.length)),
           ),
         ),
-        const SliverToBoxAdapter(child: SizedBox(height: 16)),
       ]),
     );
   }).toList();

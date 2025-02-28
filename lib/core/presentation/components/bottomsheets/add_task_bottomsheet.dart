@@ -1,6 +1,7 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_extend/flutter_extend.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:popover/popover.dart';
@@ -12,6 +13,7 @@ import 'package:task_ease/core/presentation/components/task_card.dart';
 import 'package:task_ease/core/presentation/components/task_radio.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
 import 'package:task_ease/core/util/theme/colors.dart';
+import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
 
 import '../../../model/board_model.dart';
 
@@ -439,6 +441,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                               ];
 
                               /// Upload the Task and Subtasks to Hive
+                              BlocProvider.of<AddTasksBloc>(context).add(AddNewTaskEvent(newTask: newTaskList));
+                              Navigator.pop(context);
                             },
                             style: TextButton.styleFrom(
                                 backgroundColor:

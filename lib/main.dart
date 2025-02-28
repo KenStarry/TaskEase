@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:task_ease/core/di/di.dart';
+import 'package:task_ease/core/model/task_model.dart';
+import 'package:task_ease/core/util/constants/hive_constants.dart';
+import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
+import 'package:task_ease/features/tasks/presentation/bloc/tasks_bloc.dart';
 
 import 'core/util/routing/app_route.dart';
 import 'core/util/theme/app_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final dir = await getApplicationDocumentsDirectory();
+  await Hive.initFlutter(dir.path);
+
+  Hive.registerAdapter(TaskModelAdapter());
+
+  Hive.openBox(tasksBox);
+
+  setupDependencies();
+
   runApp(const MyApp());
 }
 
@@ -12,15 +31,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: "TaskEase",
-      routerDelegate: appRouter.routerDelegate,
-      routeInformationParser: appRouter.routeInformationParser,
-      routeInformationProvider: appRouter.routeInformationProvider,
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme(),
-      darkTheme: AppTheme.darkTheme(),
-      themeMode: ThemeMode.dark,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TasksBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AddTasksBloc(),
+        ),
+      ],
+      child: MaterialApp.router(
+        title: "TaskEase",
+        routerDelegate: appRouter.routerDelegate,
+        routeInformationParser: appRouter.routeInformationParser,
+        routeInformationProvider: appRouter.routeInformationProvider,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme(),
+        darkTheme: AppTheme.darkTheme(),
+        themeMode: ThemeMode.dark,
+      ),
     );
   }
 }
