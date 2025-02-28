@@ -5,6 +5,6 @@ import 'package:task_ease/core/di/tasks_di.dart';
 final locator = GetIt.instance;
 
 Future<void> setupDependencies() async {
-  invokeCoreDI(locator);
+  await invokeCoreDI(locator);
   invokeTasksDI(locator);
 }
