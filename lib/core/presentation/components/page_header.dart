@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_extend/flutter_extend.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DashHeader extends StatelessWidget {
@@ -30,13 +29,16 @@ class DashHeader extends StatelessWidget {
                 height: 50,
                 decoration:
                     BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.onSecondary),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      "https://plus.unsplash.com/premium_photo-1675034796201-35c8f064ba29?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                ).clip(borderRadius: BorderRadius.circular(100)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        "https://plus.unsplash.com/premium_photo-1675034796201-35c8f064ba29?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               Row(
                 children: [
