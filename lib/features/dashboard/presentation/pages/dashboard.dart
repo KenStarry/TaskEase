@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_extend/flutter_extend.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:task_ease/core/presentation/components/bottomsheets/add_task_bottomsheet.dart';
 import 'package:task_ease/core/util/theme/colors.dart';
 import 'package:task_ease/features/dashboard/presentation/model/bottom_nav_item_model.dart';
 
@@ -42,25 +43,33 @@ class _DashboardState extends State<Dashboard> {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.dark,
-          statusBarColor: Colors.transparent),
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Theme.of(context).colorScheme.onSecondary),
       child: Stack(
         children: [
           Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: backgroundColorDarkSecondary,
-              ),
-              child: Center(
-                child: SvgPicture.asset("assets/images/icons/add.svg",
-                    width: 32,
-                    height: 32,
-                    colorFilter: ColorFilter.mode(whiteColor, BlendMode.srcIn)),
+            floatingActionButton: GestureDetector(
+              onTap: (){
+                showModalBottomSheet(context: context,
+                    isScrollControlled: true,
+                    builder: (context) => AddTaskBottomsheet());
+              },
+              child: Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: backgroundColorDarkSecondary,
+                ),
+                child: Center(
+                  child: SvgPicture.asset("assets/images/icons/add.svg",
+                      width: 32,
+                      height: 32,
+                      colorFilter: ColorFilter.mode(whiteColor, BlendMode.srcIn)),
+                ),
               ),
             ),
             bottomNavigationBar: ValueListenableBuilder(
@@ -120,7 +129,8 @@ class _DashboardState extends State<Dashboard> {
                       splashRadius: 0,
                       leftCornerRadius: 32,
                       rightCornerRadius: 32,
-                      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onSecondary,
                       onTap: (index) {
                         activeIndex.value = index;
                         switch (_items[index].title) {

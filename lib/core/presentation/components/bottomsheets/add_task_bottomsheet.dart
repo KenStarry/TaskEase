@@ -1,6 +1,7 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_extend/flutter_extend.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:popover/popover.dart';
 import 'package:task_ease/core/model/task_model.dart';
@@ -112,7 +113,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                     maxLines: null,
                     hintStyle: TextStyle(
                       fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
-                      fontWeight: Theme.of(context).textTheme.bodyLarge!.fontWeight,
+                      fontWeight:
+                          Theme.of(context).textTheme.bodyLarge!.fontWeight,
                       color: Theme.of(context)
                           .textTheme
                           .bodyLarge!
@@ -149,26 +151,29 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                               width: 12,
                               height: 12,
                               colorFilter: ColorFilter.mode(
-                                  Theme.of(context).textTheme.titleLarge!.color!,
+                                  Theme.of(context)
+                                      .textTheme
+                                      .titleLarge!
+                                      .color!,
                                   BlendMode.srcIn)),
                           ValueListenableBuilder(
                             valueListenable: pickedDate,
                             builder: (BuildContext context, DateTime? date,
                                     Widget? child) =>
                                 Text(
-                                    date
-                                            ?.toString()
-                                            .formatDate(format: "dd MMM, yyyy") ??
+                                    date?.toString().formatDate(
+                                            format: "dd MMM, yyyy") ??
                                         'No Date',
-                                    style: Theme.of(context).textTheme.bodySmall),
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall),
                           ),
                         ],
                       ),
 
                       //  Priority
                       Container(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             color: Theme.of(context).colorScheme.onSecondary),
@@ -182,7 +187,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                 colorFilter: ColorFilter.mode(
                                     Theme.of(context).colorScheme.primary,
                                     BlendMode.srcIn)),
-                            Text("1", style: Theme.of(context).textTheme.bodySmall),
+                            Text("1",
+                                style: Theme.of(context).textTheme.bodySmall),
                           ],
                         ),
                       ),
@@ -198,12 +204,14 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 4),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSecondary),
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       spacing: 8,
                                       children: [
                                         SvgPicture.asset(
@@ -247,7 +255,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                           });
                         }),
                     control(
-                        asset: "assets/images/icons/priority.svg", onTap: () {}),
+                        asset: "assets/images/icons/priority.svg",
+                        onTap: () {}),
                     control(
                         asset: "assets/images/icons/board.svg",
                         onTap: () {
@@ -299,49 +308,75 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 24.0),
                   child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                    physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics()),
                     child: Column(
-                      children: subTasks.map((controller) => Row(
-                        spacing: 12,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          TaskRadio(size: Size(20, 20)),
-                          Expanded(child: CustomTextField(
-                              controller: controller,
-                              filledColor: Colors.transparent,
-                              textStyle: Theme.of(context).textTheme.bodyMedium,
-                              contentPadding: EdgeInsets.zero,
-                              autoFocus: true,
-                              maxLines: null,
-                              hintStyle: TextStyle(
-                                fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-                                fontWeight: Theme.of(context).textTheme.bodyMedium!.fontWeight,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .color!
-                                    .withValues(alpha: 0.5),
-                              ),
-                              borderColor: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .color!
-                                  .withValues(alpha: 0),
-                              onFieldSubmitted: (text) {
-                                setState(() {
-                                  subTasks.add(TextEditingController());
-                                });
-                              },
-                              hintText: "I also want to..."),),
-                          IconButton(onPressed: (){
-                            setState(() {
-                              subTasks.removeWhere((taskController) => taskController == controller);
-                            });
-                          }, icon: SvgPicture.asset("assets/images/icons/close.svg", width: 24, height: 24,
-                          colorFilter: ColorFilter.mode(Theme.of(context).textTheme.bodyMedium!.color!, BlendMode.srcIn)))
-                        ],
-                      )).toList(),
+                      children: subTasks
+                          .map((controller) => Row(
+                                spacing: 12,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  TaskRadio(size: Size(20, 20)),
+                                  Expanded(
+                                    child: CustomTextField(
+                                        controller: controller,
+                                        filledColor: Colors.transparent,
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                        contentPadding: EdgeInsets.zero,
+                                        autoFocus: true,
+                                        maxLines: null,
+                                        hintStyle: TextStyle(
+                                          fontSize: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .fontSize,
+                                          fontWeight: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .fontWeight,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .color!
+                                              .withValues(alpha: 0.5),
+                                        ),
+                                        borderColor: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .color!
+                                            .withValues(alpha: 0),
+                                        onFieldSubmitted: (text) {
+                                          setState(() {
+                                            subTasks
+                                                .add(TextEditingController());
+                                          });
+                                        },
+                                        hintText: "I also want to..."),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          subTasks.removeWhere(
+                                              (taskController) =>
+                                                  taskController == controller);
+                                        });
+                                      },
+                                      icon: SvgPicture.asset(
+                                          "assets/images/icons/close.svg",
+                                          width: 24,
+                                          height: 24,
+                                          colorFilter: ColorFilter.mode(
+                                              Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .color!,
+                                              BlendMode.srcIn)))
+                                ],
+                              ))
+                          .toList(),
                     ),
                   ),
                 ),
@@ -354,7 +389,6 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-
                       TextButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -362,25 +396,57 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                           style: TextButton.styleFrom(
                               backgroundColor: Colors.transparent,
                               foregroundColor:
-                              Theme.of(context).colorScheme.primary),
+                                  Theme.of(context).colorScheme.primary),
                           child: Text("Cancel",
                               style: TextStyle(
-                                fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-                                fontWeight: Theme.of(context).textTheme.bodyMedium!.fontWeight,
-                                color: Theme.of(context).textTheme.bodyMedium!.color,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .fontSize,
+                                fontWeight: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .fontWeight,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .color,
                               ))),
-
                       UnconstrainedBox(
                         child: TextButton(
                             onPressed: () {
-                                final newTaskList = [
-                                  TaskModel(taskName: taskController.text)
-                                ];
+                              final parentTaskId = ''.generateUUID(length: 10);
+
+                              final newTaskList = [
+                                TaskModel(
+                                    taskId: parentTaskId,
+                                    taskName: taskController.text,
+                                    taskParentId: null,
+                                    taskDescription: null,
+                                    taskBoard: pickedBoard.value?.boardId,
+                                    taskDate: pickedDate.value?.toString(),
+                                    taskIsComplete: false,
+                                    taskPriority: null),
+                                ...subTasks.map((controller) => TaskModel(
+                                    taskId: ''.generateUUID(length: 10),
+                                    taskName: controller.text,
+                                    taskParentId: parentTaskId,
+                                    taskDescription: null,
+                                    taskBoard: pickedBoard.value?.boardId,
+                                    taskDate: null,
+                                    taskIsComplete: false,
+                                    taskPriority: null),)
+                              ];
+
+                              /// Upload the Task and Subtasks to Hive
                             },
                             style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.primary,
-                                foregroundColor:
-                                Theme.of(context).textTheme.bodyMedium!.color!),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                foregroundColor: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .color!),
                             child: Row(
                               spacing: 4,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -389,10 +455,14 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                     width: 24,
                                     height: 24,
                                     colorFilter: ColorFilter.mode(
-                                        Theme.of(context).textTheme.bodyMedium!.color!,
+                                        Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .color!,
                                         BlendMode.srcIn)),
                                 Text("Add",
-                                    style: Theme.of(context).textTheme.bodyMedium),
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
                               ],
                             )),
                       ),

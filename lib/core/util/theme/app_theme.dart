@@ -67,7 +67,7 @@ class AppTheme {
             color: whiteColor, surfaceTintColor: whiteColor),
         canvasColor: whiteColor,
         dividerColor: Colors.transparent,
-        fontFamily: "Fredoka",
+        fontFamily: "Nunito",
         textTheme: AppTextTheme.lightTextTheme(),
     );
   }
@@ -137,7 +137,7 @@ class AppTheme {
           color: whiteColor, surfaceTintColor: whiteColor),
       canvasColor: whiteColor,
       dividerColor: Colors.transparent,
-      fontFamily: "Fredoka",
+      fontFamily: "Nunito",
       textTheme: AppTextTheme.darkTextTheme(),
     );
   }
