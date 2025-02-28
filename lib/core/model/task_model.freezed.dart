@@ -21,20 +21,28 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TaskModel {
   @JsonKey(name: 'task_id')
+  @HiveField(0, defaultValue: null)
   String? get taskId => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_parent_id')
+  @HiveField(1, defaultValue: null)
   String? get taskParentId => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_name')
+  @HiveField(2, defaultValue: null)
   String? get taskName => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_description')
+  @HiveField(3, defaultValue: null)
   String? get taskDescription => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_complete')
+  @HiveField(4, defaultValue: false)
   bool? get taskIsComplete => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_board')
+  @HiveField(5, defaultValue: null)
   String? get taskBoard => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_date')
+  @HiveField(6, defaultValue: null)
   String? get taskDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_priority')
+  @HiveField(7, defaultValue: null)
   int? get taskPriority => throw _privateConstructorUsedError;
 
   /// Serializes this TaskModel to a JSON map.
@@ -53,14 +61,30 @@ abstract class $TaskModelCopyWith<$Res> {
       _$TaskModelCopyWithImpl<$Res, TaskModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'task_id') String? taskId,
-      @JsonKey(name: 'task_parent_id') String? taskParentId,
-      @JsonKey(name: 'task_name') String? taskName,
-      @JsonKey(name: 'task_description') String? taskDescription,
-      @JsonKey(name: 'task_complete') bool? taskIsComplete,
-      @JsonKey(name: 'task_board') String? taskBoard,
-      @JsonKey(name: 'task_date') String? taskDate,
-      @JsonKey(name: 'task_priority') int? taskPriority});
+      {@JsonKey(name: 'task_id')
+      @HiveField(0, defaultValue: null)
+      String? taskId,
+      @JsonKey(name: 'task_parent_id')
+      @HiveField(1, defaultValue: null)
+      String? taskParentId,
+      @JsonKey(name: 'task_name')
+      @HiveField(2, defaultValue: null)
+      String? taskName,
+      @JsonKey(name: 'task_description')
+      @HiveField(3, defaultValue: null)
+      String? taskDescription,
+      @JsonKey(name: 'task_complete')
+      @HiveField(4, defaultValue: false)
+      bool? taskIsComplete,
+      @JsonKey(name: 'task_board')
+      @HiveField(5, defaultValue: null)
+      String? taskBoard,
+      @JsonKey(name: 'task_date')
+      @HiveField(6, defaultValue: null)
+      String? taskDate,
+      @JsonKey(name: 'task_priority')
+      @HiveField(7, defaultValue: null)
+      int? taskPriority});
 }
 
 /// @nodoc
@@ -133,14 +157,30 @@ abstract class _$$TaskModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'task_id') String? taskId,
-      @JsonKey(name: 'task_parent_id') String? taskParentId,
-      @JsonKey(name: 'task_name') String? taskName,
-      @JsonKey(name: 'task_description') String? taskDescription,
-      @JsonKey(name: 'task_complete') bool? taskIsComplete,
-      @JsonKey(name: 'task_board') String? taskBoard,
-      @JsonKey(name: 'task_date') String? taskDate,
-      @JsonKey(name: 'task_priority') int? taskPriority});
+      {@JsonKey(name: 'task_id')
+      @HiveField(0, defaultValue: null)
+      String? taskId,
+      @JsonKey(name: 'task_parent_id')
+      @HiveField(1, defaultValue: null)
+      String? taskParentId,
+      @JsonKey(name: 'task_name')
+      @HiveField(2, defaultValue: null)
+      String? taskName,
+      @JsonKey(name: 'task_description')
+      @HiveField(3, defaultValue: null)
+      String? taskDescription,
+      @JsonKey(name: 'task_complete')
+      @HiveField(4, defaultValue: false)
+      bool? taskIsComplete,
+      @JsonKey(name: 'task_board')
+      @HiveField(5, defaultValue: null)
+      String? taskBoard,
+      @JsonKey(name: 'task_date')
+      @HiveField(6, defaultValue: null)
+      String? taskDate,
+      @JsonKey(name: 'task_priority')
+      @HiveField(7, defaultValue: null)
+      int? taskPriority});
 }
 
 /// @nodoc
@@ -207,41 +247,65 @@ class __$$TaskModelImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$TaskModelImpl implements _TaskModel {
   const _$TaskModelImpl(
-      {@JsonKey(name: 'task_id') this.taskId = 'N/A',
-      @JsonKey(name: 'task_parent_id') this.taskParentId = null,
-      @JsonKey(name: 'task_name') this.taskName = 'N/A',
-      @JsonKey(name: 'task_description') this.taskDescription = 'N/A',
-      @JsonKey(name: 'task_complete') this.taskIsComplete = false,
-      @JsonKey(name: 'task_board') this.taskBoard = null,
-      @JsonKey(name: 'task_date') this.taskDate = null,
-      @JsonKey(name: 'task_priority') this.taskPriority = null});
+      {@JsonKey(name: 'task_id')
+      @HiveField(0, defaultValue: null)
+      this.taskId = null,
+      @JsonKey(name: 'task_parent_id')
+      @HiveField(1, defaultValue: null)
+      this.taskParentId = null,
+      @JsonKey(name: 'task_name')
+      @HiveField(2, defaultValue: null)
+      this.taskName = null,
+      @JsonKey(name: 'task_description')
+      @HiveField(3, defaultValue: null)
+      this.taskDescription = null,
+      @JsonKey(name: 'task_complete')
+      @HiveField(4, defaultValue: false)
+      this.taskIsComplete = false,
+      @JsonKey(name: 'task_board')
+      @HiveField(5, defaultValue: null)
+      this.taskBoard = null,
+      @JsonKey(name: 'task_date')
+      @HiveField(6, defaultValue: null)
+      this.taskDate = null,
+      @JsonKey(name: 'task_priority')
+      @HiveField(7, defaultValue: null)
+      this.taskPriority = null});
 
   factory _$TaskModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskModelImplFromJson(json);
 
   @override
   @JsonKey(name: 'task_id')
+  @HiveField(0, defaultValue: null)
   final String? taskId;
   @override
   @JsonKey(name: 'task_parent_id')
+  @HiveField(1, defaultValue: null)
   final String? taskParentId;
   @override
   @JsonKey(name: 'task_name')
+  @HiveField(2, defaultValue: null)
   final String? taskName;
   @override
   @JsonKey(name: 'task_description')
+  @HiveField(3, defaultValue: null)
   final String? taskDescription;
   @override
   @JsonKey(name: 'task_complete')
+  @HiveField(4, defaultValue: false)
   final bool? taskIsComplete;
   @override
   @JsonKey(name: 'task_board')
+  @HiveField(5, defaultValue: null)
   final String? taskBoard;
   @override
   @JsonKey(name: 'task_date')
+  @HiveField(6, defaultValue: null)
   final String? taskDate;
   @override
   @JsonKey(name: 'task_priority')
+  @HiveField(7, defaultValue: null)
   final int? taskPriority;
 
   @override
@@ -294,42 +358,65 @@ class _$TaskModelImpl implements _TaskModel {
 
 abstract class _TaskModel implements TaskModel {
   const factory _TaskModel(
-          {@JsonKey(name: 'task_id') final String? taskId,
-          @JsonKey(name: 'task_parent_id') final String? taskParentId,
-          @JsonKey(name: 'task_name') final String? taskName,
-          @JsonKey(name: 'task_description') final String? taskDescription,
-          @JsonKey(name: 'task_complete') final bool? taskIsComplete,
-          @JsonKey(name: 'task_board') final String? taskBoard,
-          @JsonKey(name: 'task_date') final String? taskDate,
-          @JsonKey(name: 'task_priority') final int? taskPriority}) =
-      _$TaskModelImpl;
+      {@JsonKey(name: 'task_id')
+      @HiveField(0, defaultValue: null)
+      final String? taskId,
+      @JsonKey(name: 'task_parent_id')
+      @HiveField(1, defaultValue: null)
+      final String? taskParentId,
+      @JsonKey(name: 'task_name')
+      @HiveField(2, defaultValue: null)
+      final String? taskName,
+      @JsonKey(name: 'task_description')
+      @HiveField(3, defaultValue: null)
+      final String? taskDescription,
+      @JsonKey(name: 'task_complete')
+      @HiveField(4, defaultValue: false)
+      final bool? taskIsComplete,
+      @JsonKey(name: 'task_board')
+      @HiveField(5, defaultValue: null)
+      final String? taskBoard,
+      @JsonKey(name: 'task_date')
+      @HiveField(6, defaultValue: null)
+      final String? taskDate,
+      @JsonKey(name: 'task_priority')
+      @HiveField(7, defaultValue: null)
+      final int? taskPriority}) = _$TaskModelImpl;
 
   factory _TaskModel.fromJson(Map<String, dynamic> json) =
       _$TaskModelImpl.fromJson;
 
   @override
   @JsonKey(name: 'task_id')
+  @HiveField(0, defaultValue: null)
   String? get taskId;
   @override
   @JsonKey(name: 'task_parent_id')
+  @HiveField(1, defaultValue: null)
   String? get taskParentId;
   @override
   @JsonKey(name: 'task_name')
+  @HiveField(2, defaultValue: null)
   String? get taskName;
   @override
   @JsonKey(name: 'task_description')
+  @HiveField(3, defaultValue: null)
   String? get taskDescription;
   @override
   @JsonKey(name: 'task_complete')
+  @HiveField(4, defaultValue: false)
   bool? get taskIsComplete;
   @override
   @JsonKey(name: 'task_board')
+  @HiveField(5, defaultValue: null)
   String? get taskBoard;
   @override
   @JsonKey(name: 'task_date')
+  @HiveField(6, defaultValue: null)
   String? get taskDate;
   @override
   @JsonKey(name: 'task_priority')
+  @HiveField(7, defaultValue: null)
   int? get taskPriority;
 
   /// Create a copy of TaskModel
