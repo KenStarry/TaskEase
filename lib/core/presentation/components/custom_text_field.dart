@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? keyboardType;
+  final TextInputAction? inputAction;
   final Color? filledColor;
   final Color? textColor;
 
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
   final double? hintFontSize;
   final Color? borderColor;
   final bool? readOnly;
+  final bool? autoFocus;
   final VoidCallback? onTap;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -23,6 +25,7 @@ class CustomTextField extends StatelessWidget {
   final int? minLines;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
 
   final bool? obscureText;
   final EdgeInsets? contentPadding;
@@ -33,7 +36,9 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField(
       {super.key,
       required this.controller,
+        this.autoFocus,
       this.keyboardType,
+      this.inputAction,
       this.filledColor,
       this.fontSize,
         this.hintStyle,
@@ -50,6 +55,7 @@ class CustomTextField extends StatelessWidget {
       this.prefix,
       this.validator,
       this.onChanged,
+        this.onFieldSubmitted,
       this.obscureText,
       this.textColor,
       this.contentPadding,
@@ -63,10 +69,13 @@ class CustomTextField extends StatelessWidget {
       readOnly: readOnly ?? false,
       obscureText: obscureText ?? false,
       onTap: onTap,
+      autofocus: autoFocus ?? false,
       onChanged: onChanged,
       controller: controller,
       keyboardType: keyboardType ?? TextInputType.text,
+      textInputAction: inputAction ?? TextInputAction.done,
       cursorColor: theme.colorScheme.tertiary.withOpacity(0.6),
+      onFieldSubmitted: onFieldSubmitted,
       minLines: minLines,
       maxLines: maxLines,
       style: textStyle ?? TextStyle(
