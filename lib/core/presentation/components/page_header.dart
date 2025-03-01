@@ -11,7 +11,7 @@ class DashHeader extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 16),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onSecondary,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(32),
               bottomLeft: Radius.circular(32))),
@@ -25,8 +25,8 @@ class DashHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: 50,
-                height: 50,
+                width: 35,
+                height: 35,
                 decoration:
                     BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.onSecondary),
                 child: ClipRRect(
@@ -67,21 +67,21 @@ class DashHeader extends StatelessWidget {
               Expanded(
                 child: Text("Dashboard",
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 28,
                       fontWeight:
                           Theme.of(context).textTheme.titleLarge!.fontWeight,
                       color: Theme.of(context).textTheme.titleLarge!.color,
                     )),
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                      "assets/images/icons/filter.svg",
-                      width: 28,
-                      height: 28,
-                      colorFilter: ColorFilter.mode(
-                          Theme.of(context).textTheme.bodyMedium!.color!,
-                          BlendMode.srcIn)))
+              // IconButton(
+              //     onPressed: () {},
+              //     icon: SvgPicture.asset(
+              //         "assets/images/icons/filter.svg",
+              //         width: 28,
+              //         height: 28,
+              //         colorFilter: ColorFilter.mode(
+              //             Theme.of(context).textTheme.bodyMedium!.color!,
+              //             BlendMode.srcIn)))
             ],
           )
         ],

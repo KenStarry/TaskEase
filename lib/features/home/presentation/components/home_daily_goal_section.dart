@@ -36,7 +36,7 @@ class _HomeDailyGoalSectionState extends State<HomeDailyGoalSection> {
       /// Goals container
       SliverToBoxAdapter(
         child: AspectRatio(
-          aspectRatio: 3 / 1.4,
+          aspectRatio: 3 / 1.5,
           child: Stack(
             children: [
               Container(
@@ -45,7 +45,7 @@ class _HomeDailyGoalSectionState extends State<HomeDailyGoalSection> {
                 margin: const EdgeInsets.only(left: 64, right: 64),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
-                  color: Color(0xff616771),
+                  color: Color(0xff2C2F33),
                 ),
               ),
               Container(
@@ -54,7 +54,7 @@ class _HomeDailyGoalSectionState extends State<HomeDailyGoalSection> {
                 margin: const EdgeInsets.only(left: 32, right: 32, bottom: 8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
-                  color: Color(0xff555B65),
+                  color: Color(0xff23262A),
                 ),
               ),
               Container(
@@ -64,7 +64,7 @@ class _HomeDailyGoalSectionState extends State<HomeDailyGoalSection> {
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -137,6 +137,9 @@ class _HomeDailyGoalSectionState extends State<HomeDailyGoalSection> {
                           radius: 35,
                           percent: 0.6,
                           fillColor: Colors.transparent,
+                          animateToInitialPercent: true,
+                          animationDuration: 2000,
+                          animation: true,
                           arcBackgroundColor: Theme.of(context).colorScheme.onSecondary,
                           arcType: ArcType.FULL,
                           progressColor: Theme.of(context).colorScheme.primary,

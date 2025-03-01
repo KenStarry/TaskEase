@@ -84,7 +84,7 @@ class _HomeBoardsSectionState extends State<HomeBoardsSection> {
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color:
-                                    Theme.of(context).colorScheme.onSecondary),
+                                    Theme.of(context).colorScheme.onPrimary),
                             child: Center(
                               child: SvgPicture.asset(
                                 "assets/images/icons/grid.svg",
@@ -120,7 +120,7 @@ class _HomeBoardsSectionState extends State<HomeBoardsSection> {
                             width: double.infinity,
                             height: double.infinity,
                             decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.onPrimary,
+                                color: Theme.of(context).colorScheme.onSecondary,
                                 borderRadius: BorderRadius.circular(24)),
                             child: constraints.maxWidth > constraints.maxHeight
                                 ? Padding(
