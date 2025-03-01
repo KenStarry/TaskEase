@@ -25,13 +25,15 @@ class _TaskRadioState extends State<TaskRadio> with TickerProviderStateMixin {
     tickController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      isSelected.value = widget.isActive;
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   isSelected.value = widget.isActive;
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
+    isSelected.value = widget.isActive;
+
     return GestureDetector(
       onTap: () async {
         isSelected.value = !isSelected.value;

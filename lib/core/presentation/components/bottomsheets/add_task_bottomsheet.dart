@@ -25,7 +25,7 @@ class AddTaskBottomsheet extends StatefulWidget {
 class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
   final TextEditingController taskController = TextEditingController();
 
-  ValueNotifier<DateTime?> pickedDate = ValueNotifier(null);
+  ValueNotifier<DateTime?> pickedDate = ValueNotifier(DateTime.now());
   ValueNotifier<BoardModel?> pickedBoard = ValueNotifier(null);
 
   List<TextEditingController> subTasks = [];

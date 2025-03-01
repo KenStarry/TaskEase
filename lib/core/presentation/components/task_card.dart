@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task_ease/core/model/task_model.dart';
@@ -18,7 +19,9 @@ class TaskCard extends StatefulWidget {
   State<TaskCard> createState() => _TaskCardState();
 }
 
-class _TaskCardState extends State<TaskCard> {
+class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
+  AnimationController? taskCardAnimation;
+
   Widget _taskCardContent(
           {required String asset,
           bool isSelected = false,
@@ -65,25 +68,62 @@ class _TaskCardState extends State<TaskCard> {
         spacing: 16,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TaskRadio(
-            size: isSubtask ? Size(20, 20) : null,
-            isActive: task.taskIsComplete ?? false,
-            onTap: (selected) {
-              final updatedTaskModel = task.copyWith(taskIsComplete: selected);
-
-              /// Update this Id to hive as completed
-              BlocProvider.of<UpdateTaskBloc>(context)
-                  .add(UpdateTaskInHiveEvent(updatedTask: updatedTaskModel));
-
-              setState(() {
-                if (selected) {
-                  selectedId.add(task.taskId ?? '');
-                } else {
-                  selectedId.removeWhere((id) => id == task.taskId);
-                }
-              });
+          BlocListener<UpdateTaskBloc, UpdateTaskState>(
+            listener: (context, updateTaskState) {
+              if (updateTaskState is UpdateTaskSuccess) {
+                /// Update Task in all tasks bloc
+                BlocProvider.of<TasksBloc>(context).add(UpdateTasksInBlocEvent(
+                    updatedTask: updateTaskState.updatedTask));
+              }
             },
-          ),
+            child: TaskRadio(
+              size: isSubtask ? Size(20, 20) : Size(22, 22),
+              isActive: task.taskIsComplete ?? false,
+              onTap: (selected) {
+                final updatedTaskModel =
+                    task.copyWith(taskIsComplete: selected);
+
+                /// Update this Id to hive as completed
+                BlocProvider.of<UpdateTaskBloc>(context)
+                    .add(UpdateTaskInHiveEvent(updatedTask: updatedTaskModel));
+
+                // if (selected) {
+                //   taskCardAnimation!.forward();
+                // }
+
+                setState(() {
+                  if (selected) {
+                    selectedId.add(task.taskId ?? '');
+                  } else {
+                    selectedId.removeWhere((id) => id == task.taskId);
+                  }
+                });
+              },
+            ),
+          )
+              .animate(
+                  autoPlay: false,
+                  onInit: (controller) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        taskCardAnimation = controller;
+                      });
+                    });
+                  },
+                  delay: Duration(milliseconds: 500))
+              .moveY(
+                  begin: 0,
+                  end: 20,
+                  duration: Duration(milliseconds: 350),
+                  curve: Curves.ease)
+              .then()
+              .moveY(
+                  begin: 0,
+                  end: -50,
+                  duration: Duration(milliseconds: 350),
+                  curve: Curves.ease)
+              .fadeOut(
+                  duration: Duration(milliseconds: 600), curve: Curves.ease),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,10 +133,12 @@ class _TaskCardState extends State<TaskCard> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                      decoration: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId)
+                      decoration: (task.taskIsComplete ?? false) ||
+                              selectedId.contains(task.taskId)
                           ? TextDecoration.lineThrough
                           : null,
-                      decorationColor: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId)
+                      decorationColor: (task.taskIsComplete ?? false) ||
+                              selectedId.contains(task.taskId)
                           ? Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -108,7 +150,8 @@ class _TaskCardState extends State<TaskCard> {
                           Theme.of(context).textTheme.bodyMedium!.fontSize,
                       fontWeight:
                           Theme.of(context).textTheme.bodyMedium!.fontWeight,
-                      color: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId)
+                      color: (task.taskIsComplete ?? false) ||
+                              selectedId.contains(task.taskId)
                           ? Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -125,20 +168,23 @@ class _TaskCardState extends State<TaskCard> {
                         children: [
                           _taskCardContent(
                               asset: "assets/images/icons/calendar.svg",
-                              isSelected: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId),
+                              isSelected: (task.taskIsComplete ?? false) ||
+                                  selectedId.contains(task.taskId),
                               content: (task.taskDate
                                       ?.toString()
                                       .formatDate(format: "dd MMM, yy")) ??
                                   "No date"),
                           _taskCardContent(
                               asset: "assets/images/icons/priority.svg",
-                              isSelected: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId),
+                              isSelected: (task.taskIsComplete ?? false) ||
+                                  selectedId.contains(task.taskId),
                               content: "1"),
                           Visibility(
                             visible: tasksState is TasksSuccess && hasSubtasks,
                             child: _taskCardContent(
                                 asset: "assets/images/icons/subtask.svg",
-                                isSelected: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId),
+                                isSelected: (task.taskIsComplete ?? false) ||
+                                    selectedId.contains(task.taskId),
                                 content: tasksState is TasksSuccess
                                     ? tasksState.allTasks
                                         .where((task) =>
@@ -154,9 +200,39 @@ class _TaskCardState extends State<TaskCard> {
                     : SizedBox.shrink()
               ],
             ),
-          ),
+          )
+              .animate(
+                  autoPlay: false,
+                  onInit: (controller) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      setState(() {
+                        taskCardAnimation = controller;
+                      });
+                    });
+                  })
+              .moveY(
+                  begin: 0,
+                  end: 20,
+                  duration: Duration(milliseconds: 250),
+                  curve: Curves.ease)
+              .then()
+              .moveY(
+                  begin: 0,
+                  end: -50,
+                  duration: Duration(milliseconds: 250),
+                  curve: Curves.ease)
+              .fadeOut(
+                  duration: Duration(milliseconds: 500), curve: Curves.ease),
         ],
       );
+
+  @override
+  void initState() {
+    super.initState();
+
+    taskCardAnimation =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +249,7 @@ class _TaskCardState extends State<TaskCard> {
         final allSubtasksForThisId = tasksState is TasksSuccess
             ? tasksState.allTasks
                 .where((task) =>
-                    task.taskParentId != null &&
+                    task.taskParentId != null && !(task.taskIsComplete ?? false) &&
                     task.taskParentId == widget.task.taskId)
                 .toList()
             : [];
@@ -196,8 +272,8 @@ class _TaskCardState extends State<TaskCard> {
                   visible: hasSubtasks,
                   child: Container(
                     width: double.infinity,
-                    margin: const EdgeInsets.only(top: 20),
-                    padding: const EdgeInsets.only(left: 41),
+                    margin: allSubtasksForThisId.isEmpty ? null : const EdgeInsets.only(top: 20),
+                    padding: allSubtasksForThisId.isEmpty ? null : const EdgeInsets.only(left: 41),
                     child: Column(
                       spacing: 12,
                       children: allSubtasksForThisId

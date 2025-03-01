@@ -110,7 +110,7 @@ class _HomeTasksSectionState extends State<HomeTasksSection> {
                     ],
                   ),
                 ),
-                todayTasks.isEmpty
+                todayTasks.where((task) => !(task.taskIsComplete ?? false)).isEmpty
                     ? SliverToBoxAdapter(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -154,8 +154,8 @@ class _HomeTasksSectionState extends State<HomeTasksSection> {
                     : SliverList(
                         delegate: SliverChildBuilderDelegate(
                             (context, index) => TaskCard(
-                                task: todayTasks.take(3).toList()[index]),
-                            childCount: todayTasks.take(3).length)),
+                                task: todayTasks.where((task) => !(task.taskIsComplete ?? false)).take(3).toList()[index]),
+                            childCount: todayTasks.where((task) => !(task.taskIsComplete ?? false)).take(3).length)),
 
                 //  see All
                 SliverToBoxAdapter(
