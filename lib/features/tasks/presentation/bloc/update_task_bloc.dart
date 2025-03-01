@@ -24,7 +24,7 @@ class UpdateTaskBloc extends Bloc<UpdateTaskEvent, UpdateTaskState> {
       await taskUseCases.updateTaskInHive
           .call(updatedTask: event.updatedTask)
           .then((allTasks) {
-        emit(UpdateTaskSuccess());
+        emit(UpdateTaskSuccess(updatedTask: event.updatedTask));
       });
     } catch (error) {
       emit(UpdateTaskFailed(errorMessage: error.toString()));

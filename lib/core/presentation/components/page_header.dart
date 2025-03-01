@@ -1,6 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:task_ease/core/presentation/components/popups/layout_popover.dart';
+import 'package:task_ease/features/tasks/presentation/bloc/task_layout_bloc.dart';
+
+import '../../../features/tasks/domain/use_cases/task_use_cases.dart';
+import '../../di/di.dart';
 
 class DashHeader extends StatelessWidget {
   const DashHeader({super.key});
@@ -27,8 +33,9 @@ class DashHeader extends StatelessWidget {
               Container(
                 width: 35,
                 height: 35,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.onSecondary),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.onSecondary),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
                   child: CachedNetworkImage(
@@ -121,19 +128,38 @@ class TasksHeader extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight:
-                      Theme.of(context).textTheme.titleLarge!.fontWeight,
+                          Theme.of(context).textTheme.titleLarge!.fontWeight,
                       color: Theme.of(context).textTheme.titleLarge!.color,
                     )),
               ),
               IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                      "assets/images/icons/filter.svg",
-                      width: 28,
-                      height: 28,
+                  onPressed: () {
+                    final taskUseCases = locator.get<TaskUseCases>();
+
+                    taskUseCases.clearTasksInHive.call();
+                  },
+                  icon: SvgPicture.asset("assets/images/icons/filter.svg",
+                      width: 26,
+                      height: 26,
                       colorFilter: ColorFilter.mode(
                           Theme.of(context).textTheme.bodyMedium!.color!,
-                          BlendMode.srcIn)))
+                          BlendMode.srcIn))),
+              Builder(builder: (layoutContext) {
+                return IconButton(
+                    onPressed: () {
+                      showLayoutPopOver(layoutContext, onSelected: (layout) {
+                        //  populate this to bloc
+                        BlocProvider.of<TaskLayoutBloc>(context)
+                            .add(ToggleTaskLayoutEvent(layout: layout));
+                      });
+                    },
+                    icon: SvgPicture.asset("assets/images/icons/layout.svg",
+                        width: 26,
+                        height: 26,
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context).textTheme.bodyMedium!.color!,
+                            BlendMode.srcIn)));
+              })
             ],
           )
         ],
@@ -173,14 +199,13 @@ class CalendarHeader extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight:
-                      Theme.of(context).textTheme.titleLarge!.fontWeight,
+                          Theme.of(context).textTheme.titleLarge!.fontWeight,
                       color: Theme.of(context).textTheme.titleLarge!.color,
                     )),
               ),
               IconButton(
                   onPressed: () {},
-                  icon: SvgPicture.asset(
-                      "assets/images/icons/filter.svg",
+                  icon: SvgPicture.asset("assets/images/icons/filter.svg",
                       width: 28,
                       height: 28,
                       colorFilter: ColorFilter.mode(
