@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_extend/flutter_extend.dart';
 import 'package:task_ease/core/presentation/components/page_header.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/tasks_bloc.dart';
@@ -54,8 +53,9 @@ class _TasksPageState extends State<TasksPage> {
                               .toSet()
                               .toList()
                           : [],
-                      tasks:
-                          tasksState is TasksSuccess ? tasksState.allTasks : []),
+                      tasks: tasksState is TasksSuccess
+                          ? tasksState.allTasks
+                          : []),
                   SliverToBoxAdapter(child: SizedBox(height: 100))
                 ],
               ),

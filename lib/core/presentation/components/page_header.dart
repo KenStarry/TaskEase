@@ -141,3 +141,55 @@ class TasksHeader extends StatelessWidget {
     );
   }
 }
+
+class CalendarHeader extends StatelessWidget {
+  const CalendarHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 50),
+      decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(32),
+              bottomLeft: Radius.circular(32))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 16,
+        children: [
+          SvgPicture.asset("assets/images/icons/calendar.svg",
+              width: 30,
+              height: 30,
+              colorFilter: ColorFilter.mode(
+                  Theme.of(context).textTheme.bodySmall!.color!,
+                  BlendMode.srcIn)),
+          Row(
+            children: [
+              Expanded(
+                child: Text("Calendar",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight:
+                      Theme.of(context).textTheme.titleLarge!.fontWeight,
+                      color: Theme.of(context).textTheme.titleLarge!.color,
+                    )),
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                      "assets/images/icons/filter.svg",
+                      width: 28,
+                      height: 28,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).textTheme.bodyMedium!.color!,
+                          BlendMode.srcIn)))
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}

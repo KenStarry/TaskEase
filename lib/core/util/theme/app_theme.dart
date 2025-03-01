@@ -13,7 +13,7 @@ class AppTheme {
             secondary: secondaryColor,
             onSecondary: backgroundColorLightSecondary,
             tertiary: blackColor,
-            onTertiary: whiteColor,
+            onTertiary: blackColor,
             primaryContainer: primaryColor,
             onPrimaryContainer: whiteColor,
             error: Colors.red,
