@@ -22,6 +22,18 @@ mixin TasksMixin {
     box.put(updatedTask.taskId, updatedTask);
   }
 
+  Future<void> deleteTaskFromHive({required String taskId}) async {
+    final box = await Hive.openBox(tasksBox);
+
+    await box.delete(taskId);
+  }
+
+  Future<void> clearAllTasksInHive() async {
+    final box = await Hive.openBox(tasksBox);
+
+    await box.clear();
+  }
+
   Future<List<TaskModel>> fetchTasksHive() async {
     final box = await Hive.openBox(tasksBox);
     final allTasks = box.values.toList().cast<TaskModel>();
