@@ -11,21 +11,38 @@ part 'tasks_event.dart';
 part 'tasks_state.dart';
 
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
-  TasksBloc() : super(TasksInitial()) {
+  TasksBloc() : super(TasksInitial(allTasks: [])) {
     on<FetchAllTasksEvent>(_fetchTasksEvent);
+    on<UpdateTasksInBlocEvent>(_updateTasksEvent);
   }
 
   Future<void> _fetchTasksEvent(
       FetchAllTasksEvent event, Emitter<TasksState> emit) async {
     try {
-      emit(TasksLoading());
+      emit(TasksLoading(allTasks: state.allTasks));
       final taskUseCases = locator.get<TaskUseCases>();
 
       await taskUseCases.fetchTasksHive.call().then((allTasks) {
         emit(TasksSuccess(allTasks: allTasks));
       });
     } catch (error) {
-      emit(TasksFailed(errorMessage: error.toString()));
+      emit(TasksFailed(errorMessage: error.toString(), allTasks: []));
+    }
+  }
+
+  Future<void> _updateTasksEvent(
+      UpdateTasksInBlocEvent event, Emitter<TasksState> emit) async {
+    try {
+      emit(TasksLoading(allTasks: state.allTasks));
+      final currentTasks = state.allTasks;
+
+      currentTasks[currentTasks
+              .indexWhere((task) => task.taskId == event.updatedTask.taskId)] =
+          event.updatedTask;
+
+      emit(TasksSuccess(allTasks: currentTasks));
+    } catch (error) {
+      emit(TasksFailed(errorMessage: error.toString(), allTasks: []));
     }
   }
 }

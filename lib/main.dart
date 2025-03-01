@@ -8,6 +8,7 @@ import 'package:task_ease/core/model/task_model.dart';
 import 'package:task_ease/core/util/constants/hive_constants.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/tasks_bloc.dart';
+import 'package:task_ease/features/tasks/presentation/bloc/update_task_bloc.dart';
 
 import 'core/util/routing/app_route.dart';
 import 'core/util/theme/app_theme.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AddTasksBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UpdateTaskBloc(),
         ),
       ],
       child: MaterialApp.router(

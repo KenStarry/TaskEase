@@ -14,8 +14,13 @@ final class UpdateTaskLoading extends UpdateTaskState {
 }
 
 final class UpdateTaskSuccess extends UpdateTaskState {
+
+  final TaskModel updatedTask;
+
+  UpdateTaskSuccess({required this.updatedTask});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [updatedTask];
 }
 
 final class UpdateTaskFailed extends UpdateTaskState {
