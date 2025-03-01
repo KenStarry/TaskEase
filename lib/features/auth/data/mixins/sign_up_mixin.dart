@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_ease/core/di/di.dart';
 
-mixin LoginMixin {
+mixin SignUpMixin {
   final auth = locator.get<FirebaseAuth>();
 
-  /// Sign In user with email and password
-  Future<void> signInWithEmailAndPassword({
+  /// Create user with email and password
+  Future<void> createUserWithEmailAndPassword({
     required String email,
     required String password,
   }) async =>
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
 }
