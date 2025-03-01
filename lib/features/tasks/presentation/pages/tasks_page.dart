@@ -47,14 +47,14 @@ class _TasksPageState extends State<TasksPage> {
                   SliverToBoxAdapter(child: TasksHeader()),
                   ...tasksByDate(context,
                       allDates: tasksState is TasksSuccess
-                          ? tasksState.allTasks
+                          ? tasksState.allTasks.where((task) => !(task.taskIsComplete ?? false))
                               .map((task) => task.taskDate
                                   ?.formatDate(format: 'dd LLL yyyy'))
                               .toSet()
                               .toList()
                           : [],
                       tasks: tasksState is TasksSuccess
-                          ? tasksState.allTasks
+                          ? tasksState.allTasks.where((task) => !(task.taskIsComplete ?? false)).toList()
                           : []),
                   SliverToBoxAdapter(child: SizedBox(height: 100))
                 ],
