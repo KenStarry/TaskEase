@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "127471265186",
+    "project_id": "taskease-34b09",
+    "storage_bucket": "taskease-34b09.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127471265186:android:19a08ed05eb5d5f0a6fefb",
+        "android_client_info": {
+          "package_name": "com.kenstarry.task_ease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw515O6iK6ZxzD1LWvnZryIjOhm7ZSUYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

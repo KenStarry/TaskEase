@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -10,12 +11,16 @@ import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/task_layout_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/tasks_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/update_task_bloc.dart';
+import 'package:task_ease/firebase_options.dart';
 
 import 'core/util/routing/app_route.dart';
 import 'core/util/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   final dir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(dir.path);
 
