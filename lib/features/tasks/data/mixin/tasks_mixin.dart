@@ -16,6 +16,12 @@ mixin TasksMixin {
     return allTasks;
   }
 
+  Future<void> updateTaskInHive({required TaskModel updatedTask}) async {
+    final box = await Hive.openBox(tasksBox);
+
+    box.put(updatedTask.taskId, updatedTask);
+  }
+
   Future<List<TaskModel>> fetchTasksHive() async {
     final box = await Hive.openBox(tasksBox);
     final allTasks = box.values.toList().cast<TaskModel>();

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:task_ease/core/model/task_model.dart';
 import 'package:task_ease/core/presentation/components/task_radio.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
+import 'package:task_ease/features/tasks/presentation/bloc/update_task_bloc.dart';
 
 import '../../../features/tasks/presentation/bloc/tasks_bloc.dart';
 
@@ -18,33 +19,39 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
-  Widget _taskCardContent({required String asset, required String content}) =>
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        spacing: 8,
-        children: [
-          SvgPicture.asset(asset,
-              width: 16,
-              height: 16,
-              colorFilter: ColorFilter.mode(
-                  Theme.of(context)
+  Widget _taskCardContent(
+          {required String asset,
+          bool isSelected = false,
+          required String content}) =>
+      Opacity(
+        opacity: isSelected ? 0.4 : 1,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          spacing: 8,
+          children: [
+            SvgPicture.asset(asset,
+                width: 16,
+                height: 16,
+                colorFilter: ColorFilter.mode(
+                    Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .color!
+                        .withValues(alpha: 0.6),
+                    BlendMode.srcIn)),
+            Text(content,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
+                  fontWeight: Theme.of(context).textTheme.bodySmall!.fontWeight,
+                  color: Theme.of(context)
                       .textTheme
-                      .titleSmall!
+                      .bodySmall!
                       .color!
                       .withValues(alpha: 0.6),
-                  BlendMode.srcIn)),
-          Text(content,
-              style: TextStyle(
-                fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
-                fontWeight: Theme.of(context).textTheme.bodySmall!.fontWeight,
-                color: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .color!
-                    .withValues(alpha: 0.6),
-              ))
-        ],
+                ))
+          ],
+        ),
       );
   List<String> selectedId = [];
 
@@ -60,8 +67,14 @@ class _TaskCardState extends State<TaskCard> {
         children: [
           TaskRadio(
             size: isSubtask ? Size(20, 20) : null,
+            isActive: task.taskIsComplete ?? false,
             onTap: (selected) {
-              /// Update this Id to hive
+              final updatedTaskModel = task.copyWith(taskIsComplete: selected);
+
+              /// Update this Id to hive as completed
+              BlocProvider.of<UpdateTaskBloc>(context)
+                  .add(UpdateTaskInHiveEvent(updatedTask: updatedTaskModel));
+
               setState(() {
                 if (selected) {
                   selectedId.add(task.taskId ?? '');
@@ -80,21 +93,28 @@ class _TaskCardState extends State<TaskCard> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                      decoration:
-                      selectedId.contains(task.taskId) ? TextDecoration.lineThrough : null,
-                      decorationColor:
-                      Theme.of(context).textTheme.bodyMedium!.color,
+                      decoration: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId)
+                          ? TextDecoration.lineThrough
+                          : null,
+                      decorationColor: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId)
+                          ? Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .color!
+                              .withValues(alpha: 0.4)
+                          : Theme.of(context).textTheme.bodyMedium!.color,
                       decorationThickness: 2,
-                      fontSize: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .fontSize,
-                      fontWeight: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .fontWeight,
-                      color:
-                      Theme.of(context).textTheme.bodyMedium!.color,
+                      fontSize:
+                          Theme.of(context).textTheme.bodyMedium!.fontSize,
+                      fontWeight:
+                          Theme.of(context).textTheme.bodyMedium!.fontWeight,
+                      color: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId)
+                          ? Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .color!
+                              .withValues(alpha: 0.4)
+                          : Theme.of(context).textTheme.bodyMedium!.color,
                     )),
                 showMoreDetails ? SizedBox(height: 8) : SizedBox.shrink(),
                 showMoreDetails
@@ -105,17 +125,20 @@ class _TaskCardState extends State<TaskCard> {
                         children: [
                           _taskCardContent(
                               asset: "assets/images/icons/calendar.svg",
+                              isSelected: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId),
                               content: (task.taskDate
                                       ?.toString()
                                       .formatDate(format: "dd MMM, yy")) ??
                                   "No date"),
                           _taskCardContent(
                               asset: "assets/images/icons/priority.svg",
+                              isSelected: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId),
                               content: "1"),
                           Visibility(
                             visible: tasksState is TasksSuccess && hasSubtasks,
                             child: _taskCardContent(
                                 asset: "assets/images/icons/subtask.svg",
+                                isSelected: (task.taskIsComplete ?? false) || selectedId.contains(task.taskId),
                                 content: tasksState is TasksSuccess
                                     ? tasksState.allTasks
                                         .where((task) =>

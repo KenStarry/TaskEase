@@ -7,6 +7,7 @@ class TaskRadio extends StatefulWidget {
   final bool isActive;
   final Size? size;
   final Function(bool selected)? onTap;
+
   const TaskRadio({super.key, this.size, this.isActive = false, this.onTap});
 
   @override
@@ -23,6 +24,10 @@ class _TaskRadioState extends State<TaskRadio> with TickerProviderStateMixin {
 
     tickController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      isSelected.value = widget.isActive;
+    });
   }
 
   @override
