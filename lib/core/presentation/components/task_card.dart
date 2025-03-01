@@ -46,6 +46,7 @@ class _TaskCardState extends State<TaskCard> {
               ))
         ],
       );
+  List<String> selectedId = [];
 
   Widget card(
           {required TaskModel task,
@@ -59,6 +60,16 @@ class _TaskCardState extends State<TaskCard> {
         children: [
           TaskRadio(
             size: isSubtask ? Size(20, 20) : null,
+            onTap: (selected) {
+              /// Update this Id to hive
+              setState(() {
+                if (selected) {
+                  selectedId.add(task.taskId ?? '');
+                } else {
+                  selectedId.removeWhere((id) => id == task.taskId);
+                }
+              });
+            },
           ),
           Expanded(
             child: Column(
@@ -68,7 +79,23 @@ class _TaskCardState extends State<TaskCard> {
                 Text(task.taskName ?? "",
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.bodyMedium),
+                    style: TextStyle(
+                      decoration:
+                      selectedId.contains(task.taskId) ? TextDecoration.lineThrough : null,
+                      decorationColor:
+                      Theme.of(context).textTheme.bodyMedium!.color,
+                      decorationThickness: 2,
+                      fontSize: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .fontSize,
+                      fontWeight: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .fontWeight,
+                      color:
+                      Theme.of(context).textTheme.bodyMedium!.color,
+                    )),
                 showMoreDetails ? SizedBox(height: 8) : SizedBox.shrink(),
                 showMoreDetails
                     ? Row(
