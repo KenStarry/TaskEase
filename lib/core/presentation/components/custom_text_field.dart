@@ -102,7 +102,7 @@ class CustomTextField extends StatelessWidget {
           filled: true,
           fillColor: filledColor ?? Colors.transparent,
           hintText: hintText,
-          errorMaxLines: 2,
+          errorMaxLines: null,
           errorStyle: TextStyle(
             fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,
             fontWeight: Theme.of(context).textTheme.bodyLarge!.fontWeight,

@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:task_ease/core/di/di.dart';
 import 'package:task_ease/core/model/task_model.dart';
 import 'package:task_ease/core/util/constants/hive_constants.dart';
+import 'package:task_ease/features/auth/presentation/bloc/sign_up_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/task_layout_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/tasks_bloc.dart';
@@ -43,7 +44,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LoginBloc(),
-        ),BlocProvider(
+        ),
+        BlocProvider(
+          create: (context) => SignUpBloc(),
+        ),
+        BlocProvider(
           create: (context) => TasksBloc(),
         ),
         BlocProvider(
