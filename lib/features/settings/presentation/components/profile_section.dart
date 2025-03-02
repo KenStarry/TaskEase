@@ -19,7 +19,7 @@ class _ProfileSectionState extends State<ProfileSection> {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, userState) {
         return SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 16),
           sliver: MultiSliver(children: [
             SliverToBoxAdapter(
                 child: Column(
@@ -61,6 +61,62 @@ class _ProfileSectionState extends State<ProfileSection> {
                     Text(
                         userState is UserSuccess ? userState.user.userName : 'User',
                         style: Theme.of(context).textTheme.titleMedium),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                          },
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color:
+                              Theme.of(context).colorScheme.onSecondary,
+                            ),
+                            child: UnconstrainedBox(
+                              child: SvgPicture.asset(
+                                "assets/images/icons/backup.svg",
+                                width: 25,
+                                height: 25,
+                                colorFilter: ColorFilter.mode(
+                                    Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                    BlendMode.srcIn),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        GestureDetector(
+                          onTap: () {
+                          },
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color:
+                              Theme.of(context).colorScheme.onSecondary,
+                            ),
+                            child: UnconstrainedBox(
+                              child: SvgPicture.asset(
+                                "assets/images/icons/moon.svg",
+                                width: 25,
+                                height: 25,
+                                colorFilter: ColorFilter.mode(
+                                    Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                    BlendMode.srcIn),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ))
           ]),

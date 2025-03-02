@@ -113,6 +113,7 @@ class _OnboardingState extends State<Onboarding> {
                       spacing: 24,
                       children: [
                         Row(
+                          spacing: 8,
                           children: [
                             Expanded(
                               child: Divider(
@@ -122,7 +123,6 @@ class _OnboardingState extends State<Onboarding> {
                                     .color!
                                     .withValues(alpha: 0.5),
                                 thickness: 2,
-                                endIndent: 8,
                               ),
                             ),
                             Expanded(
@@ -138,7 +138,6 @@ class _OnboardingState extends State<Onboarding> {
                                     .color!
                                     .withValues(alpha: 0.5),
                                 thickness: 2,
-                                endIndent: 8,
                               ),
                             ),
                           ],

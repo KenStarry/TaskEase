@@ -22,7 +22,7 @@ final GoRouter appRouter = GoRouter(
     }
 
     if (isLoggingIn) {
-      return '/home';
+      return '/settings';
     }
 
     return null;

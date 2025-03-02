@@ -34,9 +34,9 @@ class _HomePageState extends State<HomePage> {
 
             HomeTasksSection(),
 
-            SliverToBoxAdapter(child: SizedBox(height: 24)),
-
-            HomeBoardsSection(),
+            // SliverToBoxAdapter(child: SizedBox(height: 24)),
+            //
+            // HomeBoardsSection(),
 
             SliverToBoxAdapter(child: SizedBox(height: 150)),
           ],

@@ -34,37 +34,17 @@ class DashHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconButton(
-                  onPressed: () {
-                    AuthRepositoryImpl().signOut();
-                  },
-                  icon: SvgPicture.asset("assets/images/icons/hamburger.svg",
-                      width: 28,
-                      height: 28,
-                      colorFilter: ColorFilter.mode(
-                          Theme.of(context).textTheme.bodySmall!.color!,
-                          BlendMode.srcIn))),
-
-
-              Row(
-                children: [
-                  // Text("Vivianne"),
-                  IconButton(
-                      onPressed: () {
-                        AuthRepositoryImpl().signOut();
-                      },
-                      icon: SvgPicture.asset("assets/images/icons/share.svg",
-                          width: 28,
-                          height: 28,
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context).textTheme.bodySmall!.color!,
-                              BlendMode.srcIn))),
-                  //  User Avatar
-                  BlocBuilder<UserBloc, UserState>(
-                    builder: (context, userState) {
-                      return Container(
-                        width: 35,
-                        height: 35,
+              //  User Avatar
+              BlocBuilder<UserBloc, UserState>(
+                builder: (context, userState) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        margin: const EdgeInsets.only(left: 16),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Theme.of(context).colorScheme.onSecondary),
@@ -91,17 +71,36 @@ class DashHeader extends StatelessWidget {
                                     BlendMode.srcIn)),
                           ),
                         ),
-                      );
-                    },
-                  ),
-                  // IconButton(
-                  //     onPressed: () {},
-                  //     icon: SvgPicture.asset("assets/images/icons/calendar.svg",
-                  //         width: 28,
-                  //         height: 28,
-                  //         colorFilter: ColorFilter.mode(
-                  //             Theme.of(context).textTheme.bodySmall!.color!,
-                  //             BlendMode.srcIn))),
+                      ),
+
+                      userState is UserSuccess ? SizedBox(width: 16) : SizedBox.shrink(),
+
+                      Text(userState is UserSuccess ? "Hey, ${userState.user.userName.split(" ")[0]}👋" : "",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: Theme.of(context).textTheme.bodySmall!.fontWeight,
+                          color: Theme.of(context).textTheme.bodySmall!.color,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+
+
+              Row(
+                children: [
+                  // Text("Vivianne"),
+                  IconButton(
+                      onPressed: () {
+                        AuthRepositoryImpl().signOut();
+                      },
+                      icon: SvgPicture.asset("assets/images/icons/share.svg",
+                          width: 28,
+                          height: 28,
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).textTheme.bodySmall!.color!,
+                              BlendMode.srcIn))),
                 ],
               ),
             ],
