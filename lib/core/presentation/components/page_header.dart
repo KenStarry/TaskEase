@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task_ease/core/presentation/components/popups/layout_popover.dart';
+import 'package:task_ease/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/task_layout_bloc.dart';
 
 import '../../../features/tasks/domain/use_cases/task_use_cases.dart';
@@ -50,7 +51,9 @@ class DashHeader extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        AuthRepositoryImpl().signOut();
+                      },
                       icon: SvgPicture.asset("assets/images/icons/share.svg",
                           width: 28,
                           height: 28,
