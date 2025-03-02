@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:task_ease/core/presentation/components/bottomsheets/forgot_password_bottomsheet.dart';
 import 'package:task_ease/core/presentation/components/custom_text_field.dart';
 import 'package:task_ease/core/presentation/components/snackbars/show_error_snackbar.dart';
 import 'package:task_ease/core/util/theme/colors.dart';
@@ -148,7 +149,11 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(context: context,
+                                isScrollControlled: true,
+                                builder: (context) => ForgotPasswordBottomsheet());
+                          },
                           style: TextButton.styleFrom(padding: EdgeInsets.zero),
                           child: Text("Forgot password"))
                     ],
