@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:popover/popover.dart';
+import 'package:task_ease/core/presentation/components/popups/calendar_popover.dart';
 import 'package:task_ease/core/presentation/components/popups/layout_popover.dart';
 import 'package:task_ease/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/task_layout_bloc.dart';
@@ -270,13 +272,17 @@ class BoardsHeader extends StatelessWidget {
 }
 
 class CalendarHeader extends StatelessWidget {
-  const CalendarHeader({super.key});
+
+  final DateTime? currentDate;
+  final void Function(List<DateTime>)? onValueChanged;
+
+  const CalendarHeader({super.key, required this.currentDate, required this.onValueChanged});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 50),
+      padding: const EdgeInsets.only(left: 16, top: 50),
       decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.only(
@@ -304,14 +310,31 @@ class CalendarHeader extends StatelessWidget {
                       color: Theme.of(context).textTheme.titleLarge!.color,
                     )),
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset("assets/images/icons/filter.svg",
-                      width: 28,
-                      height: 28,
-                      colorFilter: ColorFilter.mode(
-                          Theme.of(context).textTheme.bodyMedium!.color!,
-                          BlendMode.srcIn)))
+              Builder(builder: (calendarContext) {
+                return IconButton(
+                    onPressed: () {
+                      showCalendarPopOver(calendarContext,
+                          selectedDateTime: currentDate,
+                          direction: PopoverDirection.bottom,
+                          onValueChanged: onValueChanged);
+                    },
+                    icon: Row(
+                      spacing: 8,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/images/icons/calendar.svg",
+                          width: 24,
+                          height: 24,
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onTertiary,
+                              BlendMode.srcIn),
+                        ),
+                        Icon(Icons.arrow_drop_down_rounded,
+                            size: 24,
+                            color: Theme.of(context).colorScheme.onTertiary)
+                      ],
+                    ));
+              })
             ],
           )
         ],

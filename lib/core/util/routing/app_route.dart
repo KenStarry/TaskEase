@@ -39,7 +39,7 @@ final GoRouter appRouter = GoRouter(
 
     ...onboardingRoutes,
 
-    calendarRoute,
+    // calendarRoute,
 
     sharedRoute
   ],

@@ -6,7 +6,7 @@ import 'package:task_ease/features/settings/presentation/pages/settings_page.dar
 import 'package:task_ease/features/shared/presentation/pages/shared_page.dart';
 import 'package:task_ease/features/tasks/presentation/pages/tasks_page.dart';
 
-final dashboardRoutes = [homeRoute, tasksRoute, boardsRoute, settingsRoute];
+final dashboardRoutes = [homeRoute, tasksRoute, calendarRoute, settingsRoute];
 
 final homeRoute = GoRoute(
     path: "/home", name: "home", builder: (context, state) => HomePage());

@@ -47,7 +47,16 @@ class _CalendarViewPageState extends State<CalendarViewPage> {
         height: double.infinity,
         child: Column(
           children: [
-            CalendarHeader(),
+            CalendarHeader(
+              currentDate: currentDate,
+              onValueChanged: (pickedDate) {
+                setState(() {
+                  currentDate = pickedDate[0] ?? currentDate;
+                });
+                controller.animateToDate(pickedDate[0]);
+                Navigator.pop(context);
+              },
+            ),
             const SizedBox(height: 24),
             Container(
               width: double.infinity,
@@ -137,37 +146,6 @@ class _CalendarViewPageState extends State<CalendarViewPage> {
                           ),
                         ],
                       )),
-                  Builder(builder: (calendarContext) {
-                    return IconButton(
-                        onPressed: () {
-                          showCalendarPopOver(calendarContext,
-                              selectedDateTime: currentDate,
-                              direction: PopoverDirection.bottom,
-                              onValueChanged: (pickedDate) {
-                            setState(() {
-                              currentDate = pickedDate[0] ?? currentDate;
-                            });
-                            controller.animateToDate(pickedDate[0]);
-                            Navigator.pop(context);
-                          });
-                        },
-                        icon: Row(
-                          spacing: 8,
-                          children: [
-                            SvgPicture.asset(
-                              "assets/images/icons/calendar.svg",
-                              width: 24,
-                              height: 24,
-                              colorFilter: ColorFilter.mode(
-                                  Theme.of(context).colorScheme.onTertiary,
-                                  BlendMode.srcIn),
-                            ),
-                            Icon(Icons.arrow_drop_down_rounded,
-                                size: 24,
-                                color: Theme.of(context).colorScheme.onTertiary)
-                          ],
-                        ));
-                  }),
                 ],
               ),
             ),
@@ -244,11 +222,6 @@ class _CalendarViewPageState extends State<CalendarViewPage> {
                                   horizontal: 16, vertical: 16),
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 16),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondary),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,

@@ -33,7 +33,7 @@ class _DashboardState extends State<Dashboard> {
       BottomNavItemModel(title: "Home", asset: "assets/images/icons/home.svg"),
       BottomNavItemModel(title: "Tasks", asset: "assets/images/icons/task.svg"),
       BottomNavItemModel(
-          title: "Boards", asset: "assets/images/icons/board.svg"),
+          title: "Calendar", asset: "assets/images/icons/calendar.svg"),
       BottomNavItemModel(
           title: "Settings", asset: "assets/images/icons/settings.svg"),
     ];
@@ -145,8 +145,8 @@ class _DashboardState extends State<Dashboard> {
                           case 'Tasks':
                             context.pushNamed('tasks');
                             break;
-                          case 'Boards':
-                            context.pushNamed('boards');
+                          case 'Calendar':
+                            context.pushNamed('calendar');
                             break;
                           case 'Settings':
                             context.pushNamed('settings');
