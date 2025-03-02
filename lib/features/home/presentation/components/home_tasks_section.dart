@@ -8,6 +8,7 @@ import 'package:task_ease/core/presentation/components/task_card.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
 import 'package:task_ease/core/util/theme/colors.dart';
 
+import '../../../../core/presentation/components/bottomsheets/view_task_bottomsheet.dart';
 import '../../../tasks/presentation/bloc/tasks_bloc.dart';
 
 class HomeTasksSection extends StatefulWidget {
@@ -154,7 +155,8 @@ class _HomeTasksSectionState extends State<HomeTasksSection> {
                     : SliverList(
                         delegate: SliverChildBuilderDelegate(
                             (context, index) => TaskCard(
-                                task: todayTasks.where((task) => !(task.taskIsComplete ?? false)).take(3).toList()[index]),
+                                task: todayTasks.where((task) => !(task.taskIsComplete ?? false)).take(3).toList()[index],
+                            ),
                             childCount: todayTasks.where((task) => !(task.taskIsComplete ?? false)).take(3).length)),
 
                 //  see All

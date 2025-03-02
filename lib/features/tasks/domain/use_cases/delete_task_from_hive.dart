@@ -6,6 +6,6 @@ import '../../../../core/model/task_model.dart';
 class DeleteTaskFromHive {
   final repo = locator.get<CoreRepositoryImpl>();
 
-  Future<void> call({required String taskId}) async =>
-      await repo.deleteTaskFromHive(taskId: taskId);
+  Future<void> call({required List<String> taskIds}) async =>
+      await repo.deleteTaskFromHive(taskIds: taskIds);
 }

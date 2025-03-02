@@ -14,6 +14,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   TasksBloc() : super(TasksInitial(allTasks: [])) {
     on<FetchAllTasksEvent>(_fetchTasksEvent);
     on<UpdateTasksInBlocEvent>(_updateTasksEvent);
+    on<DeleteTaskFromBlocEvent>(_deleteTaskEvent);
   }
 
   Future<void> _fetchTasksEvent(
@@ -55,6 +56,33 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
       }
 
       emit(TasksSuccess(allTasks: currentTasks));
+    } catch (error) {
+      emit(TasksFailed(errorMessage: error.toString(), allTasks: []));
+    }
+  }
+
+  Future<void> _deleteTaskEvent(
+      DeleteTaskFromBlocEvent event, Emitter<TasksState> emit) async {
+    try {
+      emit(TasksLoading(allTasks: state.allTasks));
+      final currentTasks = state.allTasks;
+      final taskUseCases = locator.get<TaskUseCases>();
+      final allSubtaskIds = currentTasks
+          .where((task) =>
+              task.taskParentId != null && task.taskParentId == event.taskId)
+          .map((task) => task.taskId!)
+          .toList();
+
+      currentTasks.removeWhere((task) => task.taskId == event.taskId);
+
+      for (String subTask in allSubtaskIds) {
+        currentTasks.removeWhere((task) => task.taskId == subTask);
+      }
+
+      await taskUseCases.deleteTaskFromHive
+          .call(taskIds: [event.taskId, ...allSubtaskIds]).then((_) {
+        emit(TasksSuccess(allTasks: currentTasks));
+      });
     } catch (error) {
       emit(TasksFailed(errorMessage: error.toString(), allTasks: []));
     }

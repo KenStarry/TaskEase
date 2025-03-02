@@ -3,6 +3,7 @@ import 'package:sliver_tools/sliver_tools.dart';
 import 'package:task_ease/core/model/task_model.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
 
+import '../../../../../core/presentation/components/bottomsheets/view_task_bottomsheet.dart';
 import '../../../../../core/presentation/components/task_card.dart';
 
 Widget tasksNormal(BuildContext context,

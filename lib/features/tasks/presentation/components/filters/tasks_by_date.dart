@@ -5,6 +5,7 @@ import 'package:task_ease/core/model/task_model.dart';
 import 'package:task_ease/core/util/extensions/string_extensions.dart';
 import 'package:task_ease/core/util/svg/complete_task_svg_parse.dart';
 
+import '../../../../../core/presentation/components/bottomsheets/view_task_bottomsheet.dart';
 import '../../../../../core/presentation/components/task_card.dart';
 
 List<Widget> tasksByDate(BuildContext context,

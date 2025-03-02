@@ -218,7 +218,7 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                   width: 12,
                                   height: 12,
                                   colorFilter: ColorFilter.mode(
-                                      value?.color?.toColor() ?? Theme.of(context).colorScheme.primary,
+                                      value?.color?.formatToColor() ?? Theme.of(context).colorScheme.primary,
                                       BlendMode.srcIn)),
                               Text(value?.name ?? 'No Priority',
                                   style: Theme.of(context).textTheme.bodySmall),
@@ -365,7 +365,11 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  TaskRadio(size: Size(20, 20)),
+                                  ValueListenableBuilder(
+                                    valueListenable: pickedPriority,
+                                    builder: (BuildContext context, TaskPriorityModel? value, Widget? child) => TaskRadio(size: Size(20, 20),
+                                    color: value?.color?.formatToColor()),
+                                  ),
                                   Expanded(
                                     child: CustomTextField(
                                         controller: controller,

@@ -10,3 +10,9 @@ final class UpdateTasksInBlocEvent extends TasksEvent {
 
   UpdateTasksInBlocEvent({required this.updatedTask});
 }
+
+final class DeleteTaskFromBlocEvent extends TasksEvent {
+  final String taskId;
+
+  DeleteTaskFromBlocEvent({required this.taskId});
+}

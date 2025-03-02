@@ -63,7 +63,7 @@ void showPriorityPopOver(BuildContext context,
                           children: [
                             TaskRadio(
                                 size: Size(16, 16),
-                                color: priorities[index].color?.toColor(),
+                                color: priorities[index].color?.formatToColor(),
                                 isActive: false),
                             Expanded(
                               child: Text(

@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 extension StringExtensions on String {
 
-  Color toColor() {
+  Color formatToColor() {
     final buffer = StringBuffer();
     if (length == 6 || length == 7) buffer.write('ff'); // Default alpha to 100%
     buffer.write(replaceFirst('#', ''));
