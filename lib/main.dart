@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:task_ease/core/di/di.dart';
 import 'package:task_ease/core/model/task_model.dart';
 import 'package:task_ease/core/util/constants/hive_constants.dart';
+import 'package:task_ease/features/auth/presentation/bloc/google_sign_in_bloc.dart';
 import 'package:task_ease/features/auth/presentation/bloc/reset_password_bloc.dart';
 import 'package:task_ease/features/auth/presentation/bloc/sign_up_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LoginBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GoogleSignInBloc(),
         ),
         BlocProvider(
           create: (context) => SignUpBloc(),

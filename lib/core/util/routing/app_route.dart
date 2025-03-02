@@ -11,14 +11,14 @@ final AuthNotifier authNotifier = AuthNotifier();
 
 final GoRouter appRouter = GoRouter(
   refreshListenable: authNotifier,
-  initialLocation: "/login",
+  initialLocation: "/onboarding",
   redirect: (context, state) {
     final isAuthenticated = authNotifier.user != null;
-    final isLoggingIn = state.fullPath == '/login';
+    final isLoggingIn = state.fullPath == '/onboarding';
 
     //  Redirect to login if the user is not authenticated
     if (!isAuthenticated) {
-      return isLoggingIn ? null : '/login';
+      return '/onboarding';
     }
 
     if (isLoggingIn) {

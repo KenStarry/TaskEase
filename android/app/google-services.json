@@ -12,7 +12,20 @@
           "package_name": "com.kenstarry.task_ease"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "127471265186-l9bhlsvnbug6gu8pkjsekqj1r7uu2rfm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kenstarry.task_ease",
+            "certificate_hash": "a55604662ef814d9e9a6cc9339b083ae2744dbc2"
+          }
+        },
+        {
+          "client_id": "127471265186-1jqg11v3d5eim7ljco6i77juddvhfipr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDw515O6iK6ZxzD1LWvnZryIjOhm7ZSUYc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127471265186-1jqg11v3d5eim7ljco6i77juddvhfipr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "127471265186-0d4vjrmrplf2ood8ilh43e8i429pkd2i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kenstarry.taskEase"
+              }
+            }
+          ]
         }
       }
     }
