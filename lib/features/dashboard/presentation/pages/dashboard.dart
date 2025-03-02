@@ -3,8 +3,10 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:task_ease/core/presentation/bloc/user_bloc.dart';
 import 'package:task_ease/core/presentation/components/bottomsheets/add_task_bottomsheet.dart';
 import 'package:task_ease/core/util/theme/colors.dart';
 import 'package:task_ease/features/dashboard/presentation/model/bottom_nav_item_model.dart';
@@ -35,6 +37,8 @@ class _DashboardState extends State<Dashboard> {
       BottomNavItemModel(
           title: "Settings", asset: "assets/images/icons/settings.svg"),
     ];
+
+    BlocProvider.of<UserBloc>(context).add(FetchUserEvent());
   }
 
   @override
@@ -51,8 +55,9 @@ class _DashboardState extends State<Dashboard> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: GestureDetector(
-              onTap: (){
-                showModalBottomSheet(context: context,
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
                     isScrollControlled: true,
                     builder: (context) => AddTaskBottomsheet());
               },
@@ -67,7 +72,8 @@ class _DashboardState extends State<Dashboard> {
                   child: SvgPicture.asset("assets/images/icons/add.svg",
                       width: 32,
                       height: 32,
-                      colorFilter: ColorFilter.mode(whiteColor, BlendMode.srcIn)),
+                      colorFilter:
+                          ColorFilter.mode(whiteColor, BlendMode.srcIn)),
                 ),
               ),
             ),

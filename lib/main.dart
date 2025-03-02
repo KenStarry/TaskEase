@@ -6,6 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:task_ease/core/di/di.dart';
 import 'package:task_ease/core/model/task_model.dart';
+import 'package:task_ease/core/presentation/bloc/user_bloc.dart';
 import 'package:task_ease/core/util/constants/hive_constants.dart';
 import 'package:task_ease/features/auth/presentation/bloc/google_sign_in_bloc.dart';
 import 'package:task_ease/features/auth/presentation/bloc/reset_password_bloc.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => UserBloc(),
+        ),
         BlocProvider(
           create: (context) => LoginBloc(),
         ),

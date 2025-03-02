@@ -8,6 +8,7 @@ import 'package:task_ease/features/tasks/presentation/bloc/task_layout_bloc.dart
 
 import '../../../features/tasks/domain/use_cases/task_use_cases.dart';
 import '../../di/di.dart';
+import '../bloc/user_bloc.dart';
 
 class DashHeader extends StatelessWidget {
   const DashHeader({super.key});
@@ -16,7 +17,7 @@ class DashHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 16),
+      padding: const EdgeInsets.only(right: 16, top: 50, bottom: 16),
       decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.only(
@@ -31,25 +32,21 @@ class DashHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(context).colorScheme.onSecondary),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        "https://plus.unsplash.com/premium_photo-1675034796201-35c8f064ba29?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              IconButton(
+                  onPressed: () {
+                    AuthRepositoryImpl().signOut();
+                  },
+                  icon: SvgPicture.asset("assets/images/icons/hamburger.svg",
+                      width: 28,
+                      height: 28,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).textTheme.bodySmall!.color!,
+                          BlendMode.srcIn))),
+
+
               Row(
                 children: [
+                  // Text("Vivianne"),
                   IconButton(
                       onPressed: () {
                         AuthRepositoryImpl().signOut();
@@ -60,39 +57,69 @@ class DashHeader extends StatelessWidget {
                           colorFilter: ColorFilter.mode(
                               Theme.of(context).textTheme.bodySmall!.color!,
                               BlendMode.srcIn))),
-                  IconButton(
-                      onPressed: () {},
-                      icon: SvgPicture.asset("assets/images/icons/calendar.svg",
-                          width: 28,
-                          height: 28,
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context).textTheme.bodySmall!.color!,
-                              BlendMode.srcIn))),
+                  //  User Avatar
+                  BlocBuilder<UserBloc, UserState>(
+                    builder: (context, userState) {
+                      return Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).colorScheme.onSecondary),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: userState is UserSuccess &&
+                              userState.user.userAvatar != null
+                              ? CachedNetworkImage(
+                            imageUrl: userState.user.userAvatar!,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                              : UnconstrainedBox(
+                            child: SvgPicture.asset(
+                                "assets/images/icons/user.svg",
+                                width: 24,
+                                height: 4,
+                                colorFilter: ColorFilter.mode(
+                                    Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .color!,
+                                    BlendMode.srcIn)),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  // IconButton(
+                  //     onPressed: () {},
+                  //     icon: SvgPicture.asset("assets/images/icons/calendar.svg",
+                  //         width: 28,
+                  //         height: 28,
+                  //         colorFilter: ColorFilter.mode(
+                  //             Theme.of(context).textTheme.bodySmall!.color!,
+                  //             BlendMode.srcIn))),
                 ],
-              )
+              ),
             ],
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Text("Dashboard",
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight:
-                          Theme.of(context).textTheme.titleLarge!.fontWeight,
-                      color: Theme.of(context).textTheme.titleLarge!.color,
-                    )),
-              ),
-              // IconButton(
-              //     onPressed: () {},
-              //     icon: SvgPicture.asset(
-              //         "assets/images/icons/filter.svg",
-              //         width: 28,
-              //         height: 28,
-              //         colorFilter: ColorFilter.mode(
-              //             Theme.of(context).textTheme.bodyMedium!.color!,
-              //             BlendMode.srcIn)))
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text("Dashboard",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight:
+                            Theme.of(context).textTheme.titleLarge!.fontWeight,
+                        color: Theme.of(context).textTheme.titleLarge!.color,
+                      )),
+                ),
+              ],
+            ),
           )
         ],
       ),
