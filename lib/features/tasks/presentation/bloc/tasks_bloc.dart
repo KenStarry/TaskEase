@@ -38,7 +38,6 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
       final allSubtasksForThisId = currentTasks
           .where((task) =>
               task.taskParentId != null &&
-              !(task.taskIsComplete ?? false) &&
               task.taskParentId == event.updatedTask.taskId)
           .toList();
 
@@ -48,12 +47,11 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
       //  Also update all subtasks of this new task with the completed status
       for (TaskModel subTask in allSubtasksForThisId) {
+        final subTaskIndex = currentTasks.indexOf(subTask);
         final newSubTask =
             subTask.copyWith(taskIsComplete: event.updatedTask.taskIsComplete);
 
-        currentTasks[currentTasks.indexWhere(
-                (task) => task.taskParentId == event.updatedTask.taskId)] =
-            newSubTask;
+        currentTasks[subTaskIndex] = newSubTask;
       }
 
       emit(TasksSuccess(allTasks: currentTasks));

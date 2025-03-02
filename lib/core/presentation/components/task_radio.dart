@@ -63,7 +63,7 @@ class _TaskRadioState extends State<TaskRadio> with TickerProviderStateMixin {
                   height: double.infinity,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Theme.of(context).colorScheme.primary),
+                      color: widget.color ?? Theme.of(context).colorScheme.primary),
                   child: SvgPicture.asset(
                     "assets/images/icons/check.svg",
                     width: 16,

@@ -474,6 +474,7 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                     taskBoard: pickedBoard.value?.boardId,
                                     taskDate: pickedDate.value?.toString(),
                                     taskIsComplete: false,
+                                    taskColor: pickedPriority.value?.color,
                                     taskPriority: pickedPriority.value),
                                 ...subTasks.map((controller) => TaskModel(
                                     taskId: ''.generateUUID(length: 10),
@@ -483,7 +484,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                     taskBoard: pickedBoard.value?.boardId,
                                     taskDate: pickedDate.value?.toString(),
                                     taskIsComplete: false,
-                                    taskPriority: null),)
+                                    taskColor: pickedPriority.value?.color,
+                                    taskPriority: pickedPriority.value),)
                               ];
 
                               /// Upload the Task and Subtasks to Hive

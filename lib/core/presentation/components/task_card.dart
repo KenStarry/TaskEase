@@ -253,7 +253,7 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
         final allSubtasksForThisId = tasksState is TasksSuccess
             ? tasksState.allTasks
                 .where((task) =>
-                    task.taskParentId != null && !(task.taskIsComplete ?? false) &&
+                    task.taskParentId != null &&
                     task.taskParentId == widget.task.taskId)
                 .toList()
             : [];

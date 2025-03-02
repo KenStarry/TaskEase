@@ -25,13 +25,14 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       taskBoard: fields[5] as String?,
       taskDate: fields[6] as String?,
       taskPriority: fields[7] as TaskPriorityModel?,
+      taskColor: fields[8] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, TaskModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.taskId)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       ..writeByte(6)
       ..write(obj.taskDate)
       ..writeByte(7)
-      ..write(obj.taskPriority);
+      ..write(obj.taskPriority)
+      ..writeByte(8)
+      ..write(obj.taskColor);
   }
 
   @override
@@ -78,6 +81,7 @@ _$TaskModelImpl _$$TaskModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : TaskPriorityModel.fromJson(
               json['task_priority'] as Map<String, dynamic>),
+      taskColor: json['task_color'] as String? ?? null,
     );
 
 Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
@@ -90,4 +94,5 @@ Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
       'task_board': instance.taskBoard,
       'task_date': instance.taskDate,
       'task_priority': instance.taskPriority?.toJson(),
+      'task_color': instance.taskColor,
     };

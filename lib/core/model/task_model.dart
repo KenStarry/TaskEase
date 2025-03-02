@@ -19,6 +19,7 @@ class TaskModel with _$TaskModel {
     @JsonKey(name: 'task_board') @HiveField(5, defaultValue: null) @Default(null) String? taskBoard,
     @JsonKey(name: 'task_date') @HiveField(6, defaultValue: null) @Default(null) String? taskDate,
     @JsonKey(name: 'task_priority') @HiveField(7, defaultValue: null) @Default(null) TaskPriorityModel? taskPriority,
+    @JsonKey(name: 'task_color') @HiveField(8, defaultValue: null) @Default(null) String? taskColor,
   }) = _TaskModel;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>

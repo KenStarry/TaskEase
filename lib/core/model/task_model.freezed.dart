@@ -44,6 +44,9 @@ mixin _$TaskModel {
   @JsonKey(name: 'task_priority')
   @HiveField(7, defaultValue: null)
   TaskPriorityModel? get taskPriority => throw _privateConstructorUsedError;
+  @JsonKey(name: 'task_color')
+  @HiveField(8, defaultValue: null)
+  String? get taskColor => throw _privateConstructorUsedError;
 
   /// Serializes this TaskModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -84,7 +87,10 @@ abstract class $TaskModelCopyWith<$Res> {
       String? taskDate,
       @JsonKey(name: 'task_priority')
       @HiveField(7, defaultValue: null)
-      TaskPriorityModel? taskPriority});
+      TaskPriorityModel? taskPriority,
+      @JsonKey(name: 'task_color')
+      @HiveField(8, defaultValue: null)
+      String? taskColor});
 
   $TaskPriorityModelCopyWith<$Res>? get taskPriority;
 }
@@ -112,6 +118,7 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
     Object? taskBoard = freezed,
     Object? taskDate = freezed,
     Object? taskPriority = freezed,
+    Object? taskColor = freezed,
   }) {
     return _then(_value.copyWith(
       taskId: freezed == taskId
@@ -146,6 +153,10 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
           ? _value.taskPriority
           : taskPriority // ignore: cast_nullable_to_non_nullable
               as TaskPriorityModel?,
+      taskColor: freezed == taskColor
+          ? _value.taskColor
+          : taskColor // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -196,7 +207,10 @@ abstract class _$$TaskModelImplCopyWith<$Res>
       String? taskDate,
       @JsonKey(name: 'task_priority')
       @HiveField(7, defaultValue: null)
-      TaskPriorityModel? taskPriority});
+      TaskPriorityModel? taskPriority,
+      @JsonKey(name: 'task_color')
+      @HiveField(8, defaultValue: null)
+      String? taskColor});
 
   @override
   $TaskPriorityModelCopyWith<$Res>? get taskPriority;
@@ -223,6 +237,7 @@ class __$$TaskModelImplCopyWithImpl<$Res>
     Object? taskBoard = freezed,
     Object? taskDate = freezed,
     Object? taskPriority = freezed,
+    Object? taskColor = freezed,
   }) {
     return _then(_$TaskModelImpl(
       taskId: freezed == taskId
@@ -257,6 +272,10 @@ class __$$TaskModelImplCopyWithImpl<$Res>
           ? _value.taskPriority
           : taskPriority // ignore: cast_nullable_to_non_nullable
               as TaskPriorityModel?,
+      taskColor: freezed == taskColor
+          ? _value.taskColor
+          : taskColor // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -289,7 +308,10 @@ class _$TaskModelImpl implements _TaskModel {
       this.taskDate = null,
       @JsonKey(name: 'task_priority')
       @HiveField(7, defaultValue: null)
-      this.taskPriority = null});
+      this.taskPriority = null,
+      @JsonKey(name: 'task_color')
+      @HiveField(8, defaultValue: null)
+      this.taskColor = null});
 
   factory _$TaskModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskModelImplFromJson(json);
@@ -326,10 +348,14 @@ class _$TaskModelImpl implements _TaskModel {
   @JsonKey(name: 'task_priority')
   @HiveField(7, defaultValue: null)
   final TaskPriorityModel? taskPriority;
+  @override
+  @JsonKey(name: 'task_color')
+  @HiveField(8, defaultValue: null)
+  final String? taskColor;
 
   @override
   String toString() {
-    return 'TaskModel(taskId: $taskId, taskParentId: $taskParentId, taskName: $taskName, taskDescription: $taskDescription, taskIsComplete: $taskIsComplete, taskBoard: $taskBoard, taskDate: $taskDate, taskPriority: $taskPriority)';
+    return 'TaskModel(taskId: $taskId, taskParentId: $taskParentId, taskName: $taskName, taskDescription: $taskDescription, taskIsComplete: $taskIsComplete, taskBoard: $taskBoard, taskDate: $taskDate, taskPriority: $taskPriority, taskColor: $taskColor)';
   }
 
   @override
@@ -351,13 +377,24 @@ class _$TaskModelImpl implements _TaskModel {
             (identical(other.taskDate, taskDate) ||
                 other.taskDate == taskDate) &&
             (identical(other.taskPriority, taskPriority) ||
-                other.taskPriority == taskPriority));
+                other.taskPriority == taskPriority) &&
+            (identical(other.taskColor, taskColor) ||
+                other.taskColor == taskColor));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, taskId, taskParentId, taskName,
-      taskDescription, taskIsComplete, taskBoard, taskDate, taskPriority);
+  int get hashCode => Object.hash(
+      runtimeType,
+      taskId,
+      taskParentId,
+      taskName,
+      taskDescription,
+      taskIsComplete,
+      taskBoard,
+      taskDate,
+      taskPriority,
+      taskColor);
 
   /// Create a copy of TaskModel
   /// with the given fields replaced by the non-null parameter values.
@@ -400,7 +437,10 @@ abstract class _TaskModel implements TaskModel {
       final String? taskDate,
       @JsonKey(name: 'task_priority')
       @HiveField(7, defaultValue: null)
-      final TaskPriorityModel? taskPriority}) = _$TaskModelImpl;
+      final TaskPriorityModel? taskPriority,
+      @JsonKey(name: 'task_color')
+      @HiveField(8, defaultValue: null)
+      final String? taskColor}) = _$TaskModelImpl;
 
   factory _TaskModel.fromJson(Map<String, dynamic> json) =
       _$TaskModelImpl.fromJson;
@@ -437,6 +477,10 @@ abstract class _TaskModel implements TaskModel {
   @JsonKey(name: 'task_priority')
   @HiveField(7, defaultValue: null)
   TaskPriorityModel? get taskPriority;
+  @override
+  @JsonKey(name: 'task_color')
+  @HiveField(8, defaultValue: null)
+  String? get taskColor;
 
   /// Create a copy of TaskModel
   /// with the given fields replaced by the non-null parameter values.
