@@ -18,7 +18,10 @@ import '../../../model/board_model.dart';
 import '../popups/priority_popover.dart';
 
 class AddTaskBottomsheet extends StatefulWidget {
-  const AddTaskBottomsheet({super.key});
+
+  final TaskModel? task;
+
+  const AddTaskBottomsheet({super.key, this.task});
 
   @override
   State<AddTaskBottomsheet> createState() => _AddTaskBottomsheetState();
@@ -62,6 +65,13 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
           boardDescription: "Flutter Projects",
           boardHexColor: null),
     ];
+
+    if (widget.task != null) {
+      taskController.text = widget.task!.taskName ?? '';
+      taskDescriptionController.text = widget.task!.taskDescription ?? '';
+      pickedPriority.value = widget.task!.taskPriority;
+      pickedDate.value = DateTime.parse(widget.task!.taskDate ?? DateTime.now().toString());
+    }
   }
 
   Widget control({required String asset, required VoidCallback onTap}) =>

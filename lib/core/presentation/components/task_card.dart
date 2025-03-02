@@ -75,161 +75,164 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
               useRootNavigator: true,
               builder: (context) => ViewTaskBottomsheet(taskModel: task));
         },
-        child: Row(
-          spacing: 16,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            BlocListener<UpdateTaskBloc, UpdateTaskState>(
-              listener: (context, updateTaskState) {
-                if (updateTaskState is UpdateTaskSuccess) {
-                  /// Update Task in all tasks bloc
-                  BlocProvider.of<TasksBloc>(context).add(UpdateTasksInBlocEvent(
-                      updatedTask: updateTaskState.updatedTask));
-                }
-              },
-              child: TaskRadio(
-                size: isSubtask ? Size(20, 20) : Size(22, 22),
-                color: task.taskPriority?.color?.formatToColor() ?? Theme.of(context).colorScheme.primary,
-                isActive: task.taskIsComplete ?? false,
-                onTap: (selected) {
-                  final updatedTaskModel =
-                      task.copyWith(taskIsComplete: selected);
-
-                  /// Update this Id to hive as completed
-                  BlocProvider.of<UpdateTaskBloc>(context)
-                      .add(UpdateTaskInHiveEvent(updatedTask: updatedTaskModel));
-
-                  // if (selected) {
-                  //   taskCardAnimation!.forward();
-                  // }
-
-                  setState(() {
-                    if (selected) {
-                      selectedId.add(task.taskId ?? '');
-                    } else {
-                      selectedId.removeWhere((id) => id == task.taskId);
-                    }
-                  });
+        child: Container(
+          color: Colors.transparent,
+          child: Row(
+            spacing: 16,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BlocListener<UpdateTaskBloc, UpdateTaskState>(
+                listener: (context, updateTaskState) {
+                  if (updateTaskState is UpdateTaskSuccess) {
+                    /// Update Task in all tasks bloc
+                    BlocProvider.of<TasksBloc>(context).add(UpdateTasksInBlocEvent(
+                        updatedTask: updateTaskState.updatedTask));
+                  }
                 },
-              ),
-            )
-                .animate(
-                    autoPlay: false,
-                    onInit: (controller) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        setState(() {
-                          taskCardAnimation = controller;
+                child: TaskRadio(
+                  size: isSubtask ? Size(20, 20) : Size(22, 22),
+                  color: task.taskPriority?.color?.formatToColor() ?? Theme.of(context).colorScheme.primary,
+                  isActive: task.taskIsComplete ?? false,
+                  onTap: (selected) {
+                    final updatedTaskModel =
+                        task.copyWith(taskIsComplete: selected);
+
+                    /// Update this Id to hive as completed
+                    BlocProvider.of<UpdateTaskBloc>(context)
+                        .add(UpdateTaskInHiveEvent(updatedTask: updatedTaskModel));
+
+                    // if (selected) {
+                    //   taskCardAnimation!.forward();
+                    // }
+
+                    setState(() {
+                      if (selected) {
+                        selectedId.add(task.taskId ?? '');
+                      } else {
+                        selectedId.removeWhere((id) => id == task.taskId);
+                      }
+                    });
+                  },
+                ),
+              )
+                  .animate(
+                      autoPlay: false,
+                      onInit: (controller) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          setState(() {
+                            taskCardAnimation = controller;
+                          });
                         });
-                      });
-                    },
-                    delay: Duration(milliseconds: 500))
-                .moveY(
-                    begin: 0,
-                    end: 20,
-                    duration: Duration(milliseconds: 350),
-                    curve: Curves.ease)
-                .then()
-                .moveY(
-                    begin: 0,
-                    end: -50,
-                    duration: Duration(milliseconds: 350),
-                    curve: Curves.ease)
-                .fadeOut(
-                    duration: Duration(milliseconds: 600), curve: Curves.ease),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(task.taskName ?? "",
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(
-                        decoration: (task.taskIsComplete ?? false) ||
-                                selectedId.contains(task.taskId)
-                            ? TextDecoration.lineThrough
-                            : null,
-                        decorationColor: (task.taskIsComplete ?? false) ||
-                                selectedId.contains(task.taskId)
-                            ? Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .color!
-                                .withValues(alpha: 0.4)
-                            : Theme.of(context).textTheme.bodyMedium!.color,
-                        decorationThickness: 2,
-                        fontSize:
-                            Theme.of(context).textTheme.bodyMedium!.fontSize,
-                        fontWeight:
-                            Theme.of(context).textTheme.bodyMedium!.fontWeight,
-                        color: (task.taskIsComplete ?? false) ||
-                                selectedId.contains(task.taskId)
-                            ? Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .color!
-                                .withValues(alpha: 0.4)
-                            : Theme.of(context).textTheme.bodyMedium!.color,
-                      )),
-                  showMoreDetails ? SizedBox(height: 8) : SizedBox.shrink(),
-                  showMoreDetails
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            _taskCardContent(
-                                asset: "assets/images/icons/calendar.svg",
-                                isSelected: (task.taskIsComplete ?? false) ||
-                                    selectedId.contains(task.taskId),
-                                content: (task.taskDate
-                                        ?.toString()
-                                        .formatDate(format: "dd MMM, yy")) ??
-                                    "No date"),
-                            task.taskPriority == null ? SizedBox.shrink() : const SizedBox(width: 16),
-                            task.taskPriority == null ? SizedBox.shrink() : _taskCardContent(
-                                asset: "assets/images/icons/priority.svg",
-                                color: task.taskPriority?.color?.formatToColor(),
-                                isSelected: (task.taskIsComplete ?? false) ||
-                                    selectedId.contains(task.taskId),
-                                content: task.taskPriority?.name ?? ""),
-                            const SizedBox(width: 16),
-                            Visibility(
-                              visible: tasksState is TasksSuccess && hasSubtasks,
-                              child: _taskCardContent(
-                                  asset: "assets/images/icons/subtask.svg",
+                      },
+                      delay: Duration(milliseconds: 500))
+                  .moveY(
+                      begin: 0,
+                      end: 20,
+                      duration: Duration(milliseconds: 350),
+                      curve: Curves.ease)
+                  .then()
+                  .moveY(
+                      begin: 0,
+                      end: -50,
+                      duration: Duration(milliseconds: 350),
+                      curve: Curves.ease)
+                  .fadeOut(
+                      duration: Duration(milliseconds: 600), curve: Curves.ease),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(task.taskName ?? "",
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: TextStyle(
+                          decoration: (task.taskIsComplete ?? false) ||
+                                  selectedId.contains(task.taskId)
+                              ? TextDecoration.lineThrough
+                              : null,
+                          decorationColor: (task.taskIsComplete ?? false) ||
+                                  selectedId.contains(task.taskId)
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .color!
+                                  .withValues(alpha: 0.4)
+                              : Theme.of(context).textTheme.bodyMedium!.color,
+                          decorationThickness: 2,
+                          fontSize:
+                              Theme.of(context).textTheme.bodyMedium!.fontSize,
+                          fontWeight:
+                              Theme.of(context).textTheme.bodyMedium!.fontWeight,
+                          color: (task.taskIsComplete ?? false) ||
+                                  selectedId.contains(task.taskId)
+                              ? Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .color!
+                                  .withValues(alpha: 0.4)
+                              : Theme.of(context).textTheme.bodyMedium!.color,
+                        )),
+                    showMoreDetails ? SizedBox(height: 8) : SizedBox.shrink(),
+                    showMoreDetails
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              _taskCardContent(
+                                  asset: "assets/images/icons/calendar.svg",
                                   isSelected: (task.taskIsComplete ?? false) ||
                                       selectedId.contains(task.taskId),
-                                  content: subTasks.length.toString()),
-                            ),
-                          ],
-                        )
-                      : SizedBox.shrink()
-                ],
-              ),
-            )
-                .animate(
-                    autoPlay: false,
-                    onInit: (controller) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        setState(() {
-                          taskCardAnimation = controller;
+                                  content: (task.taskDate
+                                          ?.toString()
+                                          .formatDate(format: "dd MMM, yy")) ??
+                                      "No date"),
+                              task.taskPriority == null ? SizedBox.shrink() : const SizedBox(width: 16),
+                              task.taskPriority == null ? SizedBox.shrink() : _taskCardContent(
+                                  asset: "assets/images/icons/priority.svg",
+                                  color: task.taskPriority?.color?.formatToColor(),
+                                  isSelected: (task.taskIsComplete ?? false) ||
+                                      selectedId.contains(task.taskId),
+                                  content: task.taskPriority?.name ?? ""),
+                              const SizedBox(width: 16),
+                              Visibility(
+                                visible: tasksState is TasksSuccess && hasSubtasks,
+                                child: _taskCardContent(
+                                    asset: "assets/images/icons/subtask.svg",
+                                    isSelected: (task.taskIsComplete ?? false) ||
+                                        selectedId.contains(task.taskId),
+                                    content: subTasks.length.toString()),
+                              ),
+                            ],
+                          )
+                        : SizedBox.shrink()
+                  ],
+                ),
+              )
+                  .animate(
+                      autoPlay: false,
+                      onInit: (controller) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          setState(() {
+                            taskCardAnimation = controller;
+                          });
                         });
-                      });
-                    })
-                .moveY(
-                    begin: 0,
-                    end: 20,
-                    duration: Duration(milliseconds: 250),
-                    curve: Curves.ease)
-                .then()
-                .moveY(
-                    begin: 0,
-                    end: -50,
-                    duration: Duration(milliseconds: 250),
-                    curve: Curves.ease)
-                .fadeOut(
-                    duration: Duration(milliseconds: 500), curve: Curves.ease),
-          ],
+                      })
+                  .moveY(
+                      begin: 0,
+                      end: 20,
+                      duration: Duration(milliseconds: 250),
+                      curve: Curves.ease)
+                  .then()
+                  .moveY(
+                      begin: 0,
+                      end: -50,
+                      duration: Duration(milliseconds: 250),
+                      curve: Curves.ease)
+                  .fadeOut(
+                      duration: Duration(milliseconds: 500), curve: Curves.ease),
+            ],
+          ),
         ),
       );
 

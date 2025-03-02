@@ -10,6 +10,7 @@ import 'package:task_ease/features/tasks/presentation/bloc/delete_task_bloc.dart
 
 import '../../../../features/tasks/presentation/bloc/tasks_bloc.dart';
 import '../task_card.dart';
+import 'add_task_bottomsheet.dart';
 
 class ViewTaskBottomsheet extends StatefulWidget {
   final TaskModel taskModel;
@@ -130,7 +131,14 @@ class _ViewTaskBottomsheetState extends State<ViewTaskBottomsheet> {
                         },
                       ),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                      //  open add task bottomsheet
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) => AddTaskBottomsheet(task: widget.taskModel));
+                    },
                     icon: SvgPicture.asset(
                       "assets/images/icons/edit.svg",
                       width: 24,
