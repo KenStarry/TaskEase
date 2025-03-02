@@ -10,4 +10,8 @@ mixin LoginMixin {
     required String password,
   }) async =>
       await auth.signInWithEmailAndPassword(email: email, password: password);
+
+  /// Forgot password
+  Future<void> resetPassword({required String email}) async =>
+      await auth.sendPasswordResetEmail(email: email);
 }

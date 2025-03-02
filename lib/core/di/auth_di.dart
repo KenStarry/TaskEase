@@ -4,6 +4,7 @@ import 'package:task_ease/features/auth/data/repository/auth_repository_impl.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_ease/features/auth/domain/use_cases/get_current_user.dart';
 import 'package:task_ease/features/auth/domain/use_cases/login/login_use_cases.dart';
+import 'package:task_ease/features/auth/domain/use_cases/login/reset_password.dart';
 import 'package:task_ease/features/auth/domain/use_cases/login/sign_in_with_email_and_password.dart';
 import 'package:task_ease/features/auth/domain/use_cases/signup/create_user_with_email_and_password.dart';
 import 'package:task_ease/features/auth/domain/use_cases/signup/signup_use_cases.dart';
@@ -18,7 +19,8 @@ Future<void> invokeAuthDI(GetIt locator) async {
 
   locator.registerLazySingleton<AuthUseCases>(() => AuthUseCases(
       loginUseCases: LoginUseCases(
-          signInWithEmailAndPassword: SignInWithEmailAndPassword()),
+          signInWithEmailAndPassword: SignInWithEmailAndPassword(),
+          resetPassword: ResetPassword()),
       signupUseCases: SignupUseCases(
           createUserWithEmailAndPassword: CreateUserWithEmailAndPassword()),
       getCurrentUser: GetCurrentUser(),
