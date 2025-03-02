@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:popover/popover.dart';
 import 'package:task_ease/core/model/task_model.dart';
+import 'package:task_ease/core/model/task_priority_model.dart';
 import 'package:task_ease/core/presentation/components/custom_text_field.dart';
 import 'package:task_ease/core/presentation/components/popups/board_popover.dart';
 import 'package:task_ease/core/presentation/components/popups/calendar_popover.dart';
@@ -14,6 +15,7 @@ import 'package:task_ease/core/util/extensions/string_generator_extensions.dart'
 import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
 
 import '../../../model/board_model.dart';
+import '../popups/priority_popover.dart';
 
 class AddTaskBottomsheet extends StatefulWidget {
   const AddTaskBottomsheet({super.key});
@@ -24,7 +26,9 @@ class AddTaskBottomsheet extends StatefulWidget {
 
 class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
   final TextEditingController taskController = TextEditingController();
+  final TextEditingController taskDescriptionController = TextEditingController();
 
+  ValueNotifier<TaskPriorityModel?> pickedPriority = ValueNotifier(null);
   ValueNotifier<DateTime?> pickedDate = ValueNotifier(DateTime.now());
   ValueNotifier<BoardModel?> pickedBoard = ValueNotifier(null);
 
@@ -129,6 +133,33 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                     hintText: "I'm going to..."),
               ),
 
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: CustomTextField(
+                    controller: taskDescriptionController,
+                    filledColor: Colors.transparent,
+                    autoFocus: true,
+                    textStyle: Theme.of(context).textTheme.bodyMedium,
+                    contentPadding: EdgeInsets.zero,
+                    maxLines: null,
+                    hintStyle: TextStyle(
+                      fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+                      fontWeight:
+                      Theme.of(context).textTheme.bodyMedium!.fontWeight,
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .color!
+                          .withValues(alpha: 0.5),
+                    ),
+                    borderColor: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .color!
+                        .withValues(alpha: 0),
+                    hintText: "Some description and notes..."),
+              ),
+
               SizedBox(height: 16),
 
               //  date
@@ -177,19 +208,22 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             color: Theme.of(context).colorScheme.onSecondary),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          spacing: 8,
-                          children: [
-                            SvgPicture.asset("assets/images/icons/priority.svg",
-                                width: 12,
-                                height: 12,
-                                colorFilter: ColorFilter.mode(
-                                    Theme.of(context).colorScheme.primary,
-                                    BlendMode.srcIn)),
-                            Text("1",
-                                style: Theme.of(context).textTheme.bodySmall),
-                          ],
+                        child: ValueListenableBuilder(
+                          valueListenable: pickedPriority,
+                          builder: (BuildContext context, TaskPriorityModel? value, Widget? child) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 8,
+                            children: [
+                              SvgPicture.asset("assets/images/icons/priority.svg",
+                                  width: 12,
+                                  height: 12,
+                                  colorFilter: ColorFilter.mode(
+                                      value?.color?.toColor() ?? Theme.of(context).colorScheme.primary,
+                                      BlendMode.srcIn)),
+                              Text(value?.name ?? 'No Priority',
+                                  style: Theme.of(context).textTheme.bodySmall),
+                            ],
+                          ),
                         ),
                       ),
 
@@ -198,9 +232,7 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                         valueListenable: pickedBoard,
                         builder: (BuildContext context, BoardModel? value,
                                 Widget? child) =>
-                            value == null
-                                ? SizedBox.shrink()
-                                : Container(
+                            Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 4),
                                     decoration: BoxDecoration(
@@ -223,7 +255,7 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                                     .colorScheme
                                                     .primary,
                                                 BlendMode.srcIn)),
-                                        Text(value.boardName ?? '',
+                                        Text(value?.boardName ?? 'No board',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall),
@@ -246,26 +278,42 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: 12,
                   children: [
-                    control(
-                        asset: "assets/images/icons/calendar.svg",
-                        onTap: () {
-                          showCalendarPopOver(context, onValueChanged: (dates) {
-                            pickedDate.value = dates[0];
-                            Navigator.pop(context);
-                          });
-                        }),
-                    control(
-                        asset: "assets/images/icons/priority.svg",
-                        onTap: () {}),
-                    control(
-                        asset: "assets/images/icons/board.svg",
-                        onTap: () {
-                          showBoardPopOver(context,
-                              selectedBoard: pickedBoard.value?.boardName,
-                              boards: _boards, onSelected: (board) {
-                            pickedBoard.value = board;
-                          });
-                        }),
+                    Builder(
+                      builder: (calendarContext) {
+                        return control(
+                            asset: "assets/images/icons/calendar.svg",
+                            onTap: () {
+                              showCalendarPopOver(calendarContext, onValueChanged: (dates) {
+                                pickedDate.value = dates[0];
+                                Navigator.pop(context);
+                              });
+                            });
+                      }
+                    ),
+                    Builder(
+                      builder: (priorityContext) {
+                        return control(
+                            asset: "assets/images/icons/priority.svg",
+                            onTap: () {
+                              showPriorityPopOver(priorityContext, onSelected: (priority) {
+                                pickedPriority.value = priority;
+                              });
+                            });
+                      }
+                    ),
+                    Builder(
+                      builder: (boardContext) {
+                        return control(
+                            asset: "assets/images/icons/board.svg",
+                            onTap: () {
+                              showBoardPopOver(boardContext,
+                                  selectedBoard: pickedBoard.value?.boardName,
+                                  boards: _boards, onSelected: (board) {
+                                pickedBoard.value = board;
+                              });
+                            });
+                      }
+                    ),
                   ],
                 ),
               ),
@@ -422,18 +470,18 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                     taskId: parentTaskId,
                                     taskName: taskController.text,
                                     taskParentId: null,
-                                    taskDescription: null,
+                                    taskDescription: taskDescriptionController.text,
                                     taskBoard: pickedBoard.value?.boardId,
                                     taskDate: pickedDate.value?.toString(),
                                     taskIsComplete: false,
-                                    taskPriority: null),
+                                    taskPriority: pickedPriority.value),
                                 ...subTasks.map((controller) => TaskModel(
                                     taskId: ''.generateUUID(length: 10),
                                     taskName: controller.text,
                                     taskParentId: parentTaskId,
                                     taskDescription: null,
                                     taskBoard: pickedBoard.value?.boardId,
-                                    taskDate: null,
+                                    taskDate: pickedDate.value?.toString(),
                                     taskIsComplete: false,
                                     taskPriority: null),)
                               ];

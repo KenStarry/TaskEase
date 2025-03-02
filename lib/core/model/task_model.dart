@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+import 'package:task_ease/core/model/task_priority_model.dart';
 
 part 'task_model.freezed.dart';
 
@@ -17,7 +18,7 @@ class TaskModel with _$TaskModel {
     @JsonKey(name: 'task_complete') @HiveField(4, defaultValue: false) @Default(false) bool? taskIsComplete,
     @JsonKey(name: 'task_board') @HiveField(5, defaultValue: null) @Default(null) String? taskBoard,
     @JsonKey(name: 'task_date') @HiveField(6, defaultValue: null) @Default(null) String? taskDate,
-    @JsonKey(name: 'task_priority') @HiveField(7, defaultValue: null) @Default(null) int? taskPriority,
+    @JsonKey(name: 'task_priority') @HiveField(7, defaultValue: null) @Default(null) TaskPriorityModel? taskPriority,
   }) = _TaskModel;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>

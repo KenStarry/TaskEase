@@ -24,7 +24,7 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       taskIsComplete: fields[4] == null ? false : fields[4] as bool?,
       taskBoard: fields[5] as String?,
       taskDate: fields[6] as String?,
-      taskPriority: fields[7] as int?,
+      taskPriority: fields[7] as TaskPriorityModel?,
     );
   }
 
@@ -74,7 +74,10 @@ _$TaskModelImpl _$$TaskModelImplFromJson(Map<String, dynamic> json) =>
       taskIsComplete: json['task_complete'] as bool? ?? false,
       taskBoard: json['task_board'] as String? ?? null,
       taskDate: json['task_date'] as String? ?? null,
-      taskPriority: (json['task_priority'] as num?)?.toInt() ?? null,
+      taskPriority: json['task_priority'] == null
+          ? null
+          : TaskPriorityModel.fromJson(
+              json['task_priority'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
@@ -86,5 +89,5 @@ Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
       'task_complete': instance.taskIsComplete,
       'task_board': instance.taskBoard,
       'task_date': instance.taskDate,
-      'task_priority': instance.taskPriority,
+      'task_priority': instance.taskPriority?.toJson(),
     };

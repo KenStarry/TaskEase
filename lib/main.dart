@@ -17,6 +17,8 @@ import 'package:task_ease/features/tasks/presentation/bloc/tasks_bloc.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/update_task_bloc.dart';
 import 'package:task_ease/firebase_options.dart';
 
+import 'core/model/board_model.dart';
+import 'core/model/task_priority_model.dart';
 import 'core/util/routing/app_route.dart';
 import 'core/util/theme/app_theme.dart';
 import 'features/auth/presentation/bloc/login_bloc.dart';
@@ -30,6 +32,8 @@ void main() async {
   await Hive.initFlutter(dir.path);
 
   Hive.registerAdapter(TaskModelAdapter());
+  Hive.registerAdapter(BoardModelAdapter());
+  Hive.registerAdapter(TaskPriorityModelAdapter());
 
   Hive.openBox(tasksBox);
 

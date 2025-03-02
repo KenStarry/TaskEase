@@ -1,8 +1,17 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:intl/intl.dart';
 
 extension StringExtensions on String {
+
+  Color toColor() {
+    final buffer = StringBuffer();
+    if (length == 6 || length == 7) buffer.write('ff'); // Default alpha to 100%
+    buffer.write(replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
   /// Format Date
   String formatDate({String? format}) {
     // if(format)

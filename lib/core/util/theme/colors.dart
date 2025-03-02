@@ -25,3 +25,8 @@ const Color backgroundColorDarkSecondary = Color(0xFF121417); // Ultra-dark for 
 
 const Color whiteColor = Color(0xFFFFFFFF);
 const Color blackColor = Color(0xFF000000);
+
+const Color lowPriorityColor = Color(0xFF00FF00); // Green for low priority
+const Color mediumPriorityColor = Color(0xFFFFFF00); // Yellow for medium priority
+const Color highPriorityColor = Color(0xFFFFA500); // Orange for high priority
+const Color criticalPriorityColor = Color(0xFFFF0000); // Red for critical priority

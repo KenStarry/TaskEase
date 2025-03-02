@@ -198,6 +198,77 @@ class TasksHeader extends StatelessWidget {
   }
 }
 
+class BoardsHeader extends StatelessWidget {
+  const BoardsHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 50),
+      decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(32),
+              bottomLeft: Radius.circular(32))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 16,
+        children: [
+          SvgPicture.asset("assets/images/icons/board.svg",
+              width: 40,
+              height: 40,
+              colorFilter: ColorFilter.mode(
+                  Theme.of(context).textTheme.bodySmall!.color!,
+                  BlendMode.srcIn)),
+          Row(
+            children: [
+              Expanded(
+                child: Text("Boards",
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight:
+                      Theme.of(context).textTheme.titleLarge!.fontWeight,
+                      color: Theme.of(context).textTheme.titleLarge!.color,
+                    )),
+              ),
+              IconButton(
+                  onPressed: () {
+                    final taskUseCases = locator.get<TaskUseCases>();
+
+                    taskUseCases.clearTasksInHive.call();
+                  },
+                  icon: SvgPicture.asset("assets/images/icons/filter.svg",
+                      width: 26,
+                      height: 26,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).textTheme.bodyMedium!.color!,
+                          BlendMode.srcIn))),
+              Builder(builder: (layoutContext) {
+                return IconButton(
+                    onPressed: () {
+                      showLayoutPopOver(layoutContext, onSelected: (layout) {
+                        //  populate this to bloc
+                        BlocProvider.of<TaskLayoutBloc>(context)
+                            .add(ToggleTaskLayoutEvent(layout: layout));
+                      });
+                    },
+                    icon: SvgPicture.asset("assets/images/icons/layout.svg",
+                        width: 26,
+                        height: 26,
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context).textTheme.bodyMedium!.color!,
+                            BlendMode.srcIn)));
+              })
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class CalendarHeader extends StatelessWidget {
   const CalendarHeader({super.key});
 

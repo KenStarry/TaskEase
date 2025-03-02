@@ -43,7 +43,7 @@ mixin _$TaskModel {
   String? get taskDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'task_priority')
   @HiveField(7, defaultValue: null)
-  int? get taskPriority => throw _privateConstructorUsedError;
+  TaskPriorityModel? get taskPriority => throw _privateConstructorUsedError;
 
   /// Serializes this TaskModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -84,7 +84,9 @@ abstract class $TaskModelCopyWith<$Res> {
       String? taskDate,
       @JsonKey(name: 'task_priority')
       @HiveField(7, defaultValue: null)
-      int? taskPriority});
+      TaskPriorityModel? taskPriority});
+
+  $TaskPriorityModelCopyWith<$Res>? get taskPriority;
 }
 
 /// @nodoc
@@ -143,8 +145,22 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
       taskPriority: freezed == taskPriority
           ? _value.taskPriority
           : taskPriority // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TaskPriorityModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of TaskModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TaskPriorityModelCopyWith<$Res>? get taskPriority {
+    if (_value.taskPriority == null) {
+      return null;
+    }
+
+    return $TaskPriorityModelCopyWith<$Res>(_value.taskPriority!, (value) {
+      return _then(_value.copyWith(taskPriority: value) as $Val);
+    });
   }
 }
 
@@ -180,7 +196,10 @@ abstract class _$$TaskModelImplCopyWith<$Res>
       String? taskDate,
       @JsonKey(name: 'task_priority')
       @HiveField(7, defaultValue: null)
-      int? taskPriority});
+      TaskPriorityModel? taskPriority});
+
+  @override
+  $TaskPriorityModelCopyWith<$Res>? get taskPriority;
 }
 
 /// @nodoc
@@ -237,7 +256,7 @@ class __$$TaskModelImplCopyWithImpl<$Res>
       taskPriority: freezed == taskPriority
           ? _value.taskPriority
           : taskPriority // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as TaskPriorityModel?,
     ));
   }
 }
@@ -306,7 +325,7 @@ class _$TaskModelImpl implements _TaskModel {
   @override
   @JsonKey(name: 'task_priority')
   @HiveField(7, defaultValue: null)
-  final int? taskPriority;
+  final TaskPriorityModel? taskPriority;
 
   @override
   String toString() {
@@ -381,7 +400,7 @@ abstract class _TaskModel implements TaskModel {
       final String? taskDate,
       @JsonKey(name: 'task_priority')
       @HiveField(7, defaultValue: null)
-      final int? taskPriority}) = _$TaskModelImpl;
+      final TaskPriorityModel? taskPriority}) = _$TaskModelImpl;
 
   factory _TaskModel.fromJson(Map<String, dynamic> json) =
       _$TaskModelImpl.fromJson;
@@ -417,7 +436,7 @@ abstract class _TaskModel implements TaskModel {
   @override
   @JsonKey(name: 'task_priority')
   @HiveField(7, defaultValue: null)
-  int? get taskPriority;
+  TaskPriorityModel? get taskPriority;
 
   /// Create a copy of TaskModel
   /// with the given fields replaced by the non-null parameter values.

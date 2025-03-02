@@ -24,6 +24,7 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
 
   Widget _taskCardContent(
           {required String asset,
+            Color? color,
           bool isSelected = false,
           required String content}) =>
       Opacity(
@@ -37,7 +38,7 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
                 width: 16,
                 height: 16,
                 colorFilter: ColorFilter.mode(
-                    Theme.of(context)
+                    color ?? Theme.of(context)
                         .textTheme
                         .titleSmall!
                         .color!
@@ -78,6 +79,7 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
             },
             child: TaskRadio(
               size: isSubtask ? Size(20, 20) : Size(22, 22),
+              color: task.taskPriority?.color?.toColor() ?? Theme.of(context).colorScheme.primary,
               isActive: task.taskIsComplete ?? false,
               onTap: (selected) {
                 final updatedTaskModel =
@@ -164,7 +166,6 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        spacing: 16,
                         children: [
                           _taskCardContent(
                               asset: "assets/images/icons/calendar.svg",
@@ -174,11 +175,14 @@ class _TaskCardState extends State<TaskCard> with TickerProviderStateMixin {
                                       ?.toString()
                                       .formatDate(format: "dd MMM, yy")) ??
                                   "No date"),
-                          _taskCardContent(
+                          task.taskPriority == null ? SizedBox.shrink() : const SizedBox(width: 16),
+                          task.taskPriority == null ? SizedBox.shrink() : _taskCardContent(
                               asset: "assets/images/icons/priority.svg",
+                              color: task.taskPriority?.color?.toColor(),
                               isSelected: (task.taskIsComplete ?? false) ||
                                   selectedId.contains(task.taskId),
-                              content: "1"),
+                              content: task.taskPriority?.name ?? ""),
+                          const SizedBox(width: 16),
                           Visibility(
                             visible: tasksState is TasksSuccess && hasSubtasks,
                             child: _taskCardContent(

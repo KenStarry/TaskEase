@@ -6,9 +6,10 @@ import 'package:task_ease/core/util/theme/colors.dart';
 class TaskRadio extends StatefulWidget {
   final bool isActive;
   final Size? size;
+  final Color? color;
   final Function(bool selected)? onTap;
 
-  const TaskRadio({super.key, this.size, this.isActive = false, this.onTap});
+  const TaskRadio({super.key, this.size, this.color, this.isActive = false, this.onTap});
 
   @override
   State<TaskRadio> createState() => _TaskRadioState();
@@ -55,7 +56,7 @@ class _TaskRadioState extends State<TaskRadio> with TickerProviderStateMixin {
               shape: BoxShape.circle,
               color: Colors.transparent,
               border: Border.all(
-                  color: Theme.of(context).colorScheme.primary, width: 2)),
+                  color: widget.color ?? Theme.of(context).colorScheme.primary, width: 2)),
           child: value
               ? Container(
                   width: double.infinity,
