@@ -21,15 +21,23 @@ BoardModel _$BoardModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BoardModel {
   @JsonKey(name: 'board_id')
+  @HiveField(0, defaultValue: null)
   String? get boardId => throw _privateConstructorUsedError;
   @JsonKey(name: 'board_name')
+  @HiveField(1, defaultValue: null)
   String? get boardName => throw _privateConstructorUsedError;
   @JsonKey(name: 'board_description')
+  @HiveField(2, defaultValue: null)
   String? get boardDescription => throw _privateConstructorUsedError;
   @JsonKey(name: 'board_hex')
+  @HiveField(3, defaultValue: null)
   String? get boardHexColor => throw _privateConstructorUsedError;
   @JsonKey(name: 'board_shared')
-  bool? get isBoardShared => throw _privateConstructorUsedError;
+  @HiveField(4, defaultValue: false)
+  bool get isBoardShared => throw _privateConstructorUsedError;
+  @JsonKey(name: 'board_members')
+  @HiveField(5, defaultValue: null)
+  List<UserModel>? get boardMembers => throw _privateConstructorUsedError;
 
   /// Serializes this BoardModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,11 +56,24 @@ abstract class $BoardModelCopyWith<$Res> {
       _$BoardModelCopyWithImpl<$Res, BoardModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'board_id') String? boardId,
-      @JsonKey(name: 'board_name') String? boardName,
-      @JsonKey(name: 'board_description') String? boardDescription,
-      @JsonKey(name: 'board_hex') String? boardHexColor,
-      @JsonKey(name: 'board_shared') bool? isBoardShared});
+      {@JsonKey(name: 'board_id')
+      @HiveField(0, defaultValue: null)
+      String? boardId,
+      @JsonKey(name: 'board_name')
+      @HiveField(1, defaultValue: null)
+      String? boardName,
+      @JsonKey(name: 'board_description')
+      @HiveField(2, defaultValue: null)
+      String? boardDescription,
+      @JsonKey(name: 'board_hex')
+      @HiveField(3, defaultValue: null)
+      String? boardHexColor,
+      @JsonKey(name: 'board_shared')
+      @HiveField(4, defaultValue: false)
+      bool isBoardShared,
+      @JsonKey(name: 'board_members')
+      @HiveField(5, defaultValue: null)
+      List<UserModel>? boardMembers});
 }
 
 /// @nodoc
@@ -74,7 +95,8 @@ class _$BoardModelCopyWithImpl<$Res, $Val extends BoardModel>
     Object? boardName = freezed,
     Object? boardDescription = freezed,
     Object? boardHexColor = freezed,
-    Object? isBoardShared = freezed,
+    Object? isBoardShared = null,
+    Object? boardMembers = freezed,
   }) {
     return _then(_value.copyWith(
       boardId: freezed == boardId
@@ -93,10 +115,14 @@ class _$BoardModelCopyWithImpl<$Res, $Val extends BoardModel>
           ? _value.boardHexColor
           : boardHexColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      isBoardShared: freezed == isBoardShared
+      isBoardShared: null == isBoardShared
           ? _value.isBoardShared
           : isBoardShared // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
+      boardMembers: freezed == boardMembers
+          ? _value.boardMembers
+          : boardMembers // ignore: cast_nullable_to_non_nullable
+              as List<UserModel>?,
     ) as $Val);
   }
 }
@@ -110,11 +136,24 @@ abstract class _$$BoardModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'board_id') String? boardId,
-      @JsonKey(name: 'board_name') String? boardName,
-      @JsonKey(name: 'board_description') String? boardDescription,
-      @JsonKey(name: 'board_hex') String? boardHexColor,
-      @JsonKey(name: 'board_shared') bool? isBoardShared});
+      {@JsonKey(name: 'board_id')
+      @HiveField(0, defaultValue: null)
+      String? boardId,
+      @JsonKey(name: 'board_name')
+      @HiveField(1, defaultValue: null)
+      String? boardName,
+      @JsonKey(name: 'board_description')
+      @HiveField(2, defaultValue: null)
+      String? boardDescription,
+      @JsonKey(name: 'board_hex')
+      @HiveField(3, defaultValue: null)
+      String? boardHexColor,
+      @JsonKey(name: 'board_shared')
+      @HiveField(4, defaultValue: false)
+      bool isBoardShared,
+      @JsonKey(name: 'board_members')
+      @HiveField(5, defaultValue: null)
+      List<UserModel>? boardMembers});
 }
 
 /// @nodoc
@@ -134,7 +173,8 @@ class __$$BoardModelImplCopyWithImpl<$Res>
     Object? boardName = freezed,
     Object? boardDescription = freezed,
     Object? boardHexColor = freezed,
-    Object? isBoardShared = freezed,
+    Object? isBoardShared = null,
+    Object? boardMembers = freezed,
   }) {
     return _then(_$BoardModelImpl(
       boardId: freezed == boardId
@@ -153,10 +193,14 @@ class __$$BoardModelImplCopyWithImpl<$Res>
           ? _value.boardHexColor
           : boardHexColor // ignore: cast_nullable_to_non_nullable
               as String?,
-      isBoardShared: freezed == isBoardShared
+      isBoardShared: null == isBoardShared
           ? _value.isBoardShared
           : isBoardShared // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
+      boardMembers: freezed == boardMembers
+          ? _value._boardMembers
+          : boardMembers // ignore: cast_nullable_to_non_nullable
+              as List<UserModel>?,
     ));
   }
 }
@@ -166,34 +210,64 @@ class __$$BoardModelImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$BoardModelImpl implements _BoardModel {
   const _$BoardModelImpl(
-      {@JsonKey(name: 'board_id') this.boardId = 'N/A',
-      @JsonKey(name: 'board_name') this.boardName = 'N/A',
-      @JsonKey(name: 'board_description') this.boardDescription = 'N/A',
-      @JsonKey(name: 'board_hex') this.boardHexColor = 'N/A',
-      @JsonKey(name: 'board_shared') this.isBoardShared = false});
+      {@JsonKey(name: 'board_id')
+      @HiveField(0, defaultValue: null)
+      this.boardId = 'N/A',
+      @JsonKey(name: 'board_name')
+      @HiveField(1, defaultValue: null)
+      this.boardName = 'N/A',
+      @JsonKey(name: 'board_description')
+      @HiveField(2, defaultValue: null)
+      this.boardDescription = 'N/A',
+      @JsonKey(name: 'board_hex')
+      @HiveField(3, defaultValue: null)
+      this.boardHexColor = 'N/A',
+      @JsonKey(name: 'board_shared')
+      @HiveField(4, defaultValue: false)
+      this.isBoardShared = false,
+      @JsonKey(name: 'board_members')
+      @HiveField(5, defaultValue: null)
+      final List<UserModel>? boardMembers = null})
+      : _boardMembers = boardMembers;
 
   factory _$BoardModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BoardModelImplFromJson(json);
 
   @override
   @JsonKey(name: 'board_id')
+  @HiveField(0, defaultValue: null)
   final String? boardId;
   @override
   @JsonKey(name: 'board_name')
+  @HiveField(1, defaultValue: null)
   final String? boardName;
   @override
   @JsonKey(name: 'board_description')
+  @HiveField(2, defaultValue: null)
   final String? boardDescription;
   @override
   @JsonKey(name: 'board_hex')
+  @HiveField(3, defaultValue: null)
   final String? boardHexColor;
   @override
   @JsonKey(name: 'board_shared')
-  final bool? isBoardShared;
+  @HiveField(4, defaultValue: false)
+  final bool isBoardShared;
+  final List<UserModel>? _boardMembers;
+  @override
+  @JsonKey(name: 'board_members')
+  @HiveField(5, defaultValue: null)
+  List<UserModel>? get boardMembers {
+    final value = _boardMembers;
+    if (value == null) return null;
+    if (_boardMembers is EqualUnmodifiableListView) return _boardMembers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'BoardModel(boardId: $boardId, boardName: $boardName, boardDescription: $boardDescription, boardHexColor: $boardHexColor, isBoardShared: $isBoardShared)';
+    return 'BoardModel(boardId: $boardId, boardName: $boardName, boardDescription: $boardDescription, boardHexColor: $boardHexColor, isBoardShared: $isBoardShared, boardMembers: $boardMembers)';
   }
 
   @override
@@ -209,13 +283,21 @@ class _$BoardModelImpl implements _BoardModel {
             (identical(other.boardHexColor, boardHexColor) ||
                 other.boardHexColor == boardHexColor) &&
             (identical(other.isBoardShared, isBoardShared) ||
-                other.isBoardShared == isBoardShared));
+                other.isBoardShared == isBoardShared) &&
+            const DeepCollectionEquality()
+                .equals(other._boardMembers, _boardMembers));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, boardId, boardName,
-      boardDescription, boardHexColor, isBoardShared);
+  int get hashCode => Object.hash(
+      runtimeType,
+      boardId,
+      boardName,
+      boardDescription,
+      boardHexColor,
+      isBoardShared,
+      const DeepCollectionEquality().hash(_boardMembers));
 
   /// Create a copy of BoardModel
   /// with the given fields replaced by the non-null parameter values.
@@ -235,31 +317,52 @@ class _$BoardModelImpl implements _BoardModel {
 
 abstract class _BoardModel implements BoardModel {
   const factory _BoardModel(
-          {@JsonKey(name: 'board_id') final String? boardId,
-          @JsonKey(name: 'board_name') final String? boardName,
-          @JsonKey(name: 'board_description') final String? boardDescription,
-          @JsonKey(name: 'board_hex') final String? boardHexColor,
-          @JsonKey(name: 'board_shared') final bool? isBoardShared}) =
-      _$BoardModelImpl;
+      {@JsonKey(name: 'board_id')
+      @HiveField(0, defaultValue: null)
+      final String? boardId,
+      @JsonKey(name: 'board_name')
+      @HiveField(1, defaultValue: null)
+      final String? boardName,
+      @JsonKey(name: 'board_description')
+      @HiveField(2, defaultValue: null)
+      final String? boardDescription,
+      @JsonKey(name: 'board_hex')
+      @HiveField(3, defaultValue: null)
+      final String? boardHexColor,
+      @JsonKey(name: 'board_shared')
+      @HiveField(4, defaultValue: false)
+      final bool isBoardShared,
+      @JsonKey(name: 'board_members')
+      @HiveField(5, defaultValue: null)
+      final List<UserModel>? boardMembers}) = _$BoardModelImpl;
 
   factory _BoardModel.fromJson(Map<String, dynamic> json) =
       _$BoardModelImpl.fromJson;
 
   @override
   @JsonKey(name: 'board_id')
+  @HiveField(0, defaultValue: null)
   String? get boardId;
   @override
   @JsonKey(name: 'board_name')
+  @HiveField(1, defaultValue: null)
   String? get boardName;
   @override
   @JsonKey(name: 'board_description')
+  @HiveField(2, defaultValue: null)
   String? get boardDescription;
   @override
   @JsonKey(name: 'board_hex')
+  @HiveField(3, defaultValue: null)
   String? get boardHexColor;
   @override
   @JsonKey(name: 'board_shared')
-  bool? get isBoardShared;
+  @HiveField(4, defaultValue: false)
+  bool get isBoardShared;
+  @override
+  @JsonKey(name: 'board_members')
+  @HiveField(5, defaultValue: null)
+  List<UserModel>? get boardMembers;
 
   /// Create a copy of BoardModel
   /// with the given fields replaced by the non-null parameter values.
