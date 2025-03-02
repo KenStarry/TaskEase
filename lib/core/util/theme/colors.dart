@@ -11,7 +11,7 @@ const Color secondaryColor = Color(0xFF0582ca);
 // const Color backgroundColorLight = Color(0xFFFFFFFF);
 // const Color backgroundColorLightAlt = Color(0xFFe9ecef);
 // const Color backgroundColorLightSecondary = Color(0xFFf8f9fa);
-const Color backgroundColorLight = Color(0xFFF8F9FA); // Soft, near-white for a clean look
+const Color backgroundColorLight = Color(0xFFFFFFFF); // Soft, near-white for a clean look
 const Color backgroundColorLightAlt = Color(0xFFE9ECEF); // Slightly darker for subtle separation
 const Color backgroundColorLightSecondary = Color(0xFFDDE2E6); // Gentle contrast for depth
 

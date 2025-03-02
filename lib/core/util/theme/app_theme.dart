@@ -9,7 +9,7 @@ class AppTheme {
             brightness: Brightness.light,
             seedColor: accent ?? primaryColor,
             primary: accent ?? primaryColor,
-            onPrimary: backgroundColorLight,
+            onPrimary: backgroundColorLightAlt,
             secondary: secondaryColor,
             onSecondary: backgroundColorLightSecondary,
             tertiary: blackColor,
@@ -20,7 +20,7 @@ class AppTheme {
             onError: whiteColor,
             outline: accent ?? primaryColor),
         hintColor: blackColor.withValues(alpha: 0.2),
-        scaffoldBackgroundColor: backgroundColorLightAlt,
+        scaffoldBackgroundColor: backgroundColorLight,
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
           centerTitle: false,

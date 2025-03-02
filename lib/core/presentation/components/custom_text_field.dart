@@ -79,9 +79,11 @@ class CustomTextField extends StatelessWidget {
       minLines: minLines,
       maxLines: maxLines,
       style: textStyle ?? TextStyle(
-          color: textColor ?? Theme.of(context).colorScheme.tertiary,
-          fontWeight: FontWeight.w400,
-          fontSize: fontSize ?? 16.0),
+        fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+        fontWeight:
+        Theme.of(context).textTheme.bodyMedium!.fontWeight,
+        color: Theme.of(context).textTheme.bodyMedium!.color,
+      ),
       decoration: InputDecoration(
           prefixIcon: prefixIcon != null
               ? Padding(
@@ -107,26 +109,28 @@ class CustomTextField extends StatelessWidget {
             color: Colors.red,
           ),
           hintStyle: hintStyle ?? TextStyle(
-              color: theme.hintColor,
-              fontWeight: FontWeight.w400,
-              fontSize: hintFontSize ?? 14.0),
+            fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+            fontWeight:
+            Theme.of(context).textTheme.bodyMedium!.fontWeight,
+            color: Theme.of(context).textTheme.bodyMedium!.color!.withValues(alpha: 0.5),
+          ),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
                   color: borderColor ??
-                      theme.colorScheme.tertiary.withOpacity(0.1),
+                      Colors.transparent,
                   width: 1)),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
                   color: borderColor ??
-                      theme.colorScheme.tertiary.withOpacity(0.1),
+                      Colors.transparent,
                   width: 1)),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
                   color: borderColor ??
-                      theme.colorScheme.tertiary.withOpacity(0.1),
+                      Colors.transparent,
                   width: 1)),
           prefix: prefix,
           contentPadding: contentPadding ??
