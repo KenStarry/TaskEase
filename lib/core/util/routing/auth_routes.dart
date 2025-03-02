@@ -12,3 +12,6 @@ final authRoutes = [loginRoute];
 
 final loginRoute = GoRoute(
     path: "/login", name: "login", builder: (context, state) => LoginPage());
+
+final signupRoute = GoRoute(
+    path: "/signup", name: "signup", builder: (context, state) => LoginPage());

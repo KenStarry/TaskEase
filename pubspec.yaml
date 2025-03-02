@@ -71,6 +71,8 @@ dependencies:
   calendar_date_picker2: ^1.1.9
   easy_date_timeline: ^2.0.6
   firebase_auth: ^5.5.1
+  awesome_snackbar_content: ^0.1.5
+  flutter_spinkit: ^5.2.1
 
 dev_dependencies:
   flutter_test:

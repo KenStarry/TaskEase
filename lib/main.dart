@@ -15,6 +15,7 @@ import 'package:task_ease/firebase_options.dart';
 
 import 'core/util/routing/app_route.dart';
 import 'core/util/theme/app_theme.dart';
+import 'features/auth/presentation/bloc/login_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => LoginBloc(),
+        ),BlocProvider(
           create: (context) => TasksBloc(),
         ),
         BlocProvider(
