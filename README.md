@@ -1,8 +1,10 @@
-# task_ease
+# TaskEase
 
 Welcome to TaskEase
 
 ## Getting Started
+![Banner](https://github.com/user-attachments/assets/d2518e6a-5af2-4d95-9a4d-ae371b7203a7)
+
 
 This project is a starting point for a Flutter application.
 
