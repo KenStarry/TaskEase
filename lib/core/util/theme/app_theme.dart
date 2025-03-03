@@ -11,7 +11,7 @@ class AppTheme {
             primary: accent ?? primaryColor,
             onPrimary: backgroundColorLightAlt,
             secondary: secondaryColor,
-            onSecondary: backgroundColorLightAlt,
+            onSecondary: backgroundColorLightSecondary,
             tertiary: blackColor,
             onTertiary: blackColor,
             primaryContainer: primaryColor,

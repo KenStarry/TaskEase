@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:popover/popover.dart';
+import 'package:task_ease/core/presentation/components/bottomsheets/completed_tasks_bottomsheet.dart';
 import 'package:task_ease/core/presentation/components/popups/calendar_popover.dart';
 import 'package:task_ease/core/presentation/components/popups/layout_popover.dart';
 import 'package:task_ease/features/auth/data/repository/auth_repository_impl.dart';
@@ -52,14 +54,27 @@ class DashHeader extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: userState is UserSuccess &&
-                              userState.user.userAvatar != null
+                                  userState.user.userAvatar != null
                               ? CachedNetworkImage(
-                            imageUrl: userState.user.userAvatar!,
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                            errorWidget: (context, url, error) =>
-                                UnconstrainedBox(
+                                  imageUrl: userState.user.userAvatar!,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      UnconstrainedBox(
+                                    child: SvgPicture.asset(
+                                        "assets/images/icons/user.svg",
+                                        width: 24,
+                                        height: 24,
+                                        colorFilter: ColorFilter.mode(
+                                            Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .color!,
+                                            BlendMode.srcIn)),
+                                  ),
+                                )
+                              : UnconstrainedBox(
                                   child: SvgPicture.asset(
                                       "assets/images/icons/user.svg",
                                       width: 24,
@@ -71,19 +86,6 @@ class DashHeader extends StatelessWidget {
                                               .color!,
                                           BlendMode.srcIn)),
                                 ),
-                          )
-                              : UnconstrainedBox(
-                            child: SvgPicture.asset(
-                                "assets/images/icons/user.svg",
-                                width: 24,
-                                height: 24,
-                                colorFilter: ColorFilter.mode(
-                                    Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .color!,
-                                    BlendMode.srcIn)),
-                          ),
                         ),
                       ),
 
@@ -101,12 +103,12 @@ class DashHeader extends StatelessWidget {
                 },
               ),
 
-
               Row(
                 children: [
                   IconButton(
                       onPressed: () {
-                        BlocProvider.of<LoginBloc>(context).add(LogoutUserEvent());
+                        BlocProvider.of<LoginBloc>(context)
+                            .add(LogoutUserEvent());
                       },
                       icon: SvgPicture.asset("assets/images/icons/logout.svg",
                           width: 28,
@@ -120,21 +122,26 @@ class DashHeader extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
             child: Row(
               children: [
                 Expanded(
                   child: BlocBuilder<UserBloc, UserState>(
-  builder: (context, userState) {
-    return Text(userState is UserSuccess ? "Hey, ${userState.user.userName.split(" ")[0]}👋" : "",
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight:
-                            Theme.of(context).textTheme.titleLarge!.fontWeight,
-                        color: Theme.of(context).textTheme.titleLarge!.color,
-                      ));
-  },
-),
+                    builder: (context, userState) {
+                      return Text(
+                          userState is UserSuccess
+                              ? "Hey, ${userState.user.userName.split(" ")[0]}👋"
+                              : "",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .fontWeight,
+                            color:
+                                Theme.of(context).textTheme.titleLarge!.color,
+                          ));
+                    },
+                  ),
                 ),
               ],
             ),
@@ -182,11 +189,28 @@ class TasksHeader extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () {
-                    final taskUseCases = locator.get<TaskUseCases>();
-
-                    taskUseCases.clearTasksInHive.call();
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        useRootNavigator: true,
+                        builder: (context) => CompletedTasksBottomsheet()
+                            .animate(
+                                autoPlay: true,
+                                delay: Duration(milliseconds: 100))
+                            .fadeIn(duration: Duration(milliseconds: 350))
+                            .moveY(
+                                begin: 50,
+                                end: 0,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease)
+                            .then()
+                            .moveY(
+                                begin: -30,
+                                end: 0,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease));
                   },
-                  icon: SvgPicture.asset("assets/images/icons/filter.svg",
+                  icon: SvgPicture.asset("assets/images/icons/check.svg",
                       width: 26,
                       height: 26,
                       colorFilter: ColorFilter.mode(
@@ -247,7 +271,7 @@ class BoardsHeader extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight:
-                      Theme.of(context).textTheme.titleLarge!.fontWeight,
+                          Theme.of(context).textTheme.titleLarge!.fontWeight,
                       color: Theme.of(context).textTheme.titleLarge!.color,
                     )),
               ),
@@ -288,11 +312,11 @@ class BoardsHeader extends StatelessWidget {
 }
 
 class CalendarHeader extends StatelessWidget {
-
   final DateTime? currentDate;
   final void Function(List<DateTime>)? onValueChanged;
 
-  const CalendarHeader({super.key, required this.currentDate, required this.onValueChanged});
+  const CalendarHeader(
+      {super.key, required this.currentDate, required this.onValueChanged});
 
   @override
   Widget build(BuildContext context) {

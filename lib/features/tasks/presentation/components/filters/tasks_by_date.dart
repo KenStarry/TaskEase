@@ -10,7 +10,6 @@ import '../../../../../core/presentation/components/task_card.dart';
 
 List<Widget> tasksByDate(BuildContext context,
     {required List<String?> allDates, required List<TaskModel> tasks}) {
-  print("ALL TASKS : ${tasks}");
   return tasks.isEmpty
       ? [
           SliverPadding(

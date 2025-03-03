@@ -14,11 +14,11 @@ import 'package:task_ease/core/util/extensions/string_extensions.dart';
 import 'package:task_ease/core/util/extensions/string_generator_extensions.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/add_tasks_bloc.dart';
 
+import '../../../../features/tasks/presentation/bloc/update_task_bloc.dart';
 import '../../../model/board_model.dart';
 import '../popups/priority_popover.dart';
 
 class AddTaskBottomsheet extends StatefulWidget {
-
   final TaskModel? task;
 
   const AddTaskBottomsheet({super.key, this.task});
@@ -29,7 +29,8 @@ class AddTaskBottomsheet extends StatefulWidget {
 
 class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
   final TextEditingController taskController = TextEditingController();
-  final TextEditingController taskDescriptionController = TextEditingController();
+  final TextEditingController taskDescriptionController =
+      TextEditingController();
 
   ValueNotifier<TaskPriorityModel?> pickedPriority = ValueNotifier(null);
   ValueNotifier<DateTime?> pickedDate = ValueNotifier(DateTime.now());
@@ -70,7 +71,8 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
       taskController.text = widget.task!.taskName ?? '';
       taskDescriptionController.text = widget.task!.taskDescription ?? '';
       pickedPriority.value = widget.task!.taskPriority;
-      pickedDate.value = DateTime.parse(widget.task!.taskDate ?? DateTime.now().toString());
+      pickedDate.value =
+          DateTime.parse(widget.task!.taskDate ?? DateTime.now().toString());
     }
   }
 
@@ -153,9 +155,10 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                     contentPadding: EdgeInsets.zero,
                     maxLines: null,
                     hintStyle: TextStyle(
-                      fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+                      fontSize:
+                          Theme.of(context).textTheme.bodyMedium!.fontSize,
                       fontWeight:
-                      Theme.of(context).textTheme.bodyMedium!.fontWeight,
+                          Theme.of(context).textTheme.bodyMedium!.fontWeight,
                       color: Theme.of(context)
                           .textTheme
                           .bodyMedium!
@@ -220,15 +223,19 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                             color: Theme.of(context).colorScheme.onSecondary),
                         child: ValueListenableBuilder(
                           valueListenable: pickedPriority,
-                          builder: (BuildContext context, TaskPriorityModel? value, Widget? child) => Row(
+                          builder: (BuildContext context,
+                                  TaskPriorityModel? value, Widget? child) =>
+                              Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             spacing: 8,
                             children: [
-                              SvgPicture.asset("assets/images/icons/priority.svg",
+                              SvgPicture.asset(
+                                  "assets/images/icons/priority.svg",
                                   width: 12,
                                   height: 12,
                                   colorFilter: ColorFilter.mode(
-                                      value?.color?.formatToColor() ?? Theme.of(context).colorScheme.primary,
+                                      value?.color?.formatToColor() ??
+                                          Theme.of(context).colorScheme.primary,
                                       BlendMode.srcIn)),
                               Text(value?.name ?? 'No Priority',
                                   style: Theme.of(context).textTheme.bodySmall),
@@ -243,35 +250,26 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                         builder: (BuildContext context, BoardModel? value,
                                 Widget? child) =>
                             Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondary),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      spacing: 8,
-                                      children: [
-                                        SvgPicture.asset(
-                                            "assets/images/icons/board.svg",
-                                            width: 12,
-                                            height: 12,
-                                            colorFilter: ColorFilter.mode(
-                                                Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                BlendMode.srcIn)),
-                                        Text(value?.boardName ?? 'No board',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall),
-                                      ],
-                                    ),
-                                  ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Theme.of(context).colorScheme.onSecondary),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 8,
+                            children: [
+                              SvgPicture.asset("assets/images/icons/board.svg",
+                                  width: 12,
+                                  height: 12,
+                                  colorFilter: ColorFilter.mode(
+                                      Theme.of(context).colorScheme.primary,
+                                      BlendMode.srcIn)),
+                              Text(value?.boardName ?? 'No board',
+                                  style: Theme.of(context).textTheme.bodySmall),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -288,42 +286,38 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: 12,
                   children: [
-                    Builder(
-                      builder: (calendarContext) {
-                        return control(
-                            asset: "assets/images/icons/calendar.svg",
-                            onTap: () {
-                              showCalendarPopOver(calendarContext, onValueChanged: (dates) {
-                                pickedDate.value = dates[0];
-                                Navigator.pop(context);
-                              });
+                    Builder(builder: (calendarContext) {
+                      return control(
+                          asset: "assets/images/icons/calendar.svg",
+                          onTap: () {
+                            showCalendarPopOver(calendarContext,
+                                onValueChanged: (dates) {
+                              pickedDate.value = dates[0];
+                              Navigator.pop(context);
                             });
-                      }
-                    ),
-                    Builder(
-                      builder: (priorityContext) {
-                        return control(
-                            asset: "assets/images/icons/priority.svg",
-                            onTap: () {
-                              showPriorityPopOver(priorityContext, onSelected: (priority) {
-                                pickedPriority.value = priority;
-                              });
+                          });
+                    }),
+                    Builder(builder: (priorityContext) {
+                      return control(
+                          asset: "assets/images/icons/priority.svg",
+                          onTap: () {
+                            showPriorityPopOver(priorityContext,
+                                onSelected: (priority) {
+                              pickedPriority.value = priority;
                             });
-                      }
-                    ),
-                    Builder(
-                      builder: (boardContext) {
-                        return control(
-                            asset: "assets/images/icons/board.svg",
-                            onTap: () {
-                              showBoardPopOver(boardContext,
-                                  selectedBoard: pickedBoard.value?.boardName,
-                                  boards: _boards, onSelected: (board) {
-                                pickedBoard.value = board;
-                              });
+                          });
+                    }),
+                    Builder(builder: (boardContext) {
+                      return control(
+                          asset: "assets/images/icons/board.svg",
+                          onTap: () {
+                            showBoardPopOver(boardContext,
+                                selectedBoard: pickedBoard.value?.boardName,
+                                boards: _boards, onSelected: (board) {
+                              pickedBoard.value = board;
                             });
-                      }
-                    ),
+                          });
+                    }),
                   ],
                 ),
               ),
@@ -377,8 +371,13 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                 children: [
                                   ValueListenableBuilder(
                                     valueListenable: pickedPriority,
-                                    builder: (BuildContext context, TaskPriorityModel? value, Widget? child) => TaskRadio(size: Size(20, 20),
-                                    color: value?.color?.formatToColor()),
+                                    builder: (BuildContext context,
+                                            TaskPriorityModel? value,
+                                            Widget? child) =>
+                                        TaskRadio(
+                                            size: Size(20, 20),
+                                            color:
+                                                value?.color?.formatToColor()),
                                   ),
                                   Expanded(
                                     child: CustomTextField(
@@ -477,33 +476,79 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                       UnconstrainedBox(
                         child: TextButton(
                             onPressed: () {
-                              final parentTaskId = ''.generateUUID(length: 10);
+                              if (widget.task == null) {
+                                final parentTaskId =
+                                    ''.generateUUID(length: 10);
 
-                              final newTaskList = [
-                                TaskModel(
-                                    taskId: parentTaskId,
+                                final newTaskList = [
+                                  TaskModel(
+                                      taskId: parentTaskId,
+                                      taskName: taskController.text,
+                                      taskParentId: null,
+                                      taskDescription:
+                                          taskDescriptionController.text,
+                                      taskBoard: pickedBoard.value?.boardId,
+                                      taskDate: pickedDate.value?.toString(),
+                                      taskIsComplete: false,
+                                      taskColor: pickedPriority.value?.color,
+                                      taskPriority: pickedPriority.value),
+                                  ...subTasks.map(
+                                    (controller) => TaskModel(
+                                        taskId: ''.generateUUID(length: 10),
+                                        taskName: controller.text,
+                                        taskParentId: parentTaskId,
+                                        taskDescription: null,
+                                        taskBoard: pickedBoard.value?.boardId,
+                                        taskDate: pickedDate.value?.toString(),
+                                        taskIsComplete: false,
+                                        taskColor: pickedPriority.value?.color,
+                                        taskPriority: pickedPriority.value),
+                                  )
+                                ];
+
+                                /// Upload the Task and Subtasks to Hive
+                                BlocProvider.of<AddTasksBloc>(context)
+                                    .add(AddNewTaskEvent(newTask: newTaskList));
+                              } else {
+                                final updatedTaskModel = widget.task!.copyWith(
                                     taskName: taskController.text,
                                     taskParentId: null,
-                                    taskDescription: taskDescriptionController.text,
+                                    taskDescription:
+                                        taskDescriptionController.text,
                                     taskBoard: pickedBoard.value?.boardId,
                                     taskDate: pickedDate.value?.toString(),
-                                    taskIsComplete: false,
+                                    taskIsComplete: widget.task!.taskIsComplete,
                                     taskColor: pickedPriority.value?.color,
-                                    taskPriority: pickedPriority.value),
-                                ...subTasks.map((controller) => TaskModel(
-                                    taskId: ''.generateUUID(length: 10),
-                                    taskName: controller.text,
-                                    taskParentId: parentTaskId,
-                                    taskDescription: null,
-                                    taskBoard: pickedBoard.value?.boardId,
-                                    taskDate: pickedDate.value?.toString(),
-                                    taskIsComplete: false,
-                                    taskColor: pickedPriority.value?.color,
-                                    taskPriority: pickedPriority.value),)
-                              ];
+                                    taskPriority: pickedPriority.value);
 
-                              /// Upload the Task and Subtasks to Hive
-                              BlocProvider.of<AddTasksBloc>(context).add(AddNewTaskEvent(newTask: newTaskList));
+                                /// Update this Id to hive as completed
+                                BlocProvider.of<UpdateTaskBloc>(context).add(
+                                    UpdateTaskInHiveEvent(
+                                        updatedTask: updatedTaskModel));
+
+                                //  Add all subtasks
+                                if (subTasks.isNotEmpty) {
+                                  final newTaskList = [
+                                    ...subTasks.map(
+                                          (controller) => TaskModel(
+                                          taskId: ''.generateUUID(length: 10),
+                                          taskName: controller.text,
+                                          taskParentId: widget.task!.taskId,
+                                          taskDescription: null,
+                                          taskBoard: pickedBoard.value?.boardId,
+                                          taskDate: pickedDate.value?.toString(),
+                                          taskIsComplete: false,
+                                          taskColor: pickedPriority.value?.color,
+                                          taskPriority: pickedPriority.value),
+                                    )
+                                  ];
+
+                                  /// Upload the Task and Subtasks to Hive
+                                  BlocProvider.of<AddTasksBloc>(context)
+                                      .add(AddNewTaskEvent(newTask: newTaskList));
+                                }
+                              }
+
                               Navigator.pop(context);
                             },
                             style: TextButton.styleFrom(
@@ -526,7 +571,7 @@ class _AddTaskBottomsheetState extends State<AddTaskBottomsheet> {
                                             .bodyMedium!
                                             .color!,
                                         BlendMode.srcIn)),
-                                Text("Add",
+                                Text(widget.task == null ? "Add" : "Update",
                                     style:
                                         Theme.of(context).textTheme.bodyMedium),
                               ],

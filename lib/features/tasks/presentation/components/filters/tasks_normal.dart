@@ -7,13 +7,13 @@ import '../../../../../core/presentation/components/bottomsheets/view_task_botto
 import '../../../../../core/presentation/components/task_card.dart';
 
 Widget tasksNormal(BuildContext context,
-    {required List<TaskModel> tasks}) {
+    {required List<TaskModel> tasks, Color? color}) {
   return SliverPadding(
     padding: const EdgeInsets.symmetric(horizontal: 16),
     sliver: MultiSliver(pushPinnedChildren: true, children: [
       DecoratedSliver(
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: color ?? Theme.of(context).colorScheme.onSecondary,
             borderRadius: BorderRadius.circular(24)),
         sliver: SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

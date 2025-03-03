@@ -46,7 +46,7 @@ class _TasksPageState extends State<TasksPage> {
               height: double.infinity,
               child: BlocBuilder<TaskLayoutBloc, TaskLayoutState>(
                 builder: (context, taskLayoutState) {
-                  return taskLayoutState is TaskLayoutCalendarView
+                  return taskLayoutState is TaskLayoutCarouselView
                       ? TaskCalendarViewScreen()
                       : CustomScrollView(
                           slivers: [
