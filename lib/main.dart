@@ -6,8 +6,10 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:task_ease/core/di/di.dart';
 import 'package:task_ease/core/model/task_model.dart';
+import 'package:task_ease/core/presentation/bloc/backup_bloc.dart';
 import 'package:task_ease/core/presentation/bloc/user_bloc.dart';
 import 'package:task_ease/core/util/constants/hive_constants.dart';
+import 'package:task_ease/core/util/functions/shared_preferences_util.dart';
 import 'package:task_ease/features/auth/presentation/bloc/google_sign_in_bloc.dart';
 import 'package:task_ease/features/auth/presentation/bloc/reset_password_bloc.dart';
 import 'package:task_ease/features/auth/presentation/bloc/sign_up_bloc.dart';
@@ -23,6 +25,7 @@ import 'core/model/task_priority_model.dart';
 import 'core/util/routing/app_route.dart';
 import 'core/util/theme/app_theme.dart';
 import 'features/auth/presentation/bloc/login_bloc.dart';
+import 'features/settings/presentation/theme_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,16 +83,33 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => TaskLayoutBloc(),
         ),
+        BlocProvider(
+          create: (context) => BackupBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ThemeBloc()
+            ..add(ToggleThemeEvent(
+                themeMode:
+                    locator.get<SharedPreferencesUtil>().getThemeMode())),
+        ),
       ],
-      child: MaterialApp.router(
-        title: "TaskEase",
-        routerDelegate: appRouter.routerDelegate,
-        routeInformationParser: appRouter.routeInformationParser,
-        routeInformationProvider: appRouter.routeInformationProvider,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme(),
-        darkTheme: AppTheme.darkTheme(),
-        themeMode: ThemeMode.dark,
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, themeState) {
+          return MaterialApp.router(
+            title: "TaskEase",
+            routerDelegate: appRouter.routerDelegate,
+            routeInformationParser: appRouter.routeInformationParser,
+            routeInformationProvider: appRouter.routeInformationProvider,
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme(),
+            darkTheme: AppTheme.darkTheme(),
+            themeMode: themeState is ThemeDarkMode
+                ? ThemeMode.dark
+                : themeState is ThemeLightMode
+                    ? ThemeMode.light
+                    : ThemeMode.system,
+          );
+        },
       ),
     );
   }

@@ -11,7 +11,7 @@ final AuthNotifier authNotifier = AuthNotifier();
 
 final GoRouter appRouter = GoRouter(
   refreshListenable: authNotifier,
-  initialLocation: "/onboarding",
+  initialLocation: "/",
   redirect: (context, state) {
     final isAuthenticated = authNotifier.user != null;
     final isLoggingIn = state.fullPath == '/onboarding';
@@ -22,7 +22,7 @@ final GoRouter appRouter = GoRouter(
     }
 
     if (isLoggingIn) {
-      return '/settings';
+      return '/home';
     }
 
     return null;

@@ -96,14 +96,18 @@ class _CalendarViewPageState extends State<CalendarViewPage> {
                                               .toString()
                                               .formatDate(format: 'dd-MMM-yyyy')
                                       ? 'Today'
-                                      : currentDate.day ==
+                                      : currentDate.toString()
+                                                  .formatDate(
+                                                      format: 'dd-MMM-yyyy') ==
                                               DateTime.now()
                                                   .add(Duration(days: 1))
                                                   .toString()
                                                   .formatDate(
                                                       format: 'dd-MMM-yyyy')
                                           ? 'Tomorrow'
-                                          : currentDate.day ==
+                                          : currentDate.toString()
+                                                  .formatDate(
+                                                      format: 'dd-MMM-yyyy') ==
                                                   DateTime.now()
                                                       .subtract(
                                                           Duration(days: 1))

@@ -73,15 +73,15 @@ class DashHeader extends StatelessWidget {
                         ),
                       ),
 
-                      userState is UserSuccess ? SizedBox(width: 16) : SizedBox.shrink(),
-
-                      Text(userState is UserSuccess ? "Hey, ${userState.user.userName.split(" ")[0]}👋" : "",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: Theme.of(context).textTheme.bodySmall!.fontWeight,
-                          color: Theme.of(context).textTheme.bodySmall!.color,
-                        ),
-                      ),
+                      // userState is UserSuccess ? SizedBox(width: 16) : SizedBox.shrink(),
+                      //
+                      // Text(userState is UserSuccess ? "Hey, ${userState.user.userName.split(" ")[0]}👋" : "",
+                      //   style: TextStyle(
+                      //     fontSize: 16,
+                      //     fontWeight: Theme.of(context).textTheme.bodySmall!.fontWeight,
+                      //     color: Theme.of(context).textTheme.bodySmall!.color,
+                      //   ),
+                      // ),
                     ],
                   );
                 },
@@ -111,13 +111,17 @@ class DashHeader extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text("Dashboard",
+                  child: BlocBuilder<UserBloc, UserState>(
+  builder: (context, userState) {
+    return Text(userState is UserSuccess ? "Hey, ${userState.user.userName.split(" ")[0]}👋" : "",
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight:
                             Theme.of(context).textTheme.titleLarge!.fontWeight,
                         color: Theme.of(context).textTheme.titleLarge!.color,
-                      )),
+                      ));
+  },
+),
                 ),
               ],
             ),
