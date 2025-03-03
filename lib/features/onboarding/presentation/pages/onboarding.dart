@@ -236,6 +236,7 @@ class _OnboardingState extends State<Onboarding> {
                               .color!
                               .withValues(alpha: 0.5),
                         )),
+                    SizedBox(height: 24)
                   ],
                 ),
               )

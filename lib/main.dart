@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_ease/core/di/di.dart';
 import 'package:task_ease/core/model/task_model.dart';
 import 'package:task_ease/core/presentation/bloc/backup_bloc.dart';
@@ -41,7 +42,7 @@ void main() async {
 
   Hive.openBox(tasksBox);
 
-  setupDependencies();
+  await setupDependencies();
 
   runApp(const MyApp());
 }

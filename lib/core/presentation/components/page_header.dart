@@ -130,7 +130,7 @@ class DashHeader extends StatelessWidget {
                       return Text(
                           userState is UserSuccess
                               ? "Hey, ${userState.user.userName.split(" ")[0]}👋"
-                              : "",
+                              : "Hey, User 👋",
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: Theme.of(context)

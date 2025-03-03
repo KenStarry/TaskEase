@@ -21,7 +21,7 @@ The ToDo App is a task management application built using Flutter. It follows th
 - **State Management:** BLoC
 - **Architecture:** Clean Architecture (MVVM Pattern)
 - **Authentication:** Firebase Authentication (Google & Email Login)
-- **Database:** Firestore (or any chosen backend solution)
+- **Database:** Firebase Firestore
 - **Local Storage:** Shared Preferences / Hive (for caching)
 
 ## Installation & Setup
