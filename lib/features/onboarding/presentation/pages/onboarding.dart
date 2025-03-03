@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,9 @@ import 'package:go_router/go_router.dart';
 import 'package:task_ease/core/util/theme/colors.dart';
 import 'package:task_ease/features/auth/presentation/bloc/google_sign_in_bloc.dart';
 import 'package:task_ease/features/onboarding/presentation/model/onboarding_card_model.dart';
+
+import '../../../../core/presentation/components/popups/theme_popover.dart';
+import '../../../settings/presentation/theme_bloc.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -17,6 +21,7 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding> {
   late final List<OnboardingCardModel> _cards;
+  ValueNotifier<int> activeIndex = ValueNotifier<int>(0);
 
   @override
   void initState() {
@@ -24,21 +29,21 @@ class _OnboardingState extends State<Onboarding> {
 
     _cards = [
       OnboardingCardModel(
-          title: "Manage Tasks",
-          description: "Manage all your scheduled tasks",
+          title: "Stay Organized, Stay Productive",
+          description: "📌 Keep track of all your tasks in one place and never miss a deadline.",
+          asset: "assets/images/undraw/productive.svg"),
+      OnboardingCardModel(
+          title: "Collaborate with Ease",
+          description: "👥 Share tasks with teammates, friends, or family for better teamwork.",
           asset: "assets/images/undraw/community.svg"),
       OnboardingCardModel(
-          title: "Manage Tasks",
-          description: "Manage all your scheduled tasks",
-          asset: "assets/images/undraw/community.svg"),
+          title: "Dark Mode & Themes",
+          description: "🌙 Personalize your experience with dark mode and beautiful themes.",
+          asset: "assets/images/undraw/theme.svg"),
       OnboardingCardModel(
-          title: "Manage Tasks",
-          description: "Manage all your scheduled tasks",
-          asset: "assets/images/undraw/community.svg"),
-      OnboardingCardModel(
-          title: "Manage Tasks",
-          description: "Manage all your scheduled tasks",
-          asset: "assets/images/undraw/community.svg"),
+          title: "Sync Across Devices",
+          description: "📱 Access your tasks anytime, anywhere with seamless cloud sync.",
+          asset: "assets/images/undraw/sync.svg"),
     ];
   }
 
@@ -54,6 +59,7 @@ class _OnboardingState extends State<Onboarding> {
         body: Container(
           width: double.infinity,
           height: double.infinity,
+          margin: const EdgeInsets.only(top: 50),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
@@ -73,6 +79,7 @@ class _OnboardingState extends State<Onboarding> {
                                     SvgPicture.asset(card.asset,
                                         width: 250, height: 250),
                                     Text(card.title,
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: Theme.of(context)
                                               .textTheme
@@ -88,6 +95,7 @@ class _OnboardingState extends State<Onboarding> {
                                               .color,
                                         )),
                                     Text(card.description,
+                                        textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
@@ -99,16 +107,30 @@ class _OnboardingState extends State<Onboarding> {
                           height: double.infinity,
                           autoPlay: true,
                           viewportFraction: 1,
-                          enableInfiniteScroll: false))),
-              Container(
+                          enableInfiniteScroll: false,
+                      onPageChanged: (index, reason) {
+                        activeIndex.value = index;
+                      }))),
+              SizedBox(
                 width: double.infinity,
-                padding: const EdgeInsets.only(right: 16),
-                // color: Colors.blue,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 32,
                   children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ValueListenableBuilder(
+                        valueListenable: activeIndex,
+                        builder: (BuildContext context, int value, Widget? child) => DotsIndicator(dotsCount: _cards.length,
+                        position: value.toDouble(),
+                        decorator: DotsDecorator(
+                          activeColor: Theme.of(context).colorScheme.primary,
+                          activeSize: Size(30, 5),
+                          activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                        ),),
+                      ),
+                    ),
                     Column(
                       spacing: 24,
                       children: [

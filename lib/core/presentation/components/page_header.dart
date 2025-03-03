@@ -8,6 +8,7 @@ import 'package:task_ease/core/presentation/components/popups/layout_popover.dar
 import 'package:task_ease/features/auth/data/repository/auth_repository_impl.dart';
 import 'package:task_ease/features/tasks/presentation/bloc/task_layout_bloc.dart';
 
+import '../../../features/auth/presentation/bloc/login_bloc.dart';
 import '../../../features/tasks/domain/use_cases/task_use_cases.dart';
 import '../../di/di.dart';
 import '../bloc/user_bloc.dart';
@@ -57,12 +58,25 @@ class DashHeader extends StatelessWidget {
                             width: double.infinity,
                             height: double.infinity,
                             fit: BoxFit.cover,
+                            errorWidget: (context, url, error) =>
+                                UnconstrainedBox(
+                                  child: SvgPicture.asset(
+                                      "assets/images/icons/user.svg",
+                                      width: 24,
+                                      height: 24,
+                                      colorFilter: ColorFilter.mode(
+                                          Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .color!,
+                                          BlendMode.srcIn)),
+                                ),
                           )
                               : UnconstrainedBox(
                             child: SvgPicture.asset(
                                 "assets/images/icons/user.svg",
                                 width: 24,
-                                height: 4,
+                                height: 24,
                                 colorFilter: ColorFilter.mode(
                                     Theme.of(context)
                                         .textTheme
@@ -90,12 +104,11 @@ class DashHeader extends StatelessWidget {
 
               Row(
                 children: [
-                  // Text("Vivianne"),
                   IconButton(
                       onPressed: () {
-                        AuthRepositoryImpl().signOut();
+                        BlocProvider.of<LoginBloc>(context).add(LogoutUserEvent());
                       },
-                      icon: SvgPicture.asset("assets/images/icons/share.svg",
+                      icon: SvgPicture.asset("assets/images/icons/logout.svg",
                           width: 28,
                           height: 28,
                           colorFilter: ColorFilter.mode(

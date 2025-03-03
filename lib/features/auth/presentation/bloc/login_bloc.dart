@@ -11,7 +11,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
-    on<LoginUserEvent>(_loginUserEvent);
+    on<LogoutUserEvent>(_logoutUserEvent);
   }
 
   Future<void> _loginUserEvent(
@@ -28,5 +28,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } catch (error) {
       emit(LoginFailed(errorMessage: error.toString()));
     }
+  }
+
+  Future<void> _logoutUserEvent(
+      LogoutUserEvent event, Emitter<LoginState> emit) async {
+    final authUseCases = locator.get<AuthUseCases>();
+
+    await authUseCases.signOut.call();
   }
 }

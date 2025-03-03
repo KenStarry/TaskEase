@@ -53,12 +53,25 @@ class _ProfileSectionState extends State<ProfileSection> {
                             width: double.infinity,
                             height: double.infinity,
                             fit: BoxFit.cover,
+                            errorWidget: (context, url, error) =>
+                                UnconstrainedBox(
+                              child: SvgPicture.asset(
+                                  "assets/images/icons/user.svg",
+                                  width: 35,
+                                  height: 35,
+                                  colorFilter: ColorFilter.mode(
+                                      Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .color!,
+                                      BlendMode.srcIn)),
+                            ),
                           )
                         : UnconstrainedBox(
                             child: SvgPicture.asset(
                                 "assets/images/icons/user.svg",
-                                width: 24,
-                                height: 4,
+                                width: 35,
+                                height: 35,
                                 colorFilter: ColorFilter.mode(
                                     Theme.of(context)
                                         .textTheme
@@ -134,34 +147,39 @@ class _ProfileSectionState extends State<ProfileSection> {
                       },
                     ),
                     SizedBox(width: 16),
-                    Builder(
-                      builder: (themeContext) {
-                        return GestureDetector(
-                          onTap: () {
-                            showThemePopOver(themeContext, onSelected: (theme) {
-                              BlocProvider.of<ThemeBloc>(context).add(ToggleThemeEvent(themeMode: theme));
-                            });
-                          },
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).colorScheme.onSecondary,
-                            ),
-                            child: UnconstrainedBox(
-                              child: SvgPicture.asset(
-                                "assets/images/icons/moon.svg",
-                                width: 25,
-                                height: 25,
-                                colorFilter: ColorFilter.mode(
-                                    Theme.of(context).colorScheme.onTertiary,
-                                    BlendMode.srcIn),
+                    BlocBuilder<ThemeBloc, ThemeState>(
+                      builder: (context, themeState) {
+                        return Builder(builder: (themeContext) {
+                          return GestureDetector(
+                            onTap: () {
+                              showThemePopOver(themeContext,
+                                  onSelected: (theme) {
+                                BlocProvider.of<ThemeBloc>(context)
+                                    .add(ToggleThemeEvent(themeMode: theme));
+                              });
+                            },
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              ),
+                              child: UnconstrainedBox(
+                                child: SvgPicture.asset(
+                                  "assets/images/icons/${themeState is ThemeDarkMode ? 'sun' : 'moon'}.svg",
+                                  width: 25,
+                                  height: 25,
+                                  colorFilter: ColorFilter.mode(
+                                      Theme.of(context).colorScheme.onTertiary,
+                                      BlendMode.srcIn),
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }
+                          );
+                        });
+                      },
                     ),
                   ],
                 ),

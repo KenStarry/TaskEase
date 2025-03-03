@@ -14,11 +14,11 @@ final GoRouter appRouter = GoRouter(
   initialLocation: "/",
   redirect: (context, state) {
     final isAuthenticated = authNotifier.user != null;
-    final isLoggingIn = state.fullPath == '/onboarding';
+    final isLoggingIn = state.fullPath == '/onboarding' || state.fullPath == '/login' || state.fullPath == '/signup';
 
     //  Redirect to login if the user is not authenticated
     if (!isAuthenticated) {
-      return '/onboarding';
+      return isLoggingIn ? null : '/onboarding';
     }
 
     if (isLoggingIn) {

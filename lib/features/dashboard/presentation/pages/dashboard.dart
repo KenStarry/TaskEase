@@ -76,14 +76,14 @@ class _DashboardState extends State<Dashboard> {
                     height: 60,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: backgroundColorDarkSecondary,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
                     child: Center(
                       child: SvgPicture.asset("assets/images/icons/add.svg",
                           width: 32,
                           height: 32,
                           colorFilter:
-                              ColorFilter.mode(whiteColor, BlendMode.srcIn)),
+                              ColorFilter.mode(Theme.of(context).textTheme.titleSmall!.color!, BlendMode.srcIn)),
                     ),
                   ),
                 ),
